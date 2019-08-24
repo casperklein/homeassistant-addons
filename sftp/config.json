@@ -1,0 +1,19 @@
+{
+  "name": "SFTP",
+  "version": "0.1",
+  "slug": "sftp",
+  "description": "Access HA files via SFTP",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "before",
+  "boot": "auto",
+  "map": ["addons:rw", "backup:rw", "config:rw", "share:rw", "ssl:rw"],
+  "options": {
+	"password": "!insecure!"
+  },
+  "schema": {
+	"password": "str"
+  },
+  "ports": {
+	"22/tcp": 2222
+  }
+}
