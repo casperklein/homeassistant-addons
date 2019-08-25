@@ -12,8 +12,8 @@ RUN	apt-get update \
 &&	ln -s /share /mnt/share \
 &&	ln -s /ssl /mnt/ssl
 
-ADD	sshd_config /etc/ssh/sshd_config
-ADD	docker-run.sh /
+COPY	sshd_config /etc/ssh/sshd_config
+COPY	docker-run.sh /
 
 EXPOSE	22
 
