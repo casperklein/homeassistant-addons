@@ -12,6 +12,19 @@
 1. Start the add-on.
 1. Click on the "OPEN WEB UI" button to open Netbox.
 
+## Configuration:
+
+**Note**: _Remember to restart the add-on when the configuration is changed._
+
+Example add-on configuration:
+
+    {
+      "user": "admin",
+      "password": "insecure"
+    }
+
+**Note**: _This is just an example, don't copy and paste it! Create your own!_
+
 ## Screenshots:
 
 ### Main page
