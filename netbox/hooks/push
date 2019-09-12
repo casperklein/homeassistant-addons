@@ -1,0 +1,52 @@
+#!/bin/bash
+set -eu
+
+echo "🔵 push"
+source hooks/.config
+
+# 1. push all images
+DOCKER_REPO="${DOCKER_REPO//index.docker.io\/}"
+
+for arch in ${build_architectures[@]}; do
+  echo "✅ Pushing ${DOCKER_REPO}:${CACHE_TAG}-${arch}"
+  echo "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+  echo
+  docker push ${DOCKER_REPO}:${CACHE_TAG}-${arch}
+done
+
+
+# 2. build and push manifest
+DOCKER_REPO="index.docker.io/${DOCKER_REPO}"
+manifests=""
+
+for arch in ${build_architectures[@]}; do
+  manifests="${manifests} ${DOCKER_REPO}:${CACHE_TAG}-${arch}"
+done
+
+echo "✅ Creating manifest ${DOCKER_REPO}:${CACHE_TAG}"
+echo "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+docker manifest create ${DOCKER_REPO}:${CACHE_TAG} \
+                            $manifests
+echo
+
+echo "✅ Annotating manifest"
+echo "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+for arch in ${build_architectures[@]}; do
+    docker manifest annotate ${DOCKER_REPO}:${CACHE_TAG} \
+    ${DOCKER_REPO}:${CACHE_TAG}-${arch} \
+    --os linux \
+    --arch ${docker_to_manifest_map[${arch}]}
+done
+
+echo "✅ Inspecting manifest ${DOCKER_REPO}:${CACHE_TAG}"
+echo "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+docker manifest inspect ${DOCKER_REPO}:${CACHE_TAG}
+echo
+
+echo "✅ Pushing manifest ${DOCKER_REPO}:${CACHE_TAG}"
+echo "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+docker manifest push --purge ${DOCKER_REPO}:${CACHE_TAG}
+echo
+
+echo
+echo "😊"
