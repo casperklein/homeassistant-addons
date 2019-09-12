@@ -5,7 +5,7 @@
   "description": "NetBox is an open source web application designed to help manage and document computer networks",
   "url": "https://github.com/casperklein/hassio-addons/netbox",
   "image": "casperklein/hassio-netbox",
-  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "arch": ["amd64"],
   "startup": "before",
   "boot": "auto",
   "webui": "http://[HOST]:[PORT:80]/",
