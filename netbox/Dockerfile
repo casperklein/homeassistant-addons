@@ -1,11 +1,4 @@
-ARG BASE_IMAGE_PREFIX
-
-FROM    ${BASE_IMAGE_PREFIX}debian:10-slim as build
-
-# see hooks/post_checkout
-ARG ARCH
-COPY qemu-${ARCH}-static /usr/bin
-
+FROM	debian:10-slim as build
 
 ENV	PACKAGES="jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
 
