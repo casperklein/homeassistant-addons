@@ -11,21 +11,25 @@ COPY	rootfs /
 
 # do stuff
 ADD	https://github.com/netbox-community/netbox/archive/v2.6.3.tar.gz /
+RUN	tar -xzf v2.6.3.tar.gz -C /opt
+
+WORKDIR	/opt
+RUN	ln -s netbox-2.6.3/ netbox
+RUN	mv /configuration.py /opt/netbox/netbox/netbox/
+
+WORKDIR	/opt/netbox/
+RUN	pip3 install -r requirements.txt
+
+WORKDIR	/opt/netbox/netbox
 RUN	/etc/init.d/redis-server start \
 &&	pg_ctlcluster 11 main start \
-&&	sudo -u postgres psql < db.sql \
-&&	tar -xzf v2.6.3.tar.gz -C /opt \
-&&	cd /opt/ \
-&&	ln -s netbox-2.6.3/ netbox \
-&&	cd /opt/netbox/ \
-&&	pip3 install -r requirements.txt \
-&&	mv /configuration.py /opt/netbox/netbox/netbox/ \
-&&	cd /opt/netbox/netbox \
+&&	sudo -u postgres psql < /db.sql \
+&&	rm /db.sql \
 &&	python3 manage.py migrate \
 &&	python3 manage.py collectstatic --no-input \
 &&	python3 manage.py loaddata initial_data \
-&&	pg_ctlcluster 11 main stop \
-&&	/etc/init.d/redis-server stop
+&&	/etc/init.d/redis-server stop \
+&&	pg_ctlcluster 11 main stop
 
 # Build final image
 RUN	apt-get -y install dumb-init \
