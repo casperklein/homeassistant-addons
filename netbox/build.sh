@@ -2,7 +2,7 @@
 
 USER=casperklein
 NAME=hassio-netbox
-TAG=0.1.1
+TAG=0.1.2
 
 [ -n "$USER" ] && TAG=$USER/$NAME:$TAG || TAG=$NAME:$TAG
 
