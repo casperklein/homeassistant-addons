@@ -19,11 +19,6 @@ sed -i "s;^data_directory.*;data_directory = '/data/postgresql/11/main';" /etc/p
 USER=$(jq --raw-output '.user' /data/options.json)
 PASS=$(jq --raw-output '.password' /data/options.json)
 
-#if [ -z "$USER" ] || [ -z "$PASS" ]; then
-#	echo "Error: Username or password not set."
-#	exit 1
-#fi
-
 MAIL=netbox@localhost
 
 /etc/init.d/redis-server start || {
@@ -37,7 +32,10 @@ pg_ctlcluster 11 main start || {
 }
 
 # add netbox superuser
-python3 /opt/netbox/netbox/manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '$MAIL','$PASS')" 2> /dev/null
+if [ -n "$USER" ] && [ -n "$PASS" ]; then
+	echo "Netbox: Creating new superuser: $USER"
+	python3 /opt/netbox/netbox/manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '$MAIL','$PASS')"
+fi
 
 # start netbox
 exec python3 /opt/netbox/netbox/manage.py runserver 0.0.0.0:80 --insecure
