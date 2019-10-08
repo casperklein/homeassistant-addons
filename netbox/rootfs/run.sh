@@ -34,7 +34,7 @@ pg_ctlcluster 11 main start || {
 # add netbox superuser
 if [ -n "$USER" ] && [ -n "$PASS" ]; then
 	echo "Netbox: Creating new superuser: $USER"
-	python3 /opt/netbox/netbox/manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '$MAIL','$PASS')"
+	python3 /opt/netbox/netbox/manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '$MAIL','$PASS')" 2> /dev/null
 fi
 
 # start netbox
