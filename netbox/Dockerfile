@@ -20,7 +20,7 @@ RUN	ln -s $NETBOX_DIR/ netbox
 RUN	mv /configuration.py /opt/netbox/netbox/netbox/
 
 WORKDIR	/opt/netbox/
-RUN	pip3 install -r requirements.txt
+RUN	pip3 install --no-cache-dir -r requirements.txt
 
 WORKDIR	/opt/netbox/netbox
 RUN	/etc/init.d/redis-server start \
