@@ -1,6 +1,6 @@
 {
   "name": "Netbox",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "slug": "netbox",
   "description": "NetBox is an open source web application designed to help manage and document computer networks",
   "url": "https://github.com/casperklein/hassio-addons/netbox",
@@ -8,6 +8,7 @@
   "arch": ["amd64","aarch64"],
   "startup": "before",
   "boot": "auto",
+  "ingress": true,
   "webui": "http://[HOST]:[PORT:80]/",
   "options": {
         "user": "",
@@ -18,9 +19,9 @@
         "password": "str"
   },
   "ports": {
-        "80/tcp": 5580
+        "8099/tcp": 5580
   },
   "ports_description": {
-	  "80/tcp": "Netbox WebGUI"
+	  "8099/tcp": "Netbox WebGUI"
   }
 }
