@@ -38,4 +38,4 @@ if [ -n "$USER" ] && [ -n "$PASS" ]; then
 fi
 
 # start netbox
-exec python3 /opt/netbox/netbox/manage.py runserver 0.0.0.0:8099 --insecure
+exec python3 /opt/netbox/netbox/manage.py runserver 0.0.0.0:80 --insecure
