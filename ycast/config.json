@@ -1,0 +1,17 @@
+{
+  "name": "YCast",
+  "version": "1.0.0",
+  "slug": "ycast",
+  "description": "ycast",
+  "url": "https://github.com/casperklein/hassio-addons/ycast",
+  "arch": ["amd64","aarch64"],
+  "startup": "before",
+  "boot": "auto",
+  "webui": "http://[HOST]:[PORT:80]/",
+  "ports": {
+        "80/tcp": 5680
+  },
+  "ports_description": {
+	  "80/tcp": "YCast Webserver"
+  }
+}
