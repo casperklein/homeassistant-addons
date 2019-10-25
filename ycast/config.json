@@ -8,6 +8,9 @@
   "startup": "before",
   "boot": "auto",
   "webui": "http://[HOST]:[PORT:80]/",
+  "options": {},
+  "schema": {},
+
   "ports": {
         "80/tcp": 5680
   },
