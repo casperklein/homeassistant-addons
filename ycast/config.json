@@ -2,17 +2,15 @@
   "name": "YCast",
   "version": "1.0.0",
   "slug": "ycast",
-  "description": "ycast",
+  "description": "Self hosted vTuner internet radio service emulation",
   "url": "https://github.com/casperklein/hassio-addons/ycast",
-  "arch": ["amd64","aarch64"],
+  "arch": ["amd64","aarch64", "armv7","i386", "armhf"],
   "startup": "before",
   "boot": "auto",
-  "webui": "http://[HOST]:[PORT:80]/",
   "options": {},
   "schema": {},
-
   "ports": {
-        "80/tcp": 5680
+        "80/tcp": 80
   },
   "ports_description": {
 	  "80/tcp": "YCast Webserver"
