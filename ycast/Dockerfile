@@ -18,11 +18,15 @@ RUN	pip3 install --no-cache requests flask PyYAML Pillow
 # Copy root filesystem
 COPY	rootfs /
 
+# Cleanup
+RUN     apt-get -y purge python3-pip python3-setuptools zlib1g-dev libjpeg-dev \
+&&	apt -y autoremove
+
 # Build final image
 RUN	apt-get -y install dumb-init \
 &&	rm -rf /var/lib/apt/lists/*
-#FROM	scratch
-#COPY	--from=build / /
+FROM	scratch
+COPY	--from=build / /
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 EXPOSE  80
