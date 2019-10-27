@@ -13,7 +13,3 @@ cd "$DIR"
 echo "Building: $NAME $VERSION"
 echo
 docker build -t "$TAG" .
-
-#echo "Copy $NAME $VERSION debian package to $(pwd)/"
-#docker run --rm -v "$(pwd)":/mnt/ "$TAG"
-#echo

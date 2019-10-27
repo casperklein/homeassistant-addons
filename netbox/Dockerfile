@@ -1,5 +1,9 @@
 FROM	debian:10-slim as build
 
+ENV	USER="casperklein"
+ENV	NAME="hassio-netbox"
+ENV	VERSION="0.1.3"
+
 ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.6.5.tar.gz"
 ENV	NETBOX_DIR="netbox-2.6.5"
 ENV	PACKAGES="jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"

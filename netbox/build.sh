@@ -1,13 +1,15 @@
 #!/bin/bash
 
-USER=casperklein
-NAME=hassio-netbox
-TAG=0.1.3
+set -ueo pipefail
 
-[ -n "$USER" ] && TAG=$USER/$NAME:$TAG || TAG=$NAME:$TAG
+USER=$(grep USER= Dockerfile | cut -d'"' -f2)
+NAME=$(grep NAME= Dockerfile | cut -d'"' -f2)
+VERSION=$(grep VERSION= Dockerfile | cut -d'"' -f2)
+TAG="$USER/$NAME:$VERSION"
 
 DIR=${0%/*}
-cd "$DIR" &&
-echo "Building: $TAG" &&
-echo &&	
-docker build -t $TAG .
+cd "$DIR"
+
+echo "Building: $NAME $VERSION"
+echo
+docker build -t "$TAG" .
