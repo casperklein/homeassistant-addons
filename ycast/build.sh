@@ -2,7 +2,7 @@
 
 set -ueo pipefail
 
-USER=$(grep NAME= Dockerfile | cut -d'"' -f2)
+USER=$(grep USER= Dockerfile | cut -d'"' -f2)
 NAME=$(grep NAME= Dockerfile | cut -d'"' -f2)
 VERSION=$(grep VERSION= Dockerfile | cut -d'"' -f2)
 TAG="$USER/$NAME:$VERSION"
