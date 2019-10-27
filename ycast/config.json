@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "slug": "ycast",
   "description": "Self hosted vTuner internet radio service emulation",
-  "url": "https://github.com/casperklein/hassio-addons/ycast",
+  "url": "https://github.com/casperklein/hassio-addons/tree/master/ycast",
   "image": "casperklein/hassio-ycast",
   "arch": ["amd64","aarch64"],
   "startup": "before",
