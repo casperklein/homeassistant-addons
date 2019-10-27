@@ -19,7 +19,7 @@ RUN	pip3 install --no-cache requests flask PyYAML Pillow
 COPY	rootfs /
 
 # Cleanup
-RUN     apt-get -y purge python3-pip python3-setuptools zlib1g-dev libjpeg-dev \
+RUN     apt-get -y purge python3-pip python3-setuptools zlib1g-dev \
 &&	apt -y autoremove
 
 # Build final image
