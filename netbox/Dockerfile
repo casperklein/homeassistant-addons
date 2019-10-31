@@ -2,11 +2,16 @@ FROM	debian:10-slim as build
 
 ENV	USER="casperklein"
 ENV	NAME="hassio-netbox"
-ENV	VERSION="0.1.3"
+ENV	VERSION="0.1.4"
 
-ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.6.5.tar.gz"
-ENV	NETBOX_DIR="netbox-2.6.5"
+ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.6.6.tar.gz"
+ENV	NETBOX_SHA256="f211fba7b35332fb2883ababfd9ffc79de2e7a727710d94a007e0bef0b9376a2"
+ENV	NETBOX_DIR="netbox-2.6.6"
+
 ENV	PACKAGES="jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
+ENV	PACKAGES_CLEAN="libpq-dev python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev libjpeg-dev"
+
+SHELL   ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install packages
 RUN     apt-get update \
@@ -17,6 +22,7 @@ COPY	rootfs /
 
 # Setup netbox
 ADD	$NETBOX /
+RUN     HASH=$(sha256sum ${NETBOX##*/}) && [ "${HASH:0:64}" == "$NETBOX_SHA256" ] && echo "${NETBOX##*/}: valid " || { echo -e "Stored Hash: $NETBOX_SHA256\nFile Hash:   $HASH"; exit 1; }
 RUN	tar -xzf ${NETBOX##*/} -C /opt
 
 WORKDIR	/opt
@@ -36,6 +42,10 @@ RUN	/etc/init.d/redis-server start \
 &&	python3 manage.py loaddata initial_data \
 &&	/etc/init.d/redis-server stop \
 &&	pg_ctlcluster 11 main stop
+
+# Cleanup
+RUN	apt-get -y purge $PACKAGES_CLEAN \
+&&	apt -y autoremove
 
 # Build final image
 RUN	apt-get -y install dumb-init \
