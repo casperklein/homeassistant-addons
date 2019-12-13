@@ -41,7 +41,7 @@ FROM	scratch
 COPY	--from=build / /
 #ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-EXPOSE  80
+EXPOSE	80
 
 WORKDIR	/ycast
 CMD	python3 -m ycast -d

@@ -11,10 +11,10 @@ ENV	NETBOX_DIR="netbox-2.6.6"
 ENV	PACKAGES="jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
 ENV	PACKAGES_CLEAN="libpq-dev python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev libjpeg-dev"
 
-SHELL   ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install packages
-RUN     apt-get update \
+RUN	apt-get update \
 &&	apt-get -y install $PACKAGES
 
 # Copy root filesystem
@@ -22,7 +22,7 @@ COPY	rootfs /
 
 # Setup netbox
 ADD	$NETBOX /
-RUN     HASH=$(sha256sum ${NETBOX##*/}) && [ "${HASH:0:64}" == "$NETBOX_SHA256" ] && echo "${NETBOX##*/}: valid " || { echo -e "Stored Hash: $NETBOX_SHA256\nFile Hash:   $HASH"; exit 1; }
+RUN	HASH=$(sha256sum ${NETBOX##*/}) && [ "${HASH:0:64}" == "$NETBOX_SHA256" ] && echo "${NETBOX##*/}: valid " || { echo -e "Stored Hash: $NETBOX_SHA256\nFile Hash:   $HASH"; exit 1; }
 RUN	tar -xzf ${NETBOX##*/} -C /opt
 
 WORKDIR	/opt
@@ -54,6 +54,6 @@ FROM	scratch
 COPY	--from=build / /
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-EXPOSE  80
+EXPOSE	80
 
 CMD	["/run.sh"]
