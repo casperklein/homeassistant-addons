@@ -1,6 +1,6 @@
 {
   "name": "YCast",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "slug": "ycast",
   "description": "Self hosted vTuner internet radio service emulation",
   "url": "https://github.com/casperklein/hassio-addons/tree/master/ycast",
