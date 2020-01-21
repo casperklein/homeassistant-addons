@@ -5,7 +5,7 @@
   "description": "Self hosted vTuner internet radio service emulation",
   "url": "https://github.com/casperklein/hassio-addons/tree/master/ycast",
   "image": "casperklein/hassio-ycast",
-  "arch": ["amd64","aarch64"],
+  "arch": ["amd64","aarch64","armhf","armv7"],
   "startup": "before",
   "boot": "auto",
   "options": {},
