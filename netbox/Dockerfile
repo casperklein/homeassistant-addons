@@ -39,7 +39,6 @@ RUN	/etc/init.d/redis-server start \
 &&	rm -v /db.sql \
 &&	python3 manage.py migrate \
 &&	python3 manage.py collectstatic --no-input \
-&&	python3 manage.py loaddata initial_data \
 &&	/etc/init.d/redis-server stop \
 &&	pg_ctlcluster 11 main stop
 
