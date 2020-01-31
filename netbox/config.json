@@ -1,6 +1,6 @@
 {
   "name": "Netbox",
-  "version": "2.6.12",
+  "version": "2.7.3",
   "slug": "netbox",
   "description": "NetBox is an open source web application designed to help manage and document computer networks",
   "url": "https://github.com/casperklein/hassio-addons/tree/master/netbox",
