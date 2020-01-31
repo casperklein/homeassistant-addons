@@ -2,11 +2,11 @@ FROM	debian:10-slim as build
 
 ENV	USER="casperklein"
 ENV	NAME="hassio-netbox"
-ENV	VERSION="2.6.12"
+ENV	VERSION="2.7.3"
 
-ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.6.12.tar.gz"
-ENV	NETBOX_SHA256="79a416359c5945f21977f023725e8f015d4cbe932f9c2f840890cf42dbe8e92a"
-ENV	NETBOX_DIR="netbox-2.6.12"
+ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.7.3.tar.gz"
+ENV	NETBOX_SHA256="8417349096a1841cb017968cee2fd6821502b67ab63fcbac9e6a247e35204896"
+ENV	NETBOX_DIR="netbox-2.7.3"
 
 ENV	PACKAGES="jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
 ENV	PACKAGES_CLEAN="libpq-dev python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev libjpeg-dev"
