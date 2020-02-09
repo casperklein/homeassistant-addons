@@ -8,9 +8,9 @@ Visit [YCast project page](https://github.com/milaq/YCast) for more information.
 1. Install the YCast add-on.
 1. Configure bookmarks (optional):
 
-        bookmarks:
-          - 'Rock Antenne: http://mp3channels.webradio.rockantenne.de/rockantenne'
-          - 'SWR1 BW: http://swr-edge-202d.fra-lg.cdn.addradio.net/swr/swr1/bw/mp3/128/stream.mp3'
+       bookmarks:
+         - 'Rock Antenne: http://mp3channels.webradio.rockantenne.de/rockantenne'
+         - 'SWR1 BW: http://swr-edge-202d.fra-lg.cdn.addradio.net/swr/swr1/bw/mp3/128/stream.mp3'
 
 1. Start the add-on.
 
