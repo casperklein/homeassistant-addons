@@ -3,11 +3,11 @@ FROM	alpine:3.11 as build
 
 ENV	USER="casperklein"
 ENV	NAME="hassio-ycast"
-ENV	VERSION="1.0.2"
+ENV	VERSION="1.0.3"
 
 #ENV	PACKAGES="python3 python3-pip python3-setuptools zlib1g-dev libjpeg-dev"
 #ENV	PACKAGES_CLEAN="python3-pip python3-setuptools zlib1g-dev"
-ENV	PACKAGES="python3 jpeg-dev python3-dev zlib-dev build-base"
+ENV	PACKAGES="python3 jpeg-dev python3-dev zlib-dev build-base jq"
 ENV	PACKAGES_CLEAN="python3-dev zlib-dev build-base"
 
 #SHELL	["/bin/bash", "-o", "pipefail", "-c"]
@@ -44,4 +44,4 @@ COPY	--from=build / /
 EXPOSE	80
 
 WORKDIR	/ycast
-CMD	["/usr/bin/python3", "-m", "ycast", "-d"]
+CMD	["/run.sh"]
