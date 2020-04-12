@@ -5,7 +5,7 @@ ENV	NAME="hassio-netbox"
 ENV	VERSION="2.7.12"
 
 ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.7.12.tar.gz"
-ENV	NETBOX_SHA256="df038d7ab7eccedba3dd42522d8e65336c6e10ddf5a1c92dfe7a8ea379f1e926"
+ENV	NETBOX_SHA256="4c5f6f5fae54dbd2e4463de1c290c196269fedd0958864ba4de7405d16e677ab"
 ENV	NETBOX_DIR="netbox-2.7.12"
 
 ENV	PACKAGES="jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
