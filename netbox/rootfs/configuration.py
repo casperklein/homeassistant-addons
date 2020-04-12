@@ -27,7 +27,7 @@ SECRET_KEY = '**************************************************'
 
 # Redis database settings. The Redis database is used for caching and background processing such as webhooks
 REDIS = {
-    'webhooks': {
+    'tasks': {
         'HOST': 'localhost',
         'PORT': 6379,
         'PASSWORD': '',
