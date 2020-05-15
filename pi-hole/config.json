@@ -1,0 +1,28 @@
+{
+  "name": "Pi-hole (dev)",
+  "version": "5.0.0",
+  "slug": "pihole",
+  "description": "Network-wide Ad Blocking",
+  "url": "https://github.com/casperklein/hassio-addons/tree/master/pi-hole",
+  "image": "casperklein/hassio-pihole",
+  "arch": ["aarch64", "amd64", "armhf", "armv7"],
+  "webui": "[PROTO:ssl]://[HOST]:[PORT:80]",
+  "ingress": true,
+  "ingress_port": 80,
+  "ingress_entry": "/admin/",
+  "panel_icon": "mdi:pi-hole",
+  "startup": "system",
+  "ports": {
+    "53/tcp": 53,
+    "53/udp": 53,
+    "80/tcp": null
+  },
+  "ports_description": {
+    "53/tcp": "DNS server port",
+    "53/udp": "DNS server port",
+    "80/tcp": "UNPROTECTED web UI (not required for Ingress)"
+  },
+  "boot": "auto",
+  "options": {},
+  "schema": {}
+}

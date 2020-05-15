@@ -1,0 +1,5 @@
+config.json
+	"privileged": ["NET_ADMIN"],
+	"host_network": true
+
+https://github.com/pi-hole/docker-pi-hole/issues/495
