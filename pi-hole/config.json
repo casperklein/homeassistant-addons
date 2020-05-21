@@ -1,5 +1,5 @@
 {
-  "name": "Pi-hole (dev)",
+  "name": "Pi-hole",
   "version": "5.0.0",
   "slug": "pihole",
   "description": "Network-wide Ad Blocking",
