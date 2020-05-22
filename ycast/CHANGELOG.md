@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4
+
+- rebrand from hassio-ycast to homeassistant-ycast
+- system updates
+
 ## 1.0.3
 
 - configuration option for bookmarks added
