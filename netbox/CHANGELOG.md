@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.8.4
+	netbox version 2.8.4
+
 ## 2.7.12
 	netbox version 2.7.12
 
