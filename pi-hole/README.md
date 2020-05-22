@@ -1,8 +1,13 @@
-# Pi-hole 5
+# Pi-hole for Home Assistant
 
-Home Assistant Pi-hole 5 addon
+[Network-wide Ad Blocking - A black hole for Internet advertisements](https://pi-hole.net/)
 
 Work in progress..
+
+## Installation:
+1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance.
+1. Install the Pi-hole add-on.
+1. Start the add-on.
 
 ## Bugs
 
