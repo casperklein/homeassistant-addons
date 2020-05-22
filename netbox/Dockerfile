@@ -1,7 +1,7 @@
 FROM	debian:10-slim as build
 
 ENV	USER="casperklein"
-ENV	NAME="hassio-netbox"
+ENV	NAME="homeassistant-netbox"
 ENV	VERSION="2.7.12"
 
 ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.7.12.tar.gz"

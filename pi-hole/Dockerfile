@@ -1,7 +1,7 @@
 FROM	pihole/pihole:v5.0
 
 ENV	USER="casperklein"
-ENV	NAME="hassio-pihole"
+ENV	NAME="homeassistant-pihole"
 ENV	VERSION="5.0.0"
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]

@@ -1,10 +1,10 @@
-# Netbox for Hass.io
+# Netbox for Home Assistant
 
 [Netbox](https://github.com/netbox-community/netbox) is an open source web application designed to help manage and document computer networks. 
 
 ## Installation:
 
-1. Add [this](https://github.com/casperklein/hassio-addons) Hass.io add-ons repository to your Hass.io instance.
+1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance.
 1. Install the netbox add-on.
 1. Set *user* and *password* in the add-on options.
     * This will add a new superuser to netbox after the add-on starts.

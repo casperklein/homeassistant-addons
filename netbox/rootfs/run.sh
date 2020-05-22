@@ -15,7 +15,7 @@ fi
 # Change PostgreSQL data directory
 sed -i "s;^data_directory.*;data_directory = '/data/postgresql/11/main';" /etc/postgresql/11/main/postgresql.conf
 
-# Get user/pass from hassio options
+# Get user/pass from Home Assistant options
 USER=$(jq --raw-output '.user' /data/options.json)
 PASS=$(jq --raw-output '.password' /data/options.json)
 
