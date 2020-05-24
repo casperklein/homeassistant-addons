@@ -16,4 +16,4 @@ Work in progress..
 
 ## Not implemented
 
-- DHCP server
+- DHCP server (https://github.com/pi-hole/docker-pi-hole/issues/495)
