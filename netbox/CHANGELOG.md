@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.8.5
+
+- [netbox version 2.8.5](https://github.com/netbox-community/netbox/releases/tag/v2.8.5)
+- labels added
+
 ## 2.8.4
 
 - rebrand from hassio-netbox to homeassistant-netbox

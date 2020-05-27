@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.2
+
+- labels added
+
 ## 5.0.1
 
 - fix permissions on start

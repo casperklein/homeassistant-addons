@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.5
+
+- labels added
+
 ## 1.0.4
 
 - rebrand from hassio-ycast to homeassistant-ycast
