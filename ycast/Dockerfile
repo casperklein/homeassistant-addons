@@ -45,3 +45,13 @@ EXPOSE	80
 
 WORKDIR	/ycast
 CMD	["/run.sh"]
+
+ARG	BUILD_ARCH
+LABEL	io.hass.name="YCast"
+LABEL	io.hass.description="Self hosted vTuner internet radio service emulation"
+LABEL	io.hass.arch="${BUILD_ARCH}"
+LABEL	io.hass.type="addon"
+LABEL	io.hass.version="${VERSION}"
+LABEL	image="casperklein/homeassistant-ycast:${VERSION}"
+LABEL	maintainer="Casper Klein"
+LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/ycast"

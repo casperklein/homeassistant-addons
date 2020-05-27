@@ -25,3 +25,13 @@ RUN	sed -i '/"X-Frame-Options"/ s/DENY/ALLOW/g' /etc/.pihole/advanced/lighttpd.c
 # Custom Pi-hole upstream DNS server
 #ENV	DNS1="1.1.1.1"
 #ENV	DNS2="8.8.8.8"
+
+ARG	BUILD_ARCH
+LABEL	io.hass.name="Pi-hole"
+LABEL	io.hass.description="Network-wide Ad Blocking"
+LABEL	io.hass.arch="${BUILD_ARCH}"
+LABEL	io.hass.type="addon"
+LABEL	io.hass.version="${VERSION}"
+LABEL	image="casperklein/homeassistant-pihole:${VERSION}"
+LABEL	maintainer="Casper Klein"
+LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/pi-hole"

@@ -56,3 +56,13 @@ ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 EXPOSE	80
 
 CMD	["/run.sh"]
+
+ARG	BUILD_ARCH
+LABEL	io.hass.name="Netbox"
+LABEL	io.hass.description="NetBox is an open source web application designed to help manage and document computer networks"
+LABEL	io.hass.arch="${BUILD_ARCH}"
+LABEL	io.hass.type="addon"
+LABEL	io.hass.version="${VERSION}"
+LABEL	image="casperklein/homeassistant-netbox:${VERSION}"
+LABEL	maintainer="Casper Klein"
+LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/netbox"
