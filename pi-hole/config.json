@@ -24,5 +24,6 @@
   },
   "boot": "auto",
   "options": {},
-  "schema": {}
+  "schema": {},
+  "init": false
 }

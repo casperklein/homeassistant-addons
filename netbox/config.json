@@ -22,5 +22,6 @@
   },
   "ports_description": {
 	  "80/tcp": "Netbox WebGUI"
-  }
+  },
+  "init": false
 }
