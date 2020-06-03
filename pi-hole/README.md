@@ -1,15 +1,13 @@
 # Pi-hole for Home Assistant
 
-[Network-wide Ad Blocking - A black hole for Internet advertisements](https://pi-hole.net/)
-
 ![version][version-shield]
-
 ![Supports amd64 architecture][amd64-shield]
 ![Supports aarch64 architecture][aarch64-shield]
 ![Supports armhf architecture][armhf-shield]
 ![Supports armv7 architecture][armv7-shield]
-
 ![Docker image size][image-size-shield]
+
+[Network-wide Ad Blocking - A black hole for Internet advertisements](https://pi-hole.net/)
 
 Work in progress..
 
