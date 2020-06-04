@@ -29,5 +29,5 @@ Visit [Yamaha News](https://de.yamaha.com/de/news_events/2019/0305_av_update_on_
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-blue.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-blue.svg
-[version-shield]: https://img.shields.io/badge/dynamic/json?color=blue&label=Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcasperklein%2Fhomeassistant-addons%2Fmaster%2Fycast%2Fconfig.json
+[version-shield]: https://img.shields.io/badge/dynamic/json?color=blue&label=version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcasperklein%2Fhomeassistant-addons%2Fmaster%2Fycast%2Fconfig.json
 [image-size-shield]: https://img.shields.io/docker/image-size/casperklein/homeassistant-ycast/latest
