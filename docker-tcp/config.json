@@ -1,0 +1,24 @@
+{
+  "name": "Docker TCP",
+  "version": "0.0.1",
+  "slug": "docker-tcp",
+  "description": "Expose Home Assistant OS Docker API via TCP",
+  "url": "https://github.com/casperklein/homeassistant-addons/tree/master/docker-tcp",
+  "iimage": "casperklein/homeassistant-docker-tcp",
+  "arch": ["amd64","aarch64", "armhf", "armv7"],
+  "startup": "application",
+  "boot": "auto",
+  "webui": "http://[HOST]:[PORT:2375]/version",
+  "options": {
+  },
+  "schema": {
+  },
+  "ports": {
+        "2375/tcp": 2375
+  },
+  "ports_description": {
+	  "2375/tcp": "Docker API (un-encrypted)"
+  },
+  "init": true,
+  "docker_api": true
+}
