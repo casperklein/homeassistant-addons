@@ -6,7 +6,7 @@
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/netbox",
   "image": "casperklein/homeassistant-netbox",
   "arch": ["amd64","aarch64"],
-  "startup": "before",
+  "startup": "application",
   "boot": "auto",
   "webui": "http://[HOST]:[PORT:80]/",
   "options": {

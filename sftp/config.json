@@ -4,7 +4,7 @@
   "slug": "sftp",
   "description": "Access HA files via SFTP",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
-  "startup": "before",
+  "startup": "application",
   "boot": "auto",
   "map": ["addons:rw", "backup:rw", "config:rw", "share:rw", "ssl:rw"],
   "options": {
