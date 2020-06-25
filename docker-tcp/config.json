@@ -4,7 +4,7 @@
   "slug": "docker-tcp",
   "description": "Expose Home Assistant OS Docker API via TCP",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/docker-tcp",
-  "iimage": "casperklein/homeassistant-docker-tcp",
+  "image": "casperklein/homeassistant-docker-tcp",
   "arch": ["amd64","aarch64", "armhf", "armv7"],
   "startup": "application",
   "boot": "auto",
