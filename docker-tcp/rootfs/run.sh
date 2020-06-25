@@ -9,5 +9,5 @@ if [ ! -S /var/run/docker.sock ]; then
 fi
 
 while :; do
-	socat -d -d TCP-LISTEN:2375 UNIX-CONNECT:/var/run/docker.sock
+	socat -d -d TCP-LISTEN:2375,fork UNIX-CONNECT:/var/run/docker.sock
 done

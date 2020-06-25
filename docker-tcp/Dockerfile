@@ -2,7 +2,7 @@ FROM	debian:10-slim as build
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-docker-tcp"
-ENV	VERSION="0.0.1"
+ENV	VERSION="0.0.2"
 
 ENV	PACKAGES="socat"
 
