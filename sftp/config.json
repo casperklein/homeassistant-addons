@@ -3,6 +3,7 @@
   "version": "0.1",
   "slug": "sftp",
   "description": "Access HA files via SFTP",
+  "url": "https://github.com/casperklein/homeassistant-addons/tree/master/sftp",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
   "boot": "auto",
