@@ -15,5 +15,6 @@
   },
   "ports": {
 	"22/tcp": 2222
-  }
+  },
+  "stage": "experimental"
 }
