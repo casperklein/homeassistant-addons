@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.8.6
+
+- [netbox version 2.8.6](https://github.com/netbox-community/netbox/releases/tag/v2.8.6)
+
+
 ## 2.8.5
 
 - [netbox version 2.8.5](https://github.com/netbox-community/netbox/releases/tag/v2.8.5)
