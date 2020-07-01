@@ -2,7 +2,7 @@ FROM	pihole/pihole:v5.0 as build
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-pihole"
-ENV	VERSION="5.0.3"
+ENV	VERSION="5.0.4"
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 

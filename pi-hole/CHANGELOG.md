@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.4
+
+- maintenance release
+- image size improved
+
 ## 5.0.3
 
 - maintenance release
