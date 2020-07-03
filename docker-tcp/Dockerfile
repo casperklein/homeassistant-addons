@@ -2,7 +2,6 @@ FROM	debian:10-slim as build
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-docker-tcp"
-ENV	VERSION="0.0.2"
 
 ENV	PACKAGES="socat"
 
@@ -25,6 +24,7 @@ EXPOSE	2375
 CMD	["/run.sh"]
 
 ARG	BUILD_ARCH
+ENV	VERSION="0.0.2"
 LABEL	io.hass.name="docker-tcp"
 LABEL	io.hass.description="Expose Home Assistant OS Docker API via TCP"
 LABEL	io.hass.arch="${BUILD_ARCH}"

@@ -2,7 +2,6 @@ FROM	debian:10-slim as build
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-netbox"
-ENV	VERSION="2.8.7"
 
 ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.8.7.tar.gz"
 ENV	NETBOX_SHA256="60d57e42658dd8c8958241b707a71124ae9abcc4a9682e8ee4b3991a7acd7bf9"
@@ -58,6 +57,7 @@ EXPOSE	80
 CMD	["/run.sh"]
 
 ARG	BUILD_ARCH
+ENV	VERSION="2.8.7"
 LABEL	io.hass.name="Netbox"
 LABEL	io.hass.description="NetBox is an open source web application designed to help manage and document computer networks"
 LABEL	io.hass.arch="${BUILD_ARCH}"

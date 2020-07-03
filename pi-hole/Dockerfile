@@ -2,7 +2,6 @@ FROM	pihole/pihole:v5.0 as build
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-pihole"
-ENV	VERSION="5.0.4"
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -30,6 +29,7 @@ FROM	scratch
 COPY	--from=build / /
 
 ARG	BUILD_ARCH
+ENV	VERSION="5.0.4"
 LABEL	io.hass.name="Pi-hole"
 LABEL	io.hass.description="Network-wide Ad Blocking"
 LABEL	io.hass.arch="${BUILD_ARCH}"

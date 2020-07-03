@@ -3,7 +3,6 @@ FROM	alpine:3.11 as build
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-ycast"
-ENV	VERSION="1.0.6"
 
 #ENV	PACKAGES="python3 python3-pip python3-setuptools zlib1g-dev libjpeg-dev"
 #ENV	PACKAGES_CLEAN="python3-pip python3-setuptools zlib1g-dev"
@@ -47,6 +46,7 @@ WORKDIR	/ycast
 CMD	["/run.sh"]
 
 ARG	BUILD_ARCH
+ENV	VERSION="1.0.6"
 LABEL	io.hass.name="YCast"
 LABEL	io.hass.description="Self hosted vTuner internet radio service emulation"
 LABEL	io.hass.arch="${BUILD_ARCH}"
