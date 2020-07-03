@@ -2,11 +2,11 @@ FROM	debian:10-slim as build
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-netbox"
-ENV	VERSION="2.8.6"
+ENV	VERSION="2.8.7"
 
-ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.8.6.tar.gz"
-ENV	NETBOX_SHA256="b4a3e7c28c55e64be828963a7ff106a3a32c0be338b3f1df7aeb849842f1a016"
-ENV	NETBOX_DIR="netbox-2.8.6"
+ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.8.7.tar.gz"
+ENV	NETBOX_SHA256="60d57e42658dd8c8958241b707a71124ae9abcc4a9682e8ee4b3991a7acd7bf9"
+ENV	NETBOX_DIR="netbox-2.8.7"
 
 ENV	PACKAGES="jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
 ENV	PACKAGES_CLEAN="libpq-dev python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev libjpeg-dev"
