@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.5
+
+- version bug fixed
+
 ## 5.0.4
 
 - maintenance release

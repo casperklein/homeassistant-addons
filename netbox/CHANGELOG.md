@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.8.8
+
+- version bug fixed
+
 ## 2.8.7
 
 - [netbox version 2.8.7](https://github.com/netbox-community/netbox/releases/tag/v2.8.7)
