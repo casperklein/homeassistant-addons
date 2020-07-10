@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.4
+## 0.1.0
 
 - image size improved
 - renamed to Docker API
