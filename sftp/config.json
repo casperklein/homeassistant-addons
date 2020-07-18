@@ -1,6 +1,6 @@
 {
   "name": "SFTP",
-  "version": "0.1",
+  "version": "0.1.1",
   "slug": "sftp",
   "description": "Access HA files via SFTP",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/sftp",
@@ -17,5 +17,5 @@
   "ports": {
 	"22/tcp": 2222
   },
-  "stage": "experimental"
+  "stage": "deprecated"
 }
