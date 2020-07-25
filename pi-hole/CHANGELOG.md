@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.1
+
+- Pi-hole 5.1.1
+
 ## 5.0.5
 
 - version bug fixed
