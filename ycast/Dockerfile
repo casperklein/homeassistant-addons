@@ -1,5 +1,5 @@
 #FROM	debian:10-slim as build
-FROM	alpine:3.11 as build
+FROM	alpine:3.12 as build
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-ycast"
