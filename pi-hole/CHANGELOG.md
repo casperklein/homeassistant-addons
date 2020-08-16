@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.2
+
+- Pi-hole 5.1.2
+
 ## 5.1.1
 
 - Pi-hole 5.1.1
