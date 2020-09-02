@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.2.2
+
+- maintenance release
+
 ## 5.1.2.1
 
 - maintenance release
