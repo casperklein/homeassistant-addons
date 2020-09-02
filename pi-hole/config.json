@@ -9,7 +9,7 @@
   "webui": "[PROTO:ssl]://[HOST]:[PORT:80]",
   "ingress": true,
   "ingress_port": 80,
-  "ingress_entry": "/admin",
+  "ingress_entry": "/admin/",
   "panel_icon": "mdi:pi-hole",
   "startup": "system",
   "ports": {
