@@ -1,6 +1,6 @@
 {
   "name": "Pi-hole",
-  "version": "5.1.2",
+  "version": "5.1.2.1",
   "slug": "pihole",
   "description": "Network-wide Ad Blocking",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/pi-hole",
@@ -9,7 +9,7 @@
   "webui": "[PROTO:ssl]://[HOST]:[PORT:80]",
   "ingress": true,
   "ingress_port": 80,
-  "ingress_entry": "/admin/",
+  "ingress_entry": "/admin",
   "panel_icon": "mdi:pi-hole",
   "startup": "system",
   "ports": {
@@ -23,6 +23,7 @@
     "80/tcp": "UNPROTECTED web UI (not required for Ingress)"
   },
   "boot": "auto",
+  "timeout": 60,
   "options": {},
   "schema": {},
   "init": false

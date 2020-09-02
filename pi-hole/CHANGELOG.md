@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.2.1
+
+- maintenance release
+
 ## 5.1.2
 
 - Pi-hole 5.1.2
