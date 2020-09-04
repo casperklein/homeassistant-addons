@@ -6,8 +6,8 @@ ENV	NAME="homeassistant-ycast"
 
 #ENV	PACKAGES="python3 python3-pip python3-setuptools zlib1g-dev libjpeg-dev"
 #ENV	PACKAGES_CLEAN="python3-pip python3-setuptools zlib1g-dev"
-ENV	PACKAGES="python3 jpeg-dev python3-dev zlib-dev build-base jq"
-ENV	PACKAGES_CLEAN="python3-dev zlib-dev build-base"
+ENV	PACKAGES="python3 py3-pip python3-dev jpeg-dev zlib-dev build-base jq"
+ENV	PACKAGES_CLEAN="python3-dev py3-pip zlib-dev build-base"
 
 #SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
