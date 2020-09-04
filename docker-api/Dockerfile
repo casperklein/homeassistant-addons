@@ -22,7 +22,7 @@ EXPOSE	2375
 CMD	["/run.sh"]
 
 ARG	BUILD_ARCH
-ENV	VERSION="0.1.0"
+ENV	VERSION="0.1.1"
 LABEL	io.hass.name="docker-api"
 LABEL	io.hass.description="Expose Home Assistant OS Docker API via network"
 LABEL	io.hass.arch="${BUILD_ARCH}"

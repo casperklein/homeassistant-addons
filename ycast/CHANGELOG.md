@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.8
+
+- maintenance release
+
 ## 1.0.7
 
 - version bug fixed
