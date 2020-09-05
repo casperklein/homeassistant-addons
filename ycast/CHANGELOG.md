@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.10
+
+- flask development warning removed
+
 ## 1.0.9
 
 - bug fixed: added missing python package

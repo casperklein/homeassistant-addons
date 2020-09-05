@@ -10,4 +10,6 @@ fi
 cat stations.yml
 echo " "
 
+export FLASK_ENV=development
+export FLASK_DEBUG=0
 exec /usr/bin/python3 -m ycast -d
