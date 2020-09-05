@@ -7,6 +7,7 @@
 ## 1.0.8
 
 - maintenance release
+- updated alpine linux to version 3.12
 
 ## 1.0.7
 
