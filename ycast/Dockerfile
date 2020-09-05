@@ -7,7 +7,7 @@ ENV	NAME="homeassistant-ycast"
 #ENV	PACKAGES="python3 python3-pip python3-setuptools zlib1g-dev libjpeg-dev"
 #ENV	PACKAGES_CLEAN="python3-pip python3-setuptools zlib1g-dev"
 ENV	PACKAGES="python3 py3-pip python3-dev jpeg-dev zlib-dev build-base jq"
-ENV	PACKAGES_CLEAN="python3-dev py3-pip zlib-dev build-base"
+ENV	PACKAGES_CLEAN="python3-dev zlib-dev build-base"
 
 #SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -46,7 +46,7 @@ WORKDIR	/ycast
 CMD	["/run.sh"]
 
 ARG	BUILD_ARCH
-ENV	VERSION="1.0.8"
+ENV	VERSION="1.0.9"
 LABEL	io.hass.name="YCast"
 LABEL	io.hass.description="Self hosted vTuner internet radio service emulation"
 LABEL	io.hass.arch="${BUILD_ARCH}"

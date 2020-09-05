@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.9
+
+- bug fixed: added missing python package
+
 ## 1.0.8
 
 - maintenance release
