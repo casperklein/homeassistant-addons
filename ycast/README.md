@@ -18,7 +18,7 @@ Visit [YCast project page](https://github.com/milaq/YCast) for more information.
 
        bookmarks:
          - 'Rock Antenne: http://mp3channels.webradio.rockantenne.de/rockantenne'
-         - 'SWR1 BW: http://swr-edge-202d.fra-lg.cdn.addradio.net/swr/swr1/bw/mp3/128/stream.mp3'
+         - 'SWR1 BW: http://swr-swr1-bw.cast.addradio.de/swr/swr1/bw/mp3/128/stream.mp3'
 
 1. Start the add-on.
 

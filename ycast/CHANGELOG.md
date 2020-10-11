@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+- ycast 1.1.0
+- sample config fixed
+
 ## 1.0.10
 
 - flask development warning removed

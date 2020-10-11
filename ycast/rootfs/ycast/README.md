@@ -29,29 +29,48 @@ Any reported device helps the community to see which AVRs work properly and whic
 
 ### Confirmed working
 
- * Yamaha RX-Vx73 series (RX-V373, RX-V473, RX-V573, RX-V673, RX-V773)
- * Yamaha RX-Vx75 series (RX-V375, RX-V475, RX-V575, RX-V675, RX-V775)
- * Yamaha RX-Vx77 series (RX-V377, RX-V477, RX-V577, RX-V677, RX-V777)
+ * Denon AVR-X_000 series (AVR-X1000, AVR-2000, AVR-X3000, AVR-X4000)
+ * Denon AVR-1912
+ * Denon AVR-X2200W
+ * Denon CEOL piccolo N5
+ * Denon CEOL N9
+ * Denon DNP-720AE
+ * Denon DNP-730AE
+ * Denon DRA-100
+ * Marantz Melody Media M-CR610
+ * Marantz NR1506
+ * Marantz NR1605
+ * Marantz NA6005
+ * Marantz NA8005
+ * Onkyo TX-NR414
+ * Onkyo TX-NR5009
+ * Onkyo TX-NR616
+ * Yamaha R-N301
  * Yamaha R-N500
+ * Yamaha RX-A810
  * Yamaha RX-A820
  * Yamaha RX-A830
- * Onkyo TX-NR414
- * Marantz Melody Media M-CR610
+ * Yamaha CRX-N560/MCR-N560
+ * Yamaha RX-V_71 series with network connectivity (RX-V671, RX-V771)
+ * Yamaha RX-V_73 series with network connectivity (RX-V473, RX-V573, RX-V673, RX-V773)
+ * Yamaha RX-V_75 series (RX-V375, RX-V475, RX-V575, RX-V675, RX-V775)
+ * Yamaha RX-V_77 series (RX-V377, RX-V477, RX-V577, RX-V677, RX-V777)
+ * Yamaha RX-V3067
+ * Yamaha RX-V500D
 
 ### Unconfirmed/Experimental
 
- * Yamaha RX-Vx79 series (RX-V379, RX-V479, RX-V579, RX-V679, RX-V779)
- * Yamaha RX-Vx81 series (RX-V381, RX-V481, RX-V581, RX-V681, RX-V781)
+ * Denon AVR-X_100W series (AVR-X1100W, AVR-2100W, AVR-X3100W, AVR-X4100W)
+ * Denon AVR-X_300W series (AVR-X1300W, AVR-2300W, AVR-X3300W)
+ * Yamaha RX-A1060
+ * Yamaha CX-A5000
  * Yamaha RX-S600D
  * Yamaha RX-S601D
- * Yamaha WX-030
- * Yamaha RX-A1060
  * Yamaha RX-V2700
  * Yamaha RX-V3800
- * Yamaha CX-A5000
- * Denon AVR-Xx000 series (AVR-X1000, AVR-2000, AVR-X3000, AVR-X4000)
- * Denon AVR-Xx100W series (AVR-X1100W, AVR-2100W, AVR-X3100W, AVR-X4100W)
- * Denon AVR-Xx300W series (AVR-X1300W, AVR-2300W, AVR-X3300W)
+ * Yamaha RX-V_79 series (RX-V379, RX-V479, RX-V579, RX-V679, RX-V779)
+ * Yamaha RX-V_81 series (RX-V381, RX-V481, RX-V581, RX-V681, RX-V781)
+ * Yamaha WX-030
 
 ## Dependencies:
 Python version: `3`
@@ -64,15 +83,17 @@ Python packages:
  
 ## Usage
 
-YCast really does not need much computing power nor bandwidth, i.e. you can run it on a low-spec RISC machine like a Raspberry Pi.
+YCast really does not need much computing power nor bandwidth, i.e. you can run it on a low-spec RISC machine like a Raspberry Pi or a home router.
 
 ### DNS entries
 
-You need to create a manual entry in your DNS server (read 'Router' for most home users). `vtuner.com` (more specifically `*.vtuner.com`) should point to the machine YCast is running on. Alternatively, in case you only want to forward specific vendors, the following entries may be configured:
+You need to create a manual entry in your DNS server (read 'Router' for most home users). The `*.vtuner.com` domain should point to the machine YCast is running on.
+Specifically the following entries may be configured instead of a wildcard entry:
 
   * Yamaha AVRs: `radioyamaha.vtuner.com` (and optionally `radioyamaha2.vtuner.com`)
   * Onkyo AVRs: `onkyo.vtuner.com` (and optionally `onkyo2.vtuner.com`)
   * Denon/Marantz AVRs: `denon.vtuner.com` (and optionally `denon2.vtuner.com`)
+  * Grundig radios: `grundig.vtuner.com`, `grundig.radiosetup.com` (and optionally `grundig2.vtuner.com` and `grundig2.radiosetup.com`)
 
 
 ### Running the server
