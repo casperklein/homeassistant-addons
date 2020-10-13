@@ -3,9 +3,9 @@ FROM	debian:10-slim as build
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-netbox"
 
-ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.9.6.tar.gz"
-ENV	NETBOX_SHA256="a5cf004e7b0410d176faa152112d861be79345ad4f8266ae105c65fbe0f5aa64"
-ENV	NETBOX_DIR="netbox-2.9.6"
+ENV	NETBOX="https://github.com/netbox-community/netbox/archive/v2.9.7.tar.gz"
+ENV	NETBOX_SHA256="845925c477199b338d86882c943ac8a115b3ee15d2a1ad2f66711e157ef4a1bb"
+ENV	NETBOX_DIR="netbox-2.9.7"
 
 ENV	PACKAGES="jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
 ENV	PACKAGES_CLEAN="libpq-dev python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev libjpeg-dev"
@@ -57,7 +57,7 @@ EXPOSE	80
 CMD	["/run.sh"]
 
 ARG	BUILD_ARCH
-ENV	VERSION="2.9.6"
+ENV	VERSION="2.9.7"
 LABEL	io.hass.name="Netbox"
 LABEL	io.hass.description="NetBox is an open source web application designed to help manage and document computer networks"
 LABEL	io.hass.arch="${BUILD_ARCH}"
