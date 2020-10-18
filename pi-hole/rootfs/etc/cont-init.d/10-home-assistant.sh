@@ -2,7 +2,7 @@
 
 set -ueo pipefail
 
-echo "*** Customize for Home Assistant.."
+date '+[%F %T] *** Customize for Home Assistant..'
 
 # Avoid error message, that 127.0.0.1 and an additional DNS server have to be set in resolv.conf
 #echo "***** Set container DNS servers"
@@ -13,16 +13,16 @@ echo "*** Customize for Home Assistant.."
 # Make Pi-hole configuration persistent
 # https://discourse.pi-hole.net/t/what-files-does-pi-hole-use/1684
 if [ -d /data/pihole ]; then
-	echo "***** Existing configuration detected.."
+	date '+[%F %T] ***** Existing configuration detected..'
 	rm -rf /etc/pihole /etc/dnsmasq.d /var/log
 else
-	echo "***** First run. Copy initial configuration.."
+	date '+[%F %T] ***** First run. Copy initial configuration..'
 	mv /etc/pihole 		/data/pihole
 	mv /etc/dnsmasq.d 	/data/dnsmasq.d
 	mv /var/log		/data/log
 fi
 
-echo "***** Create config symlinks.."
+date '+[%F %T] ***** Create config symlinks..'
 ln -s /data/pihole /etc/pihole
 ln -s /data/dnsmasq.d /etc/dnsmasq.d
 ln -s /data/log /var/log

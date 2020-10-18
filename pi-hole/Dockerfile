@@ -12,7 +12,7 @@ RUN	apt-get update && apt-get -y upgrade && rm -rf /var/lib/apt/lists/*
 COPY	rootfs /
 
 # Disable x-frame-options for Home Assistant Ingress
-RUN	sed -i '/"X-Frame-Options"/ s/DENY/ALLOW/g' /etc/.pihole/advanced/lighttpd.conf*
+RUN	sed -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/lighttpd.conf*
 
 # Unset Pi-hole password for Home Assistant Ingress
 #RUN	echo | pihole -a -p
@@ -29,7 +29,7 @@ FROM	scratch
 COPY	--from=build / /
 
 ARG	BUILD_ARCH
-ENV	VERSION="5.1.2.2"
+ENV	VERSION="5.1.2.3"
 LABEL	io.hass.name="Pi-hole"
 LABEL	io.hass.description="Network-wide Ad Blocking"
 LABEL	io.hass.arch="${BUILD_ARCH}"

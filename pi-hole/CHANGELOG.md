@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.2.3
+
+- fix invalid X-Frame-Options
+
 ## 5.1.2.2
 
 - maintenance release
