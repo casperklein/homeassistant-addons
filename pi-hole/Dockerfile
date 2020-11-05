@@ -14,6 +14,10 @@ COPY	rootfs /
 # Disable x-frame-options for Home Assistant Ingress
 RUN	sed -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/lighttpd.conf*
 
+# Try to fix caching problems
+RUN	sed -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf*
+RUN	sed -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
+
 # Unset Pi-hole password for Home Assistant Ingress
 #RUN	echo | pihole -a -p
 
