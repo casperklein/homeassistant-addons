@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- maintenance release
+
 ## 1.1.0
 
 - ycast 1.1.0

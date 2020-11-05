@@ -46,7 +46,7 @@ WORKDIR	/ycast
 CMD	["/run.sh"]
 
 ARG	BUILD_ARCH
-ENV	VERSION="1.1.0"
+ENV	VERSION="1.1.1"
 LABEL	io.hass.name="YCast"
 LABEL	io.hass.description="Self hosted vTuner internet radio service emulation"
 LABEL	io.hass.arch="${BUILD_ARCH}"

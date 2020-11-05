@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.2.4
+
+- try to fix caching problem
+
 ## 5.1.2.3
 
 - fix invalid X-Frame-Options

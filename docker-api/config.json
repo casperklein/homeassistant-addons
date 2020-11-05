@@ -1,6 +1,6 @@
 {
   "name": "Docker API",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "slug": "docker-api",
   "description": "Expose Home Assistant OS Docker API via network",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/docker-api",
