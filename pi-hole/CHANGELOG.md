@@ -2,7 +2,7 @@
 
 ## 5.1.2.4
 
-- try to fix caching problem
+- fix caching problem
 
 ## 5.1.2.3
 
