@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.0
+
+- Pi-hole 5.2
+
 ## 5.1.2.4
 
 - fix caching problem
