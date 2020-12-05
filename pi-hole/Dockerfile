@@ -1,4 +1,4 @@
-FROM	pihole/pihole:v5.2 as build
+FROM	pihole/pihole:v5.2.1 as build
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-pihole"
@@ -30,10 +30,9 @@ RUN	sed -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
 #ENV	DNS2="8.8.8.8"
 
 FROM	scratch
-COPY	--from=build / /
 
 ARG	BUILD_ARCH
-ENV	VERSION="5.2.0"
+ENV	VERSION="5.2.1"
 LABEL	io.hass.name="Pi-hole"
 LABEL	io.hass.description="Network-wide Ad Blocking"
 LABEL	io.hass.arch="${BUILD_ARCH}"
@@ -64,3 +63,5 @@ EXPOSE	53 53/udp
 EXPOSE	67/udp
 EXPOSE	80
 HEALTHCHECK CMD dig +norecurse +retry=0 @127.0.0.1 pi.hole || exit 1
+
+COPY	--from=build / /

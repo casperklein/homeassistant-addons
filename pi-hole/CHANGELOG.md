@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.1
+
+- Pi-hole 5.2.1
+
 ## 5.2.0
 
 - Pi-hole 5.2
