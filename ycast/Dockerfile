@@ -37,7 +37,6 @@ RUN	find /usr/ -name '*.pyc' -delete
 #RUN	apt-get -y install dumb-init \
 #&&	rm -rf /var/lib/apt/lists/*
 FROM	scratch
-COPY	--from=build / /
 #ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 EXPOSE	80
@@ -46,7 +45,7 @@ WORKDIR	/ycast
 CMD	["/run.sh"]
 
 ARG	BUILD_ARCH
-ENV	VERSION="1.1.1"
+ENV	VERSION="1.1.2"
 LABEL	io.hass.name="YCast"
 LABEL	io.hass.description="Self hosted vTuner internet radio service emulation"
 LABEL	io.hass.arch="${BUILD_ARCH}"
@@ -55,3 +54,5 @@ LABEL	io.hass.version="${VERSION}"
 LABEL	image="casperklein/homeassistant-ycast:${VERSION}"
 LABEL	maintainer="Casper Klein"
 LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/ycast"
+
+COPY	--from=build / /
