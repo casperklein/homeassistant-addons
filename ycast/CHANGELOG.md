@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.3
+
+- maintenance release
+
 ## 1.1.2
 
 - Fix API endpoint for get_station_by_id
