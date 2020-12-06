@@ -16,10 +16,9 @@ ENV	PACKAGES_CLEAN="python3-dev zlib-dev build-base"
 
 #SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
-COPY	rootfs /
+WORKDIR	/ycast
 ADD	$GIT_ARCHIVE /
-RUN	tar xzvf $GIT_COMMIT.tar.gz
-RUN	mv /$GIT_REPO-$GIT_COMMIT/* /ycast
+RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
 
 # Install packages
 #RUN	apt-get update \
@@ -31,6 +30,7 @@ RUN	apk update --no-cache \
 RUN	pip3 install --no-cache requests flask PyYAML Pillow
 
 # Copy root filesystem
+COPY	rootfs /
 
 # Cleanup
 RUN	pip3 uninstall --no-cache-dir -y setuptools pip
@@ -42,16 +42,12 @@ RUN	apk del --no-cache $PACKAGES_CLEAN
 #RUN	find /usr/local/lib -name \*.pyc -delete
 RUN	find /usr/ -name '*.pyc' -delete
 
-# Build final image
 #RUN	apt-get -y install dumb-init \
 #&&	rm -rf /var/lib/apt/lists/*
+
+# Build final image
 FROM	scratch
 #ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-
-EXPOSE	80
-
-WORKDIR	/ycast
-CMD	["/run.sh"]
 
 ARG	BUILD_ARCH
 ENV	VERSION="1.1.3"
@@ -63,5 +59,10 @@ LABEL	io.hass.version="${VERSION}"
 LABEL	image="casperklein/homeassistant-ycast:${VERSION}"
 LABEL	maintainer="Casper Klein"
 LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/ycast"
+
+WORKDIR	/ycast
+CMD	["/run.sh"]
+
+EXPOSE	80
 
 COPY	--from=build / /
