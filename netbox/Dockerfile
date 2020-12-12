@@ -29,7 +29,8 @@ COPY	rootfs /
 #RUN	HASH=$(sha256sum ${NETBOX##*/}) && [ "${HASH:0:64}" == "$NETBOX_SHA256" ] && echo "${NETBOX##*/}: valid " || { echo -e "Stored Hash: $NETBOX_SHA256\nFile Hash:   $HASH"; exit 1; }
 
 # Install dependencies
-RUN	pip3 install --no-cache-dir -r requirements.txt
+RUN	pip3 install --upgrade pip \
+;	pip3 install --no-cache-dir -r requirements.txt
 
 # Setup netbox
 WORKDIR	/opt/netbox/netbox
