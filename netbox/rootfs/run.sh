@@ -37,5 +37,8 @@ if [ -n "$USER" ] && [ -n "$PASS" ]; then
 	python3 /opt/netbox/netbox/manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '$MAIL','$PASS')" 2> /dev/null
 fi
 
+# run database migrations
+python3 /opt/netbox/netbox/manage.py migrate
+
 # start netbox
 exec python3 /opt/netbox/netbox/manage.py runserver 0.0.0.0:80 --insecure

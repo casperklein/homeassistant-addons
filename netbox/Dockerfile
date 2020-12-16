@@ -55,7 +55,7 @@ RUN	apt-get -y install dumb-init \
 FROM	scratch
 
 ARG	BUILD_ARCH
-ENV	VERSION="2.10.0"
+ENV	VERSION="2.10.1"
 
 LABEL	io.hass.name="Netbox"
 LABEL	io.hass.description="NetBox is an open source web application designed to help manage and document computer networks"
