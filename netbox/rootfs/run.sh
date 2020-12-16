@@ -21,6 +21,9 @@ PASS=$(jq --raw-output '.password' /data/options.json)
 
 MAIL=netbox@localhost
 
+# fix permissions after snapshot restore
+chown -R postgres: /data/postgresql
+
 /etc/init.d/redis-server start || {
 	echo "Error: Failed to start redis-server"
 	exit 1
