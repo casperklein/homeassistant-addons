@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.10.2
+
+- fix permissions after snapshot restore
+
 ## 2.10.1
 
 - maintenance release
