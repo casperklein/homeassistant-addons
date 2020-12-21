@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.10.3
+
+- [netbox version 2.10.1](https://github.com/netbox-community/netbox/releases/tag/v2.10.1)
+
 ## 2.10.2
 
 - fix permissions after snapshot restore
