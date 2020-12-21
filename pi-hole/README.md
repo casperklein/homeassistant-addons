@@ -9,8 +9,6 @@
 
 [Network-wide Ad Blocking - A black hole for Internet advertisements](https://pi-hole.net/)
 
-Work in progress..
-
 ## Installation:
 
 1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance.
@@ -19,7 +17,7 @@ Work in progress..
 
 ## Bugs
 
-- Upstream DNS server cannot be changed permanently: https://github.com/pi-hole/docker-pi-hole/issues/505
+- Upstream DNS server cannot be changed permanently: https://github.com/pi-hole/docker-pi-hole/issues/720
 
 ## Not implemented
 
