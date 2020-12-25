@@ -15,10 +15,6 @@
 1. Install the Pi-hole add-on.
 1. Start the add-on.
 
-## Bugs
-
-- Upstream DNS server cannot be changed permanently: https://github.com/pi-hole/docker-pi-hole/issues/720
-
 ## Not implemented
 
 - DHCP server (https://github.com/pi-hole/docker-pi-hole/issues/495)
