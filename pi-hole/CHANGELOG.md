@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.2
+
+- [Pi-hole 5.2.2](https://github.com/pi-hole/docker-pi-hole/releases/tag/v5.2.2)
+
 ## 5.2.1
 
 - Pi-hole 5.2.1
