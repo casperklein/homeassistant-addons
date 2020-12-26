@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.4
+
+- [Pi-hole 5.2.2](https://github.com/pi-hole/pi-hole/releases/tag/v5.2.2)
+- [AdminLTE 5.2.2](https://github.com/pi-hole/AdminLTE/releases/tag/v5.2.2)
+- [FTL 5.3.4](https://github.com/pi-hole/FTL/releases/tag/v5.3.4)
+
 ## 5.2.2
 
 - [Pi-hole 5.2.2](https://github.com/pi-hole/pi-hole/releases/tag/v5.2.2)
