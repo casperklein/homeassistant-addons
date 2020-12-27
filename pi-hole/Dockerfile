@@ -14,9 +14,20 @@ COPY	rootfs /
 # Disable x-frame-options for Home Assistant Ingress
 RUN	sed -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/lighttpd.conf*
 
-# Try to fix caching problems
-RUN	sed -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf*
-RUN	sed -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
+# Fix Ingress caching problem
+RUN	sed -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf* \
+;	sed -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
+
+# Fix chmod/chown errors on startup
+# Not yet merged PR 676
+# https://github.com/pi-hole/docker-pi-hole/pull/676
+RUN	apt-get update \
+;	apt-get -y install patch \
+;	wget https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/676.diff \
+;	patch -i 676.diff bash_functions.sh \
+;	apt-get -y purge patch \
+;	rm 676.diff \
+;	rm -rf /var/lib/apt/lists/*
 
 # Unset Pi-hole password for Home Assistant Ingress
 #RUN	echo | pihole -a -p
@@ -32,7 +43,7 @@ RUN	sed -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
 FROM	scratch
 
 ARG	BUILD_ARCH
-ENV	VERSION="5.3.4"
+ENV	VERSION="5.3.4.1"
 LABEL	io.hass.name="Pi-hole"
 LABEL	io.hass.description="Network-wide Ad Blocking"
 LABEL	io.hass.arch="${BUILD_ARCH}"

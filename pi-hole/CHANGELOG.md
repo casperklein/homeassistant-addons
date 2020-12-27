@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.4.1
+
+- [Fix chmod/chown error on addon start](https://github.com/pi-hole/docker-pi-hole/pull/676)
+
 ## 5.3.4
 
 - [Pi-hole 5.2.2](https://github.com/pi-hole/pi-hole/releases/tag/v5.2.2)
