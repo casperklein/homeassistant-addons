@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.4.2
+
+- [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy) added. DNSCrypt and DNS over HTTPS (DoH) can now be used with Pi-hole. See README for more information.
+
 ## 5.3.4.1
 
 - [Fix chmod/chown error on addon start](https://github.com/pi-hole/docker-pi-hole/pull/676)

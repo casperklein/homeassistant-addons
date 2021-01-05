@@ -1,6 +1,6 @@
 {
   "name": "Pi-hole",
-  "version": "5.3.4.1",
+  "version": "5.3.4.2",
   "slug": "pihole",
   "description": "Network-wide Ad Blocking",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/pi-hole",
@@ -24,7 +24,16 @@
   },
   "boot": "auto",
   "timeout": 60,
-  "options": {},
-  "schema": {},
+  "options": {
+	  "dnscrypt": []
+  },
+  "schema": {
+	  "dnscrypt": [
+		  {
+			  "name": "str",
+			  "stamp": "str"
+		  }
+	  ]
+  },
   "init": false
 }

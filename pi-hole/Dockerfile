@@ -1,15 +1,16 @@
-FROM	pihole/pihole:v5.3.4 as build
+# Customzie upstream image #########################################################################
+FROM	pihole/pihole:v5.3.4 as pihole
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-pihole"
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
-# Update base image packages
-RUN	apt-get update && apt-get -y upgrade && rm -rf /var/lib/apt/lists/*
-
-# Copy root filesystem
-COPY	rootfs /
+# Update base image packages, install jq and cleanup
+RUN	apt-get update && apt-get -y upgrade \
+&&	apt-get -y install	jq \
+				patch \
+&&	rm -rf /var/lib/apt/lists/*
 
 # Disable x-frame-options for Home Assistant Ingress
 RUN	sed -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/lighttpd.conf*
@@ -18,32 +19,40 @@ RUN	sed -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/light
 RUN	sed -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf* \
 ;	sed -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
 
+# Copy root filesystem
+COPY	rootfs /
+
 # Fix chmod/chown errors on startup
-# Not yet merged PR 676
+# PR 676: Not yet merged in upstream
 # https://github.com/pi-hole/docker-pi-hole/pull/676
-RUN	apt-get update \
-;	apt-get -y install patch \
-;	wget https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/676.diff \
+RUN	wget https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/676.diff \
 ;	patch -i 676.diff bash_functions.sh \
 ;	apt-get -y purge patch \
-;	rm 676.diff \
-;	rm -rf /var/lib/apt/lists/*
+;	rm 676.diff
 
-# Unset Pi-hole password for Home Assistant Ingress
-#RUN	echo | pihole -a -p
+# Build dnscrypt-proxy from source #################################################################
+FROM	ubuntu:20.04 as dnscrypt
 
-# For network host mode, ServerIP have to be set --> https://github.com/pi-hole/docker-pi-hole/issues/495
-#RUN	echo 'ServerIP=$(ip route get 1.1.1.1 | cut -d" " -f7)' >> /bash_functions.sh
+ENV	GIT_USER="dnscrypt"
+ENV	GIT_REPO="dnscrypt-proxy"
+ENV	GIT_COMMIT="2.0.45"
+ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
+ENV	DEBIAN_FRONTEND=noninteractive
 
-# https://github.com/pi-hole/docker-pi-hole/issues/505
-# Custom Pi-hole upstream DNS server
-#ENV	DNS1="1.1.1.1"
-#ENV	DNS2="8.8.8.8"
+RUN	apt-get update && apt-get -y upgrade && apt-get -y --no-install-recommends install golang
 
+WORKDIR	/$GIT_REPO
+ADD	$GIT_ARCHIVE /
+RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
+WORKDIR	dnscrypt-proxy
+RUN	go build -ldflags="-s -w" -mod vendor
+####################################################################################################
+
+# Build final image ################################################################################
 FROM	scratch
 
 ARG	BUILD_ARCH
-ENV	VERSION="5.3.4.1"
+ENV	VERSION="5.3.4.2"
 LABEL	io.hass.name="Pi-hole"
 LABEL	io.hass.description="Network-wide Ad Blocking"
 LABEL	io.hass.arch="${BUILD_ARCH}"
@@ -68,11 +77,12 @@ ENV	S6_KEEP_ENV 1
 ENV	S6_LOGGING 0
 ENV	S6OVERLAY_RELEASE https://github.com/just-containers/s6-overlay/releases/download/v1.22.1.0/s6-overlay-amd64.tar.gz
 ENV	ServerIP 0.0.0.0
-ENV	VERSION v5.1.2
+ENV	VERSION v5.3.4
 EXPOSE	443
 EXPOSE	53 53/udp
 EXPOSE	67/udp
 EXPOSE	80
 HEALTHCHECK CMD dig +norecurse +retry=0 @127.0.0.1 pi.hole || exit 1
 
-COPY	--from=build / /
+COPY	--from=dnscrypt /dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy /
+COPY	--from=pihole / /

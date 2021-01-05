@@ -15,6 +15,25 @@
 1. Install the Pi-hole add-on.
 1. Start the add-on.
 
+## How to use DNSCrypt or DNS over HTTPS (DoH) with Pi-hole:
+
+This is achieved by using [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy). You have to configure one or more DNS server for use with dnscrypt-proxy. To use Cloudflare DNS for example, put this in the add-on configuration:
+
+    dnscrypt:
+      - name: "Cloudflare 1.1.1.1"
+        stamp: "sdns://AgcAAAAAAAAABzEuMS4xLjEAEmNsb3VkZmxhcmUtZG5zLmNvbQovZG5zLXF1ZXJ5"
+      - name: "Cloudflare 1.0.0.1"
+        stamp: "sdns://AgcAAAAAAAAABzEuMC4wLjEAEmNsb3VkZmxhcmUtZG5zLmNvbQovZG5zLXF1ZXJ5"
+
+DNS stamps contain all the parameters required to connect to a secure DNS server as a single string. To create own stamps, you can use: https://dnscrypt.info/stamps/. Or you can just use any of these [public servers](https://dnscrypt.info/public-servers).
+
+In Pi-hole the following **must** be configured:
+
+- Custom DNS server: `127.0.0.1#5353`
+- Disable all other configured DNS servers
+
+To test your setup, visit https://1.1.1.1/help. If you see "Using DNS over HTTPS (DoH): yes", all should be fine :)
+
 ## Not implemented
 
 - DHCP server (https://github.com/pi-hole/docker-pi-hole/issues/495)

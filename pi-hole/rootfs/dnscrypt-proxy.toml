@@ -1,0 +1,2 @@
+listen_addresses = ['0.0.0.0:5353']
+cache = false
