@@ -45,11 +45,11 @@ if ! grep -qF '"dnscrypt": []' "$OPTIONS"; then
 	# Check if custom DNS server is properly configured
 	if ! grep -qP 'PIHOLE_DNS_[0-9]+=127\.0\.0\.1#5353' "$PH_CONFIG"; then
 		echo "WARNING: Custom DNS server 127.0.0.1#5353 is NOT configured. DNSCrypt/DoH name resolution will NOT work until this is fixed."
-	fi
-
-	# Check for other configured DNS servers
-	if grep -qF 'PIHOLE_DNS_2' "$PH_CONFIG"; then
-		echo "WARNING: There are more DNS servers configured than 127.0.0.1#5353. Not all DNS querys will be handled by dnscrypt-proxy."
+	else
+		# Check for other configured DNS servers
+		if grep -qF 'PIHOLE_DNS_2' "$PH_CONFIG"; then
+			echo "WARNING: There are more DNS servers configured than 127.0.0.1#5353. Not all DNS querys will be handled by dnscrypt-proxy."
+		fi
 	fi
 
 	# Start dnscrypt-proxy
