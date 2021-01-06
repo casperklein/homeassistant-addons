@@ -5,7 +5,7 @@ ENV	NAME="homeassistant-netbox"
 
 ENV	GIT_USER="netbox-community"
 ENV	GIT_REPO="netbox"
-ENV	GIT_COMMIT="2c1a60b965d7778791f4ccce8d6f06a189ed34d1"
+ENV	GIT_COMMIT="5a32b9599af186a19e70f2d28a4ce4b05f8014a9"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
 ENV	PACKAGES="jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
@@ -55,7 +55,7 @@ RUN	apt-get -y install dumb-init \
 FROM	scratch
 
 ARG	BUILD_ARCH
-ENV	VERSION="2.10.3"
+ENV	VERSION="2.10.3.1"
 
 LABEL	io.hass.name="Netbox"
 LABEL	io.hass.description="NetBox is an open source web application designed to help manage and document computer networks"
