@@ -36,7 +36,7 @@ To test your setup, visit https://1.1.1.1/help. If you see "Using DNS over HTTPS
 
 ## Not implemented
 
-- DHCP server (https://github.com/pi-hole/docker-pi-hole/issues/495)
+- Pi-hole DHCP server functionality
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg
