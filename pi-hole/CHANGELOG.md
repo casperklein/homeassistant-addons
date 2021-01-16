@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.4.0
+
+- [Pi-hole 5.2.3](https://github.com/pi-hole/pi-hole/releases/tag/v5.2.3)
+- [AdminLTE 5.3](https://github.com/pi-hole/AdminLTE/releases/tag/v5.3)
+- [FTL 5.4](https://github.com/pi-hole/FTL/releases/tag/v5.4)
+
 ## 5.3.4.2
 
 - [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy) added. DNSCrypt and DNS over HTTPS (DoH) can now be used with Pi-hole. See README for more information.
