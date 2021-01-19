@@ -1,5 +1,5 @@
 # Customzie upstream image #########################################################################
-FROM	pihole/pihole:v5.4 as pihole
+FROM	pihole/pihole:v5.5.1 as pihole
 
 ENV	USER="casperklein"
 ENV	NAME="homeassistant-pihole"
@@ -52,7 +52,7 @@ RUN	go build -ldflags="-s -w" -mod vendor
 FROM	scratch
 
 ARG	BUILD_ARCH
-ENV	VERSION="5.4.0"
+ENV	VERSION="5.5.1"
 LABEL	io.hass.name="Pi-hole"
 LABEL	io.hass.description="Network-wide Ad Blocking"
 LABEL	io.hass.arch="${BUILD_ARCH}"
@@ -76,7 +76,7 @@ ENV	S6_BEHAVIOUR_IF_STAGE2_FAILS 2
 ENV	S6_KEEP_ENV 1
 ENV	S6_LOGGING 0
 ENV	ServerIP 0.0.0.0
-ENV	VERSION v5.2.3
+ENV	VERSION v5.2.4
 #EXPOSE	443
 EXPOSE	53 53/udp
 #EXPOSE	67/udp

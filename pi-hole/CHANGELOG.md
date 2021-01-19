@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.1 - Security Update for FTL
+
+- [Pi-hole 5.2.4](https://github.com/pi-hole/pi-hole/releases/tag/v5.2.4)
+- [AdminLTE 5.3.1](https://github.com/pi-hole/AdminLTE/releases/tag/v5.3.1)
+- [FTL 5.5.1](https://github.com/pi-hole/FTL/releases/tag/v5.5.1)
+
 ## 5.4.0
 
 - [Pi-hole 5.2.3](https://github.com/pi-hole/pi-hole/releases/tag/v5.2.3)
