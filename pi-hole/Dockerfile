@@ -52,7 +52,7 @@ RUN	go build -ldflags="-s -w" -mod vendor
 FROM	scratch
 
 ARG	BUILD_ARCH
-ENV	VERSION="5.5.1"
+ARG	VERSION
 LABEL	io.hass.name="Pi-hole"
 LABEL	io.hass.description="Network-wide Ad Blocking"
 LABEL	io.hass.arch="${BUILD_ARCH}"
