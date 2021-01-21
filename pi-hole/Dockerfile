@@ -1,9 +1,6 @@
 # Customzie upstream image #########################################################################
 FROM	pihole/pihole:v5.5.1 as pihole
 
-ENV	USER="casperklein"
-ENV	NAME="homeassistant-pihole"
-
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
 # Update base image packages, install jq and cleanup
@@ -46,7 +43,15 @@ ADD	$GIT_ARCHIVE /
 RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
 WORKDIR	dnscrypt-proxy
 RUN	go build -ldflags="-s -w" -mod vendor
-####################################################################################################
+
+# Check if build args are not empty #################################################################
+FROM	bash:latest
+
+ARG	BUILD_ARCH
+ARG	VERSION
+
+RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
+RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
 
 # Build final image ################################################################################
 FROM	scratch
