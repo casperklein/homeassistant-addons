@@ -1,8 +1,5 @@
 #FROM	debian:10-slim as build
-FROM	alpine:3.12 as build
-
-ENV	USER="casperklein"
-ENV	NAME="homeassistant-ycast"
+FROM	alpine:3.13 as build
 
 ENV	GIT_USER="milaq"
 ENV	GIT_REPO="YCast"
@@ -45,12 +42,21 @@ RUN	find /usr/ -name '*.pyc' -delete
 #RUN	apt-get -y install dumb-init \
 #&&	rm -rf /var/lib/apt/lists/*
 
-# Build final image
+# Check if build args are not empty ################################################################
+FROM	bash:latest
+
+ARG	BUILD_ARCH
+ARG	VERSION
+
+RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
+RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
+
+# Build final image ################################################################################
 FROM	scratch
 #ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 ARG	BUILD_ARCH
-ENV	VERSION="1.1.3"
+ARG	VERSION
 LABEL	io.hass.name="YCast"
 LABEL	io.hass.description="Self hosted vTuner internet radio service emulation"
 LABEL	io.hass.arch="${BUILD_ARCH}"
