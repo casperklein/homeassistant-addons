@@ -51,11 +51,20 @@ RUN	apt-get -y purge $PACKAGES_CLEAN \
 RUN	apt-get -y install dumb-init \
 &&	rm -rf /var/lib/apt/lists/*
 
-# Build final image
+# Check if build args are not empty ################################################################
+FROM	bash:latest
+
+ARG	BUILD_ARCH
+ARG	VERSION
+
+RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
+RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
+
+# Build final image ################################################################################
 FROM	scratch
 
 ARG	BUILD_ARCH
-ENV	VERSION="2.10.3.1"
+ARG	VERSION
 
 LABEL	io.hass.name="Netbox"
 LABEL	io.hass.description="NetBox is an open source web application designed to help manage and document computer networks"
