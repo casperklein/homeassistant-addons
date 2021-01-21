@@ -44,7 +44,7 @@ RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
 WORKDIR	dnscrypt-proxy
 RUN	go build -ldflags="-s -w" -mod vendor
 
-# Check if build args are not empty #################################################################
+# Check if build args are not empty ################################################################
 FROM	bash:latest
 
 ARG	BUILD_ARCH
