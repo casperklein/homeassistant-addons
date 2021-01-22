@@ -58,6 +58,7 @@ FROM	scratch
 
 ARG	BUILD_ARCH
 ARG	VERSION
+
 LABEL	io.hass.name="Pi-hole"
 LABEL	io.hass.description="Network-wide Ad Blocking"
 LABEL	io.hass.arch="${BUILD_ARCH}"

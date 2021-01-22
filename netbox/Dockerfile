@@ -1,8 +1,5 @@
 FROM	debian:10-slim as build
 
-ENV	USER="casperklein"
-ENV	NAME="homeassistant-netbox"
-
 ENV	GIT_USER="netbox-community"
 ENV	GIT_REPO="netbox"
 ENV	GIT_COMMIT="5a32b9599af186a19e70f2d28a4ce4b05f8014a9"

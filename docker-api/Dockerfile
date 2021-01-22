@@ -1,8 +1,5 @@
 FROM	alpine:3 as build
 
-ENV	USER="casperklein"
-ENV	NAME="homeassistant-docker-api"
-
 ENV	PACKAGES="bash socat"
 
 # Install packages
