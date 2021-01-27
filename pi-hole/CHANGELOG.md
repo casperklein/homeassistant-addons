@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.6
+
+- [FTL 5.6](https://github.com/pi-hole/FTL/releases/tag/v5.6) [Blog](https://pi-hole.net/2021/01/27/pi-hole-ftl-v5-6-released/#page-content)
+- [#771](https://github.com/pi-hole/docker-pi-hole/pull/771) Skip full distro check on start
+
 ## 5.5.1 - Security Update for FTL
 
 - [Pi-hole 5.2.4](https://github.com/pi-hole/pi-hole/releases/tag/v5.2.4)

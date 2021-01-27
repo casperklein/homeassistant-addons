@@ -1,5 +1,5 @@
 # Customzie upstream image #########################################################################
-FROM	pihole/pihole:v5.5.1 as pihole
+FROM	pihole/pihole:v5.6 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
