@@ -24,7 +24,7 @@ RUN	apk update --no-cache \
 &&	apk add    --no-cache $PACKAGES
 
 # Install python packages
-RUN	pip3 install --no-cache requests flask PyYAML Pillow
+RUN	pip3 install --no-cache-dir requests flask PyYAML Pillow
 
 # Copy root filesystem
 COPY	rootfs /
