@@ -18,11 +18,11 @@ Expose Home Assistant OS Docker API via network
 
 ## Usage:
 
-    docker -H tcp://HOME-ASSISTANT:2375 <command>
+    docker -H tcp://homeassistant.local:2375 <command>
 
 ## Example:
 
-    docker -H tcp://192.168.0.1:2375 version
+    docker -H tcp://homeassistant.local:2375 version
 
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg
