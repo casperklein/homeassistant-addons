@@ -6,7 +6,7 @@ if [ ! -S /var/run/docker.sock ]; then
 	echo "To be able to use this add-on, you'll need to disable protection mode on this add-on."
 	echo "Without it, the add-on is unable to access Docker."
 	exit 1
-fi
+fi >&2
 
 while :; do
 	socat -d -d TCP-LISTEN:2375,fork UNIX-CONNECT:/var/run/docker.sock
