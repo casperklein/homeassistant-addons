@@ -18,10 +18,12 @@
         "password": "str"
   },
   "ports": {
-        "80/tcp": 5580
+        "80/tcp": 5580,
+	"5432/tcp": null
   },
   "ports_description": {
-	  "80/tcp": "Netbox WebGUI"
+	  "80/tcp": "Netbox WebGUI",
+	  "5432/tcp": "PostgreSQL"
   },
   "init": false,
   "stage": "experimental"

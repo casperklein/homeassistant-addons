@@ -38,7 +38,11 @@ RUN	/etc/init.d/redis-server start \
 &&	python3 manage.py migrate \
 &&	python3 manage.py collectstatic --no-input \
 &&	/etc/init.d/redis-server stop \
-&&	pg_ctlcluster 11 main stop
+&&	pg_ctlcluster 11 main stop \
+# Let PostgreSQL listen on all interfaces
+&&	sed -i "s/#listen_addresses =.*/listen_addresses = '*'/" /etc/postgresql/11/main/postgresql.conf \
+&&	echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/11/main/pg_hba.conf
+
 
 # Cleanup
 RUN	apt-get -y purge $PACKAGES_CLEAN \
