@@ -5,7 +5,7 @@ ENV	GIT_REPO="netbox"
 ENV	GIT_COMMIT="856d2e317605011e16a17bd87062721737ce3474"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
-ENV	PACKAGES="jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
+ENV	PACKAGES="stunnel4 jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
 ENV	PACKAGES_CLEAN="libpq-dev python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev libjpeg-dev"
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
@@ -15,7 +15,7 @@ RUN	apt-get update \
 &&	apt-get -y install $PACKAGES
 
 # Download source
-WORKDIR /opt/netbox
+WORKDIR	/opt/netbox
 ADD	$GIT_ARCHIVE /
 RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
 
@@ -26,7 +26,7 @@ COPY	rootfs /
 #RUN	HASH=$(sha256sum ${NETBOX##*/}) && [ "${HASH:0:64}" == "$NETBOX_SHA256" ] && echo "${NETBOX##*/}: valid " || { echo -e "Stored Hash: $NETBOX_SHA256\nFile Hash:   $HASH"; exit 1; }
 
 # Install dependencies
-RUN	pip3 install --upgrade pip \
+RUN	pip3 install --no-cache-dir --upgrade pip \
 ;	pip3 install --no-cache-dir -r requirements.txt
 
 # Setup netbox
@@ -39,14 +39,15 @@ RUN	/etc/init.d/redis-server start \
 &&	python3 manage.py collectstatic --no-input \
 &&	/etc/init.d/redis-server stop \
 &&	pg_ctlcluster 11 main stop \
+# Disable x-frame-options for usage with https://www.home-assistant.io/integrations/panel_iframe/
+&&	sed -i "s;X_FRAME_OPTIONS = 'SAMEORIGIN';X_FRAME_OPTIONS = 'ALLOWALL';" /opt/netbox/netbox/netbox/settings.py \
 # Let PostgreSQL listen on all interfaces
 &&	sed -i "s/#listen_addresses =.*/listen_addresses = '*'/" /etc/postgresql/11/main/postgresql.conf \
 &&	echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/11/main/pg_hba.conf
 
-
 # Cleanup
 RUN	apt-get -y purge $PACKAGES_CLEAN \
-&&	apt -y autoremove
+&&	apt-get -y autoremove
 
 # Install dumb-init
 RUN	apt-get -y install dumb-init \

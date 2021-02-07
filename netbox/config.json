@@ -8,22 +8,29 @@
   "arch": ["amd64","aarch64"],
   "startup": "application",
   "boot": "auto",
-  "webui": "http://[HOST]:[PORT:80]/",
+  "webui": "[PROTO:https]://[HOST]:[PORT:80]/",
+  "map": ["ssl"],
   "options": {
-        "user": "",
-        "password": ""
+    "user": "",
+    "password": "",
+    "https": false,
+    "certfile": "fullchain.pem",
+    "keyfile": "privatekey.pem"
   },
   "schema": {
-        "user": "str",
-        "password": "str"
+    "user": "str",
+    "password": "str",
+    "https": "bool",
+    "certfile": "str",
+    "keyfile": "str"
   },
   "ports": {
-        "80/tcp": 5580,
-	"5432/tcp": null
+    "80/tcp": 5580,
+    "5432/tcp": null
   },
   "ports_description": {
-	  "80/tcp": "Netbox WebGUI",
-	  "5432/tcp": "PostgreSQL"
+    "80/tcp": "Netbox WebGUI",
+    "5432/tcp": "PostgreSQL"
   },
   "init": false,
   "stage": "experimental"

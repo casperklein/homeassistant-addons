@@ -7,7 +7,7 @@
 ![Supports armv7 architecture][armv7-shield]
 ![Docker image size][image-size-shield]
 
-[Netbox](https://github.com/netbox-community/netbox) is an open source web application designed to help manage and document computer networks. 
+[Netbox](https://github.com/netbox-community/netbox) is an open source web application designed to help manage and document computer networks.
 
 ## Installation:
 
@@ -25,12 +25,35 @@
 
 Example add-on configuration:
 
-    {
-      "user": "admin",
-      "password": "insecure"
-    }
+    "user": "admin"
+    "password": "insecure"
+    "https": true
+    "certfile": "fullchain.pem"
+    "keyfile": "privatekey.pem"
 
 **Note**: _This is just an example, don't copy and paste it! Create your own!_
+
+### Option: `user` / `password`
+
+If set, a new netbox superuser is created on add-on start.
+
+**Note**: Use this options only once. Don't forget to remove the credentials afterwards.
+
+### Option: `https`
+
+Enables/Disables HTTPS on the web interface. Set it `true` to enable it, `false` otherwise.
+
+### Option: `certfile`
+
+A file containing a certificate, including its chain. If this file doesn't exist, the add-on start will fail.
+
+**Note**: The file MUST be stored in the Home Assistant `/ssl` directory, which is the default for Home Assistant.
+
+### Option: `keyfile`
+
+A file containing the private key. If this file doesn't exist, the add-on start will fail.
+
+**Note**: The file MUST be stored in the Home Assistant `/ssl` directory, which is the default for Home Assistant.
 
 ## Screenshots:
 
