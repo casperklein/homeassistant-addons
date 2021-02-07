@@ -3,7 +3,7 @@
 ## 2.10.4.1
 
 - PostgreSQL can now be exposed to the network
-- Netbox can now be used with HTTPS
+- HTTPS options added
 
 ## 2.10.4
 
