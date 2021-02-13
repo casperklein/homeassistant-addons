@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+
+- maintenance release
+
 ## 0.1.2
 
 - maintenance release

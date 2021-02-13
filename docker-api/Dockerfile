@@ -3,9 +3,8 @@ FROM	alpine:3 as build
 ENV	PACKAGES="bash socat"
 
 # Install packages
-RUN	apk update \
-&&	apk upgrade \
-&&	apk add $PACKAGES
+RUN	apk upgrade --no-cache \
+&&	apk add --no-cache $PACKAGES
 
 # Copy root filesystem
 COPY	rootfs /
