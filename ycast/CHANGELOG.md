@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.4
+
+- maintenance release
+
 ## 1.1.3
 
 - maintenance release
