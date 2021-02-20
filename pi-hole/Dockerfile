@@ -1,12 +1,11 @@
 # Customzie upstream image #########################################################################
-FROM	pihole/pihole:v5.6 as pihole
+FROM	pihole/pihole:v5.7 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
 # Update base image packages, install jq and cleanup
 RUN	apt-get update && apt-get -y upgrade \
-&&	apt-get -y install	jq \
-				patch \
+&&	apt-get -y install jq \
 &&	rm -rf /var/lib/apt/lists/*
 
 # Disable x-frame-options for Home Assistant Ingress
@@ -14,7 +13,7 @@ RUN	sed -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/light
 
 # Fix Ingress caching problem
 RUN	sed -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf* \
-;	sed -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
+&&	sed -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
 
 # Copy root filesystem
 COPY	rootfs /
@@ -22,10 +21,10 @@ COPY	rootfs /
 # Fix chmod/chown errors on startup
 # PR 676: Not yet merged in upstream
 # https://github.com/pi-hole/docker-pi-hole/pull/676
-RUN	wget https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/676.diff \
-;	patch -i 676.diff bash_functions.sh \
-;	apt-get -y purge patch \
-;	rm 676.diff
+#RUN	wget https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/676.diff \
+#&&	patch -i 676.diff bash_functions.sh \
+#&&	apt-get -y purge patch \
+#&&	rm 676.diff
 
 # Build dnscrypt-proxy from source #################################################################
 FROM	ubuntu:20.04 as dnscrypt

@@ -1,6 +1,6 @@
 {
   "name": "Pi-hole",
-  "version": "5.6",
+  "version": "5.7",
   "slug": "pihole",
   "description": "Network-wide Ad Blocking",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/pi-hole",

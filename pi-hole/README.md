@@ -25,14 +25,14 @@ This is achieved by using [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-
       - name: "Cloudflare 1.0.0.1"
         stamp: "sdns://AgcAAAAAAAAABzEuMC4wLjEAEmNsb3VkZmxhcmUtZG5zLmNvbQovZG5zLXF1ZXJ5"
 
-DNS stamps contain all the parameters required to connect to a secure DNS server as a single string. To create own stamps, you can use: https://dnscrypt.info/stamps/. Or you can just use any of these [public servers](https://dnscrypt.info/public-servers).
+DNS stamps contain all the parameters required to connect to a secure DNS server as a single string. To create own stamps, you can use: [https://dnscrypt.info/stamps/](https://dnscrypt.info/stamps/). Or you can just use any of these [public servers](https://dnscrypt.info/public-servers).
 
 In Pi-hole the following **must** be configured:
 
 - Custom DNS server: `127.0.0.1#5353`
 - Disable all other configured DNS servers
 
-To test your setup, visit https://1.1.1.1/help. If you see "Using DNS over HTTPS (DoH): yes", all should be fine :)
+To test your setup, visit [https://1.1.1.1/help](https://1.1.1.1/help). If you see "Using DNS over HTTPS (DoH): yes", all should be fine :)
 
 ## Not implemented
 

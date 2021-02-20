@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.7
+
+- [Pi-hole Blog](https://pi-hole.net/2021/02/16/pi-hole-ftl-v5-7-and-web-v5-4-released/#page-content)
+- [FTL 5.7](https://github.com/pi-hole/FTL/releases/tag/v5.7)
+- [AdminLTE 5.4](https://github.com/pi-hole/AdminLTE/releases/tag/v5.4)
+
 ## 5.6
 
 - [FTL 5.6](https://github.com/pi-hole/FTL/releases/tag/v5.6) [Blog](https://pi-hole.net/2021/01/27/pi-hole-ftl-v5-6-released/#page-content)
