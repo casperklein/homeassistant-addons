@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.10.5
+
+- [netbox version 2.10.5](https://github.com/netbox-community/netbox/releases/tag/v2.10.5)
+
 ## 2.10.4.1
 
 - PostgreSQL can now be exposed to the network
