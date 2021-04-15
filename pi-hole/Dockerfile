@@ -1,5 +1,5 @@
 # Customzie upstream image #########################################################################
-FROM	pihole/pihole:v5.7 as pihole
+FROM	pihole/pihole:v5.8 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -81,7 +81,7 @@ ENV	S6_BEHAVIOUR_IF_STAGE2_FAILS 2
 ENV	S6_KEEP_ENV 1
 ENV	S6_LOGGING 0
 ENV	ServerIP 0.0.0.0
-ENV	VERSION v5.2.4
+ENV	VERSION v5.3.1
 #EXPOSE	443
 EXPOSE	53 53/udp
 #EXPOSE	67/udp
