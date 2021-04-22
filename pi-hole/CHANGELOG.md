@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.8.1
+
+- [FTL 5.8.1](https://github.com/pi-hole/FTL/releases/tag/v5.8.1)
+
 ## 5.8
 
 - [Pi-hole Blog](https://pi-hole.net/2021/04/14/pi-hole-ftl-v5-8-web-v5-5-and-core-v5-3-released/#page-content)
