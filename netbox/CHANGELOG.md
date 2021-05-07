@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.11.3
+
+- [netbox version 2.11.3](https://github.com/netbox-community/netbox/releases/tag/v2.11.3)
+
 ## 2.11.2
 
 - [netbox version 2.11.2](https://github.com/netbox-community/netbox/releases/tag/v2.11.2)
