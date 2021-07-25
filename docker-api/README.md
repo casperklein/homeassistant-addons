@@ -9,6 +9,14 @@
 
 Expose Home Assistant OS Docker API via network
 
+## WARNING
+
+The usage of this addon is very unsecure and probably no good idea. Exposing the Docker API, is like giving everyone on the network root access to your Home Assistant OS.
+
+A more secure solution is to enable [SSH](https://developers.home-assistant.io/docs/operating-system/debugging/#ssh-access-to-the-host) and access the Docker API with something like:
+
+    docker -H ssh://root@homeassistant.local:22222 info
+
 ## Installation:
 
 1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance.
