@@ -27,5 +27,5 @@ ln -s /data/pihole /etc/pihole
 ln -s /data/dnsmasq.d /etc/dnsmasq.d
 ln -s /data/log /var/log
 
-echo "***** Fix permissions.."
-chown -R www-data: /var/log/lighttpd
+#echo "***** Fix permissions.."
+#chown -R www-data: /data/log/lighttpd

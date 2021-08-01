@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.8.1.1
+
+- Fix permissions
+
 ## 5.8.1
 
 - [FTL 5.8.1](https://github.com/pi-hole/FTL/releases/tag/v5.8.1)
