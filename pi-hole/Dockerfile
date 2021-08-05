@@ -74,14 +74,14 @@ ENV	DNSMASQ_USER root
 ENV	FTL_CMD no-daemon
 ENV	IPv6 True
 ENV	PATH /opt/pihole:${PATH}
-ENV	PHP_ENV_CONFIG '/etc/lighttpd/conf-enabled/15-fastcgi-php.conf'
-ENV	PHP_ERROR_LOG '/var/log/lighttpd/error.log'
-ENV	PIHOLE_INSTALL /root/ph_install.sh
+ENV	PHP_ENV_CONFIG /etc/lighttpd/conf-enabled/15-fastcgi-php.conf
+ENV	PHP_ERROR_LOG /var/log/lighttpd/error.log
+ENV	PIHOLE_INSTALL /etc/.pihole/automated install/basic-install.sh
 ENV	S6_BEHAVIOUR_IF_STAGE2_FAILS 2
 ENV	S6_KEEP_ENV 1
 ENV	S6_LOGGING 0
 ENV	ServerIP 0.0.0.0
-ENV	VERSION v5.3.1
+ENV	VERSION v5.8.1
 #EXPOSE	443
 EXPOSE	53 53/udp
 #EXPOSE	67/udp
