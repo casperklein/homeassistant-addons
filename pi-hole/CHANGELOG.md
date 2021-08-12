@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.8.1.3
+
+-Fix permissions
+
 ## 5.8.1.2
 
 - [AdminLTE 5.5.1](https://github.com/pi-hole/AdminLTE/releases/tag/v5.5.1)

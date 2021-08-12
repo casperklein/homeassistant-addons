@@ -10,7 +10,7 @@
 /data/log/dpkg.log false root:root 0644 0644
 /data/log/faillog false root:root 0644 0644
 /data/log/lastlog false root:utmp 0664 0664
-/data/log/lighttpd false www-data:www-data 0644 0750
+/data/log/lighttpd true www-data:www-data 0644 0750
 /data/log/wtmp false root:utmp 0664 0664
 /data/pihole false root:root 0644 0755
 /data/pihole/GitHubVersions false root:root 0644 0644
