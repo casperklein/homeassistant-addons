@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.8.1.4
+
+- [dnscrypt-proxy 2.1.0](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.0)
+
 ## 5.8.1.3
 
 -Fix permissions
