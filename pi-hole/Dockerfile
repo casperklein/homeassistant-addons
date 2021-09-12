@@ -1,5 +1,5 @@
-# Customzie upstream image #########################################################################
-FROM	pihole/pihole:v5.8.1 as pihole
+# Customize upstream image #########################################################################
+FROM	pihole/pihole:2021.09 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
