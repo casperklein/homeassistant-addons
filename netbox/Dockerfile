@@ -1,4 +1,4 @@
-FROM	debian:10-slim as build
+FROM	debian:11-slim as build
 
 ENV	GIT_USER="netbox-community"
 ENV	GIT_REPO="netbox"
@@ -32,18 +32,18 @@ RUN	pip3 install --no-cache-dir --upgrade pip \
 # Setup netbox
 WORKDIR	/opt/netbox/netbox
 RUN	/etc/init.d/redis-server start \
-&&	pg_ctlcluster 11 main start \
+&&	pg_ctlcluster 13 main start \
 &&	sudo -u postgres psql < /db.sql \
 &&	rm -v /db.sql \
 &&	python3 manage.py migrate \
 &&	python3 manage.py collectstatic --no-input \
 &&	/etc/init.d/redis-server stop \
-&&	pg_ctlcluster 11 main stop \
+&&	pg_ctlcluster 13 main stop \
 # Disable x-frame-options for usage with https://www.home-assistant.io/integrations/panel_iframe/
-&&	sed -i "s;X_FRAME_OPTIONS = 'SAMEORIGIN';X_FRAME_OPTIONS = 'ALLOWALL';" /opt/netbox/netbox/netbox/settings.py \
+&&	sedfile -i "s;X_FRAME_OPTIONS = 'SAMEORIGIN';X_FRAME_OPTIONS = 'ALLOWALL';" /opt/netbox/netbox/netbox/settings.py \
 # Let PostgreSQL listen on all interfaces
-&&	sed -i "s/#listen_addresses =.*/listen_addresses = '*'/" /etc/postgresql/11/main/postgresql.conf \
-&&	echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/11/main/pg_hba.conf
+&&	sedfile -i "s/#listen_addresses =.*/listen_addresses = '*'/" /etc/postgresql/13/main/postgresql.conf \
+&&	echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/13/main/pg_hba.conf
 
 # Cleanup
 RUN	apt-get -y purge $PACKAGES_CLEAN \
