@@ -1,0 +1,6 @@
+# https://github.com/netbox-community/netbox/blob/develop/netbox/netbox/configuration.example.py
+
+ALLOWED_HOSTS = ['*']
+
+'USER': 'netbox',               # PostgreSQL username
+'PASSWORD': 'netbox',           # PostgreSQL password

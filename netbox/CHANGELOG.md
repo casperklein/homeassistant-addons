@@ -1,9 +1,17 @@
 # Changelog
 
+## 3.0.2
+
+This is a major release update. It might be worth, reading the changelogs :wink:
+
+- [netbox 3.0.2](https://github.com/netbox-community/netbox/releases/tag/v3.0.2)
+- [netbox 3.0.1](https://github.com/netbox-community/netbox/releases/tag/v3.0.1)
+- **[netbox 3.0.0](https://github.com/netbox-community/netbox/releases/tag/v3.0.0)**
+
 ## 2.11.13
 
 - Base image upgraded to Debian 11 (PostgreSQL 11 --> 13, Redis 5.0.3 --> 6.0.5)
-- This release migrates the netbox DB from PostgreSQL 11 to 13.
+- This and future releases migrates the netbox DB from PostgreSQL 11 to 13.
 - Make sure, to make a backup/snapshot of this addon before you update.
 
 ## 2.11.12
