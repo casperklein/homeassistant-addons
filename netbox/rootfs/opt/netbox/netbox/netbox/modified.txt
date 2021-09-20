@@ -4,3 +4,6 @@ ALLOWED_HOSTS = ['*']
 
 'USER': 'netbox',               # PostgreSQL username
 'PASSWORD': 'netbox',           # PostgreSQL password
+
+# If not set to a dummy value, 'python3 manage.py migrate' fails
+SECRET_KEY = '**************************************************'

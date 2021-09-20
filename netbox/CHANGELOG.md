@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.3
+
+- [netbox 3.0.3](https://github.com/netbox-community/netbox/releases/tag/v3.0.3)
+
 ## 3.0.2
 
 This is a major release update. It might be worth, reading the changelogs :wink:
