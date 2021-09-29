@@ -2,6 +2,7 @@
 
 ## 2021.XX
 
+- [Pi-hole 5.5](https://github.com/pi-hole/pi-hole/releases/tag/v5.5)
 - [dnscrypt-proxy 2.1.1](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.1)
 
 ## 2021.09
