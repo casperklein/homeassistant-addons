@@ -1,5 +1,9 @@
 # Changelog
 
+## 2021.XX
+
+- [dnscrypt-proxy 2.1.1](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.1)
+
 ## 2021.09
 
 - [Pi-hole Blog](https://pi-hole.net/2021/09/11/pi-hole-ftl-v5-9-web-v5-6-and-core-v5-4-released/)
