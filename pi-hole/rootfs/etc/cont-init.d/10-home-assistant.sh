@@ -4,12 +4,6 @@ set -ueo pipefail
 
 date '+[%F %T] *** Customize for Home Assistant..'
 
-# Avoid error message, that 127.0.0.1 and an additional DNS server have to be set in resolv.conf
-#echo "***** Set container DNS servers"
-#sed '/^nameserver/d' /etc/resolv.conf	 > /etc/resolv.conf # -i does not work, resolv.conf is mounted
-#echo "nameserver 127.0.0.1"		>> /etc/resolv.conf
-#echo "nameserver 127.0.0.1"		>> /etc/resolv.conf
-
 # Make Pi-hole configuration persistent
 # https://discourse.pi-hole.net/t/what-files-does-pi-hole-use/1684
 if [ -d /data/pihole ]; then
