@@ -1,5 +1,5 @@
 # Customize upstream image #########################################################################
-FROM	pihole/pihole:2021.09 as pihole
+FROM	pihole/pihole:2021.10 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -31,7 +31,7 @@ FROM	ubuntu:20.04 as dnscrypt
 
 ENV	GIT_USER="dnscrypt"
 ENV	GIT_REPO="dnscrypt-proxy"
-ENV	GIT_COMMIT="2.1.0"
+ENV	GIT_COMMIT="2.1.1"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 ENV	DEBIAN_FRONTEND=noninteractive
 
@@ -40,7 +40,7 @@ RUN	apt-get update && apt-get -y upgrade && apt-get -y --no-install-recommends i
 WORKDIR	/$GIT_REPO
 ADD	$GIT_ARCHIVE /
 RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
-WORKDIR	dnscrypt-proxy
+WORKDIR	/$GIT_REPO/dnscrypt-proxy
 RUN	go build -ldflags="-s -w" -mod vendor
 
 # Check if build args are not empty ################################################################

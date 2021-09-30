@@ -1,5 +1,12 @@
 # Changelog
 
+## 2021.10
+
+- [Pi-hole 5.5](https://github.com/pi-hole/pi-hole/releases/tag/v5.5)
+- [AdminLTE 5.7](https://github.com/pi-hole/AdminLTE/releases/tag/v5.7)
+- [FTL 5.10.2](https://github.com/pi-hole/FTL/releases/tag/v5.10.2)
+- [dnscrypt-proxy 2.1.1](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.1)
+
 ## 2021.09
 
 - [Pi-hole Blog](https://pi-hole.net/2021/09/11/pi-hole-ftl-v5-9-web-v5-6-and-core-v5-4-released/)
