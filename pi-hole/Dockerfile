@@ -40,7 +40,7 @@ RUN	apt-get update && apt-get -y upgrade && apt-get -y --no-install-recommends i
 WORKDIR	/$GIT_REPO
 ADD	$GIT_ARCHIVE /
 RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
-WORKDIR	dnscrypt-proxy
+WORKDIR	/$GIT_REPO/dnscrypt-proxy
 RUN	go build -ldflags="-s -w" -mod vendor
 
 # Check if build args are not empty ################################################################
