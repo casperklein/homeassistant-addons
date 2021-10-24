@@ -1,5 +1,11 @@
 # Changelog
 
+## 2021.10.1
+
+- [Pi-hole 5.6](https://github.com/pi-hole/pi-hole/releases/tag/v5.6)
+- [AdminLTE 5.8](https://github.com/pi-hole/AdminLTE/releases/tag/v5.8)
+- [FTL 5.11](https://github.com/pi-hole/FTL/releases/tag/v5.11)
+
 ## 2021.10
 
 - [Pi-hole 5.5](https://github.com/pi-hole/pi-hole/releases/tag/v5.5)
