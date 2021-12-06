@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.12
+
+- [netbox 3.0.12](https://github.com/netbox-community/netbox/releases/tag/v3.0.12)
+
 ## 3.0.11
 
 - [netbox 3.0.11](https://github.com/netbox-community/netbox/releases/tag/v3.0.11)
