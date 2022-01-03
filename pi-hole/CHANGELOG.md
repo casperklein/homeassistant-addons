@@ -1,5 +1,9 @@
 # Changelog
 
+## 2022.01
+
+- [Some fixes](https://github.com/pi-hole/docker-pi-hole/releases/tag/2022.01)
+
 ## 2021.12.1
 
 - [Pi-hole 5.7](https://github.com/pi-hole/pi-hole/releases/tag/v5.7)
