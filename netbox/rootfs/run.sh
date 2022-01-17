@@ -66,6 +66,9 @@ if [ -d /data/postgresql/11 ]; then
 	echo "Info: Cleanup done."
 fi
 
+# remove stale pid
+rm -f /data/postgresql/13/main/postmaster.pid
+
 /etc/init.d/redis-server start || {
 	echo "Error: Failed to start redis-server"
 	exit 1
