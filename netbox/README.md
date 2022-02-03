@@ -59,15 +59,15 @@ A file containing the private key. If this file doesn't exist, the add-on start 
 
 ### Main page
 
-![Screenshot of main page](https://raw.githubusercontent.com/netbox-community/netbox/develop/docs/media/screenshot1.png "Main page")
+![Screenshot of main page](https://github.com/netbox-community/netbox/raw/develop/docs/media/screenshots/home-light.png "Main page")
 
 ### Rack elevation
 
-![Screenshot of rack elevation](https://raw.githubusercontent.com/netbox-community/netbox/develop/docs/media//screenshot2.png "Rack elevation")
+![Screenshot of rack elevation](https://github.com/netbox-community/netbox/raw/develop/docs/media/screenshots/rack.png "Rack elevation")
 
 ### Prefix hierarchy
 
-![Screenshot of prefix hierarchy](https://raw.githubusercontent.com/netbox-community/netbox/develop/docs/media/screenshot3.png "Prefix hierarchy")
+![Screenshot of prefix hierarchy](https://github.com/netbox-community/netbox/raw/develop/docs/media/screenshots/prefixes-list.png "Prefix hierarchy")
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg
