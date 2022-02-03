@@ -69,6 +69,10 @@ A file containing the private key. If this file doesn't exist, the add-on start 
 
 ![Screenshot of prefix hierarchy](https://github.com/netbox-community/netbox/raw/develop/docs/media/screenshots/prefixes-list.png "Prefix hierarchy")
 
+### Cable Trace
+
+![Screenshot of cable trace](https://github.com/netbox-community/netbox/raw/develop/docs/media/screenshots/cable-trace.png "Cable Trace")
+
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-blue.svg
