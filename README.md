@@ -1,10 +1,10 @@
 # Home Assistant Add-on Repository
 
-## Installation:
+## Installation
 
 Add [this](https://github.com/casperklein/homeassistant-addons) repository to your Home Assistant instance.
 
-## Add-ons:
+## Add-ons
 
 - [Docker API](https://github.com/casperklein/homeassistant-addons/tree/master/docker-api)
 - [Netbox](https://github.com/casperklein/homeassistant-addons/tree/master/netbox)

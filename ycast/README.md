@@ -11,7 +11,8 @@ YCast is a self hosted replacement for the vTuner internet radio service which m
 
 Visit [YCast project page](https://github.com/milaq/YCast) for more information.
 
-## Installation:
+## Installation
+
 1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance.
 1. Install the YCast add-on.
 1. Configure bookmarks (optional):
@@ -22,7 +23,8 @@ Visit [YCast project page](https://github.com/milaq/YCast) for more information.
 
 1. Start the add-on.
 
-# Your Yamaha internet radio stopped working?
+## Your Yamaha internet radio stopped working?
+
 Visit [Yamaha News](https://de.yamaha.com/de/news_events/2019/0305_av_update_on_internet_radio_station_access.html) for more information.
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg

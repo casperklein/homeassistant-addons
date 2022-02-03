@@ -217,7 +217,6 @@ This is a major release update. It might be worth, reading the changelogs :wink:
 
 - [netbox 2.8.6](https://github.com/netbox-community/netbox/releases/tag/v2.8.6)
 
-
 ## 2.8.5
 
 - [netbox 2.8.5](https://github.com/netbox-community/netbox/releases/tag/v2.8.5)

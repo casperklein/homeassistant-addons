@@ -17,21 +17,20 @@ A more secure solution is to enable [SSH](https://developers.home-assistant.io/d
 
     docker -H ssh://root@homeassistant.local:22222 info
 
-## Installation:
+## Installation
 
 1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance.
 1. Install the Docker API add-on.
 1. Set the "Protection mode" switch to off.
 1. Start the add-on.
 
-## Usage:
+## Usage
 
     docker -H tcp://homeassistant.local:2375 <command>
 
-## Example:
+## Example
 
     docker -H tcp://homeassistant.local:2375 version
-
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg

@@ -9,7 +9,7 @@
 
 [Netbox](https://github.com/netbox-community/netbox) is an open source web application designed to help manage and document computer networks.
 
-## Installation:
+## Installation
 
 1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance.
 1. Install the netbox add-on.
@@ -19,9 +19,9 @@
 1. Start the add-on.
 1. Click on the "OPEN WEB UI" button to open Netbox.
 
-## Configuration:
+## Configuration
 
-**Note**: _Remember to restart the add-on when the configuration is changed._
+**Note**: *Remember to restart the add-on when the configuration is changed.*
 
 Example add-on configuration:
 
@@ -31,13 +31,13 @@ Example add-on configuration:
     "certfile": "fullchain.pem"
     "keyfile": "privatekey.pem"
 
-**Note**: _This is just an example, don't copy and paste it! Create your own!_
+**Note**: *This is just an example, don't copy and paste it! Create your own!*
 
 ### Option: `user` / `password`
 
 If set, a new netbox superuser is created on add-on start.
 
-**Note**: Use this options only once. Don't forget to remove the credentials afterwards.
+**Note**: *Use this options only once. Don't forget to remove the credentials afterwards.*
 
 ### Option: `https`
 
@@ -47,23 +47,26 @@ Enables/Disables HTTPS on the web interface. Set it `true` to enable it, `false`
 
 A file containing a certificate, including its chain. If this file doesn't exist, the add-on start will fail.
 
-**Note**: The file MUST be stored in the Home Assistant `/ssl` directory, which is the default for Home Assistant.
+**Note**: *The file MUST be stored in the Home Assistant `/ssl` directory, which is the default for Home Assistant.*
 
 ### Option: `keyfile`
 
 A file containing the private key. If this file doesn't exist, the add-on start will fail.
 
-**Note**: The file MUST be stored in the Home Assistant `/ssl` directory, which is the default for Home Assistant.
+**Note**: *The file MUST be stored in the Home Assistant `/ssl` directory, which is the default for Home Assistant.*
 
-## Screenshots:
+## Screenshots
 
 ### Main page
+
 ![Screenshot of main page](https://raw.githubusercontent.com/netbox-community/netbox/develop/docs/media/screenshot1.png "Main page")
 
 ### Rack elevation
+
 ![Screenshot of rack elevation](https://raw.githubusercontent.com/netbox-community/netbox/develop/docs/media//screenshot2.png "Rack elevation")
 
 ### Prefix hierarchy
+
 ![Screenshot of prefix hierarchy](https://raw.githubusercontent.com/netbox-community/netbox/develop/docs/media/screenshot3.png "Prefix hierarchy")
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg

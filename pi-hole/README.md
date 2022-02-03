@@ -9,13 +9,13 @@
 
 [Network-wide Ad Blocking - A black hole for Internet advertisements](https://pi-hole.net/)
 
-## Installation:
+## Installation
 
 1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance.
 1. Install the Pi-hole add-on.
 1. Start the add-on.
 
-## How to use DNSCrypt or DNS over HTTPS (DoH) with Pi-hole:
+## How to use DNSCrypt or DNS over HTTPS (DoH) with Pi-hole
 
 This is achieved by using [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy). You have to configure one or more DNS server for use with dnscrypt-proxy. To use Cloudflare DNS for example, put this in the add-on configuration:
 
