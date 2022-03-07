@@ -15,7 +15,7 @@
 1. Install the netbox add-on.
 1. Set *user* and *password* in the add-on options.
     * This will add a new superuser to netbox after the add-on starts.
-    * The credentials can be safely removed from the add-on options afterwards.
+    * The credentials must be removed from the add-on options afterwards, otherwise the addon will not start.
 1. Start the add-on.
 1. Click on the "OPEN WEB UI" button to open Netbox.
 
