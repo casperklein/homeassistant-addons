@@ -1,5 +1,9 @@
 # Changelog
 
+## 2022.04.1
+
+- [Pi-hole 5.9.1](https://github.com/pi-hole/pi-hole/releases/tag/v5.9.1)
+
 ## 2022.02.1
 
 - [Pi-hole 5.9](https://github.com/pi-hole/pi-hole/releases/tag/v5.9)
