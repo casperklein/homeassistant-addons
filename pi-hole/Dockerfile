@@ -1,11 +1,11 @@
 # Customize upstream image #########################################################################
-FROM	pihole/pihole:2022.04.3 as pihole
+FROM	pihole/pihole:2022.07 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
 # Update base image packages, install jq and cleanup
 RUN	apt-get update && apt-get -y upgrade \
-&&	apt-get -y install jq \
+&&	apt-get -y install jq patch wget \
 &&	rm -rf /var/lib/apt/lists/*
 
 # Disable x-frame-options for Home Assistant Ingress
@@ -18,13 +18,12 @@ RUN	sed -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf*
 # Copy root filesystem
 COPY	rootfs /
 
-# Fix chmod/chown errors on startup
-# PR 676: Not yet merged in upstream
-# https://github.com/pi-hole/docker-pi-hole/pull/676
-#RUN	wget https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/676.diff \
-#&&	patch -i 676.diff bash_functions.sh \
-#&&	apt-get -y purge patch \
-#&&	rm 676.diff
+# Silent capsh error output
+# https://github.com/pi-hole/docker-pi-hole/pull/1133
+RUN	wget https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/1133.diff \
+&&	patch -i 1133.diff bash_functions.sh \
+&&	apt-get -y purge patch \
+&&	rm 1133.diff
 
 # Build dnscrypt-proxy from source #################################################################
 FROM	ubuntu:20.04 as dnscrypt
@@ -69,24 +68,28 @@ LABEL	maintainer="Casper Klein"
 LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/pi-hole"
 
 # From base image
-ENTRYPOINT [ "/s6-init" ]
-ENV	DNSMASQ_USER root
-ENV	FTL_CMD no-daemon
-ENV	IPv6 True
-ENV	PATH /opt/pihole:${PATH}
-ENV	PHP_ENV_CONFIG /etc/lighttpd/conf-enabled/15-fastcgi-php.conf
-ENV	PHP_ERROR_LOG /var/log/lighttpd/error.log
-ENV	PIHOLE_INSTALL /etc/.pihole/automated install/basic-install.sh
-ENV	S6_BEHAVIOUR_IF_STAGE2_FAILS 2
-ENV	S6_KEEP_ENV 1
-ENV	S6_LOGGING 0
-ENV	ServerIP 0.0.0.0
-ENV	VERSION v5.8.1
-#EXPOSE	443
-EXPOSE	53 53/udp
-#EXPOSE	67/udp
-EXPOSE	80
-HEALTHCHECK CMD dig +norecurse +retry=0 @127.0.0.1 pi.hole || exit 1
+# docker-image-options pihole/pihole:2022.07 | sort | grep -v LABEL
+ENTRYPOINT ["/s6-init"]
+ENV DNSMASQ_USER="pihole"
+ENV FTL_CMD="no-daemon"
+ENV IPv6="True"
+ENV PATH="/opt/pihole:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ENV PHP_ENV_CONFIG="/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"
+ENV PHP_ERROR_LOG="/var/log/lighttpd/error-pihole.log"
+ENV phpver="php"
+ENV PIHOLE_DOCKER_TAG="2022.07"
+ENV PIHOLE_INSTALL="/etc/.pihole/automated install/basic-install.sh"
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS="2"
+ENV S6_KEEP_ENV="1"
+ENV S6_LOGGING="0"
+ENV S6_OVERLAY_VERSION="v2.1.0.2"
+ENV ServerIP="0.0.0.0"
+EXPOSE 53/tcp
+EXPOSE 53/udp
+EXPOSE 67/udp
+EXPOSE 80/tcp
+HEALTHCHECK CMD dig +short +norecurse +retry=0 @127.0.0.1 pi.hole || exit 1
+SHELL ["/bin/bash","-c"]
 
 COPY	--from=dnscrypt /dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy /
 COPY	--from=pihole / /
