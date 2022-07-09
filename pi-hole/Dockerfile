@@ -5,25 +5,29 @@ SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
 # Update base image packages, install jq and cleanup
 RUN	apt-get update && apt-get -y upgrade \
-&&	apt-get -y install jq patch wget \
+&&	apt-get -y install jq \
 &&	rm -rf /var/lib/apt/lists/*
-
-# Disable x-frame-options for Home Assistant Ingress
-RUN	sed -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/lighttpd.conf*
-
-# Fix Ingress caching problem
-RUN	sed -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf* \
-&&	sed -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
 
 # Copy root filesystem
 COPY	rootfs /
 
+# Disable x-frame-options for Home Assistant Ingress
+RUN	sedfile -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/lighttpd.conf*
+
+# Fix Ingress caching problem
+RUN	sedfile -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf* \
+&&	sedfile -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
+
+RUN	rm /bin/sedfile
+
 # Silent capsh error output
 # https://github.com/pi-hole/docker-pi-hole/pull/1133
-RUN	wget https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/1133.diff \
-&&	patch -i 1133.diff bash_functions.sh \
-&&	apt-get -y purge patch \
-&&	rm 1133.diff
+FROM	alpine:3 as patch
+COPY	--from=pihole /bash_functions.sh /
+RUN	apk upgrade --no-cache \
+&&	apk add --no-cache patch wget \
+&&	wget --progress=dot:giga https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/1133.diff \
+&&	patch -i 1133.diff bash_functions.sh
 
 # Build dnscrypt-proxy from source #################################################################
 FROM	ubuntu:20.04 as dnscrypt
@@ -93,3 +97,5 @@ SHELL ["/bin/bash","-c"]
 
 COPY	--from=dnscrypt /dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy /
 COPY	--from=pihole / /
+
+COPY	--from=patch /bash_functions.sh /
