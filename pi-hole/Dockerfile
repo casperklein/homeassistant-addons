@@ -1,5 +1,5 @@
 # Customize upstream image #########################################################################
-FROM	pihole/pihole:2022.07 as pihole
+FROM	pihole/pihole:2022.07.01 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -22,12 +22,12 @@ RUN	rm /bin/sedfile
 
 # Silent capsh error output
 # https://github.com/pi-hole/docker-pi-hole/pull/1133
-FROM	alpine:3 as patch
-COPY	--from=pihole /bash_functions.sh /
-RUN	apk upgrade --no-cache \
-&&	apk add --no-cache patch wget \
-&&	wget --progress=dot:giga https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/1133.diff \
-&&	patch -i 1133.diff bash_functions.sh
+# FROM	alpine:3 as patch
+# COPY	--from=pihole /bash_functions.sh /
+# RUN	apk upgrade --no-cache \
+# &&	apk add --no-cache patch wget \
+# &&	wget --progress=dot:giga https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/1133.diff \
+# &&	patch -i 1133.diff bash_functions.sh
 
 # Build dnscrypt-proxy from source #################################################################
 FROM	ubuntu:20.04 as dnscrypt
@@ -98,4 +98,4 @@ SHELL ["/bin/bash","-c"]
 COPY	--from=dnscrypt /dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy /
 COPY	--from=pihole / /
 
-COPY	--from=patch /bash_functions.sh /
+# COPY	--from=patch /bash_functions.sh /
