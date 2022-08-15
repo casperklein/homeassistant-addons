@@ -1,5 +1,10 @@
 # Changelog
 
+## 2022.07.1
+
+- [Pi-hole 5.11.4](https://github.com/pi-hole/pi-hole/releases/tag/v5.11.4)
+- [dnscrypt-proxy 2.1.2](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.2)
+
 ## 2022.07
 
 - [Pi-hole 5.11.3](https://github.com/pi-hole/pi-hole/releases/tag/v5.11)
