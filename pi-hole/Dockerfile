@@ -1,5 +1,5 @@
 # Customize upstream image #########################################################################
-FROM	pihole/pihole:2022.07.1 as pihole
+FROM	pihole/pihole:2022.08.3 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -19,6 +19,13 @@ RUN	sedfile -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.c
 &&	sedfile -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
 
 RUN	rm /bin/sedfile
+
+# Fixed with 2022.08.3 --> https://github.com/pi-hole/docker-pi-hole/issues/1186#issuecomment-1230214280
+# Fix s6 dependencies: wait for cont-init.d to finish, before starting services s6-rc.d
+# This adds "base" as dependency for all services
+# https://github.com/just-containers/s6-overlay/issues/471
+# RUN	/bin/fix-dependencies.sh && rm /bin/fix-dependencies.sh
+ RUN	rm /bin/fix-dependencies.sh
 
 # Silent capsh error output
 # https://github.com/pi-hole/docker-pi-hole/pull/1133
@@ -72,22 +79,22 @@ LABEL	maintainer="Casper Klein"
 LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/pi-hole"
 
 # From base image
-# docker-image-options pihole/pihole:2022.07 | sort | grep -v -e LABEL -e 'ENV PIHOLE_DOCKER_TAG'
+# docker-image-options pihole/pihole:latest | sort | grep -v -e LABEL -e 'ENV PIHOLE_DOCKER_TAG'
 ENTRYPOINT ["/s6-init"]
 ENV DNSMASQ_USER="pihole"
 ENV FTL_CMD="no-daemon"
+ENV FTLCONF_LOCAL_IPV4="0.0.0.0"
 ENV IPv6="True"
 ENV PATH="/opt/pihole:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 ENV PHP_ENV_CONFIG="/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"
 ENV PHP_ERROR_LOG="/var/log/lighttpd/error-pihole.log"
 ENV phpver="php"
-ENV PIHOLE_DOCKER_TAG="2022.07.1"
+ENV PIHOLE_DOCKER_TAG="2022.08.3"
 ENV PIHOLE_INSTALL="/etc/.pihole/automated install/basic-install.sh"
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS="2"
 ENV S6_KEEP_ENV="1"
 ENV S6_LOGGING="0"
-ENV S6_OVERLAY_VERSION="v2.1.0.2"
-ENV ServerIP="0.0.0.0"
+ENV S6_OVERLAY_VERSION="v3.1.1.2"
 EXPOSE 53/tcp
 EXPOSE 53/udp
 EXPOSE 67/udp
