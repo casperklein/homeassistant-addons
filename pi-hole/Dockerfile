@@ -25,7 +25,7 @@ RUN	rm /bin/sedfile
 # This adds "base" as dependency for all services
 # https://github.com/just-containers/s6-overlay/issues/471
 # RUN	/bin/fix-dependencies.sh && rm /bin/fix-dependencies.sh
- RUN	rm /bin/fix-dependencies.sh
+RUN	rm /bin/fix-dependencies.sh
 
 # Silent capsh error output
 # https://github.com/pi-hole/docker-pi-hole/pull/1133
