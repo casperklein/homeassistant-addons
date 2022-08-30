@@ -79,7 +79,7 @@ LABEL	maintainer="Casper Klein"
 LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/pi-hole"
 
 # From base image
-# docker-image-options pihole/pihole:latest | sort | grep -v -e LABEL -e 'ENV PIHOLE_DOCKER_TAG'
+# docker-image-options pihole/pihole:latest | sort | grep -v LABEL
 ENTRYPOINT ["/s6-init"]
 ENV DNSMASQ_USER="pihole"
 ENV FTL_CMD="no-daemon"
@@ -92,8 +92,8 @@ ENV phpver="php"
 ENV PIHOLE_DOCKER_TAG="2022.08.3"
 ENV PIHOLE_INSTALL="/etc/.pihole/automated install/basic-install.sh"
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS="2"
+ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME="0"
 ENV S6_KEEP_ENV="1"
-ENV S6_LOGGING="0"
 ENV S6_OVERLAY_VERSION="v3.1.1.2"
 EXPOSE 53/tcp
 EXPOSE 53/udp
