@@ -21,5 +21,9 @@ ln -s /data/pihole /etc/pihole
 ln -s /data/dnsmasq.d /etc/dnsmasq.d
 ln -s /data/log /var/log
 
-#echo "***** Fix permissions.."
-#chown -R www-data: /data/log/lighttpd
+# Fix permissions; Sometimes they got lost after a HA backup restore
+date '+[%F %T] ***** Fix permissions..'
+while IFS=';' read -r FILE MODE OWNER; do
+	chmod "$MODE" "$FILE" 2>/dev/null
+	chown "$OWNER" "$FILE" 2>/dev/null
+done < /etc/permissions || true

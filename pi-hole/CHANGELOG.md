@@ -1,5 +1,9 @@
 # Changelog
 
+## 2022.08.3
+
+- [FTL 5.16.3](https://github.com/pi-hole/FTL/releases/tag/v5.16.3)
+
 ## 2022.07.1
 
 - [Pi-hole 5.11.4](https://github.com/pi-hole/pi-hole/releases/tag/v5.11.4)
