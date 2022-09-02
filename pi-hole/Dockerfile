@@ -1,5 +1,5 @@
 # Customize upstream image #########################################################################
-FROM	pihole/pihole:2022.08.3 as pihole
+FROM	pihole/pihole:2022.09.1 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -89,7 +89,7 @@ ENV PATH="/opt/pihole:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b
 ENV PHP_ENV_CONFIG="/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"
 ENV PHP_ERROR_LOG="/var/log/lighttpd/error-pihole.log"
 ENV phpver="php"
-ENV PIHOLE_DOCKER_TAG="2022.08.3"
+ENV PIHOLE_DOCKER_TAG="2022.09.1"
 ENV PIHOLE_INSTALL="/etc/.pihole/automated install/basic-install.sh"
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS="2"
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME="0"
