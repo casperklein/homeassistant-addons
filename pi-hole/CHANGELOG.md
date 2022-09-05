@@ -1,5 +1,9 @@
 # Changelog
 
+## 2022.09.2
+
+- [AdminLTE 5.14.2](https://github.com/pi-hole/AdminLTE/releases/tag/v5.14.2)
+
 ## 2022.09.1
 
 - [Pi-hole 5.12](https://github.com/pi-hole/pi-hole/releases/tag/v5.12)
