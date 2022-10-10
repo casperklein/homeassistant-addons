@@ -89,12 +89,9 @@ ENV PATH="/opt/pihole:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b
 ENV PHP_ENV_CONFIG="/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"
 ENV PHP_ERROR_LOG="/var/log/lighttpd/error-pihole.log"
 ENV phpver="php"
-ENV PIHOLE_DOCKER_TAG="2022.09.4"
-ENV PIHOLE_INSTALL="/etc/.pihole/automated install/basic-install.sh"
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS="2"
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME="0"
 ENV S6_KEEP_ENV="1"
-ENV S6_OVERLAY_VERSION="v3.1.1.2"
 EXPOSE 53/tcp
 EXPOSE 53/udp
 EXPOSE 67/udp
