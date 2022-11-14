@@ -55,6 +55,25 @@ A file containing the private key. If this file doesn't exist, the add-on start 
 
 **Note**: *The file MUST be stored in the Home Assistant `/ssl` directory, which is the default for Home Assistant.*
 
+## Plugins
+
+To use [Netbox plugins](https://github.com/netbox-community/netbox/wiki/Plugins), create the directory `/config/netbox` and the two files: `configuration.py` and `requirements.txt`.
+
+For example:
+
+`/config/netbox/configuration.py`:
+
+    PLUGINS = ['netbox_bgp','netbox_dns','netbox_ipcalculator','netbox_qrcode']
+
+`/config/netbox/requirements.txt`:
+
+    netbox-bgp
+    netbox-dns
+    netbox-ipcalculator
+    netbox-qrcode
+
+The *requirements* are downloaded on addon start, so an internet connection is mandatory.
+
 ## Screenshots
 
 ### Main page
