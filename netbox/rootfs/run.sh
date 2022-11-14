@@ -47,6 +47,7 @@ if [ -d /data/postgresql/11 ]; then
 
 	echo "Info: Export netbox database from old cluster.."
 	pg_ctlcluster 11 main start
+	# shellcheck disable=SC2024
 	sudo -u postgres pg_dump netbox > /data/postgresql11_netbox.sql
 
 	#echo "Info: Remove PostgreSQL 11.."
@@ -57,6 +58,7 @@ if [ -d /data/postgresql/11 ]; then
 	pg_ctlcluster 13 main start
 	sudo -u postgres psql -c 'drop database netbox' > /dev/null
 	sudo -u postgres psql -c 'create database netbox' > /dev/null
+	# shellcheck disable=SC2024
 	sudo -u postgres psql netbox < /data/postgresql11_netbox.sql > /dev/null
 	pg_ctlcluster 13 main stop
 
@@ -79,6 +81,39 @@ pg_ctlcluster 13 main start || {
 	exit 1
 } >&2
 
+# import additional configuration (for plugins)
+if [ -f "/config/netbox/configuration.py" ]; then
+	echo "Info: Custom configuration found."
+	cat /config/netbox/configuration.py >> /opt/netbox/netbox/netbox/configuration.py
+fi
+
+# ? pip3-venv
+# source /opt/netbox/venv/bin/activate
+
+# import additional requirements (for plugins)
+if [ -f "/config/netbox/requirements.txt" ]; then
+	echo "Info: Installing custom requirements.."
+	pip install --no-cache-dir -r /config/netbox/requirements.txt
+fi
+
+# ? pip3-venv
+# https://docs.netbox.dev/en/stable/installation/3-netbox/#run-the-upgrade-script
+
+# - Create a Python virtual environment
+# - Installs all required Python packages
+# - Run database schema migrations
+# - Builds the documentation locally (for offline use)
+# - Aggregate static resource files on disk
+
+# /opt/netbox/upgrade.sh
+# ? ---------
+
+echo "Applying database migrations.."
+python3 /opt/netbox/netbox/manage.py migrate
+
+echo "Collecting static files.."
+python3 /opt/netbox/netbox/manage.py collectstatic --no-input
+
 # add netbox superuser
 if [ -n "$USER" ] && [ -n "$PASS" ]; then
 	echo "Netbox: Creating new superuser: $USER"
@@ -88,19 +123,16 @@ if [ -n "$USER" ] && [ -n "$PASS" ]; then
 	fi
 fi
 
-# run database migrations
-python3 /opt/netbox/netbox/manage.py migrate
-
 if [ "$HTTPS" = true ]; then
 	[ ! -f "/ssl/$CERT" ] && echo "Error: Certificate '$CERT' not found." >&2 && exit 1
 	[ ! -f "/ssl/$KEY" ] && echo "Error: Certificate key '$KEY' not found." >&2 && exit 1
 
-	cat > /etc/stunnel/stunnel.conf <<-CONFIG
-	pid = /var/run/stunnel.pid
-	[https]
-	accept  = 80
-	connect = 443
-	cert = /etc/stunnel/stunnel.pem
+	cat > /etc/stunnel/stunnel.conf <<-"CONFIG"
+		pid = /var/run/stunnel.pid
+		[https]
+		accept  = 80
+		connect = 443
+		cert = /etc/stunnel/stunnel.pem
 	CONFIG
 
 	cat /ssl/{"$CERT","$KEY"} > /etc/stunnel/stunnel.pem
@@ -110,11 +142,21 @@ if [ "$HTTPS" = true ]; then
 		echo "Error: Failed to start stunnel SSL encryption wrapper."
 		exit 1
 	} >&2
+	PORT=443
+else
+	PORT=80
 fi
 
-# start netbox
-if [ "$HTTPS" = true ]; then
-	exec python3 /opt/netbox/netbox/manage.py runserver 0.0.0.0:443 --insecure
-else
-	exec python3 /opt/netbox/netbox/manage.py runserver 0.0.0.0:80 --insecure
-fi
+# Housekeeping
+# printf '%s %s\n' "$(date '+[%F %T %z]')" "Housekeeping.." # gunicorn style
+printf '%s %s\n' "$(date '+[%d/%h/%G %T]')" "Housekeeping.."
+python3 /opt/netbox/netbox/manage.py housekeeping	# one-shot
+/opt/netbox/housekeeping-job.sh &			# run once a day
+
+# https://docs.netbox.dev/en/stable/plugins/development/background-tasks/
+echo "Starting RQ worker process.."
+python3 /opt/netbox/netbox/manage.py rqworker high default low &
+
+echo "Starting netbox.."
+# exec gunicorn --bind 127.0.0.1:$PORT --pid /var/tmp/netbox.pid --pythonpath /opt/netbox/netbox --config /opt/netbox/gunicorn.py netbox.wsgi
+exec python3 /opt/netbox/netbox/manage.py runserver 0.0.0.0:$PORT --insecure
