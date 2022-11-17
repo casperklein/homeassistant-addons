@@ -1,5 +1,9 @@
 # Changelog
 
+## 2022.11.1
+
+- [FTL 5.19.2](https://github.com/pi-hole/FTL/releases/tag/v5.19.2)
+
 ## 2022.11
 
 - [Pi-hole 5.14.1](https://github.com/pi-hole/pi-hole/releases/tag/v5.14.1)
