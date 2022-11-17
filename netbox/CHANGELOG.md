@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.3.8
+
+- [netbox 3.3.8](https://github.com/netbox-community/netbox/releases/tag/v3.3.8)
+- [Plugin support added](https://github.com/casperklein/homeassistant-addons/tree/master/netbox#plugins)
+
 ## 3.3.7
 
 - [netbox 3.3.7](https://github.com/netbox-community/netbox/releases/tag/v3.3.7)
