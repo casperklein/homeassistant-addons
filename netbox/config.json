@@ -9,7 +9,7 @@
   "startup": "application",
   "boot": "auto",
   "webui": "[PROTO:https]://[HOST]:[PORT:80]/",
-  "map": ["config", "ssl"],
+  "map": ["config", "media:rw", "share:rw", "ssl"],
   "options": {
     "user": "",
     "password": "",
