@@ -1,5 +1,10 @@
 # Changelog
 
+## 2022.12
+
+- [AdminLTE 5.18](https://github.com/pi-hole/AdminLTE/releases/tag/v5.18)
+- [FTL 5.20](https://github.com/pi-hole/FTL/releases/tag/v5.20)
+
 ## 2022.11.2
 
 - [Pi-hole 5.14.2](https://github.com/pi-hole/pi-hole/releases/tag/v5.14.2)
