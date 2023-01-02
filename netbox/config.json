@@ -18,8 +18,8 @@
     "keyfile": "privatekey.pem"
   },
   "schema": {
-    "user": "str",
-    "password": "str",
+    "user": "str?",
+    "password": "str?",
     "https": "bool",
     "certfile": "str",
     "keyfile": "str"
