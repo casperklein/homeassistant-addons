@@ -30,7 +30,7 @@ RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
 # Copy root filesystem
 COPY	rootfs /
 
-WORKDIR /opt/netbox/netbox/netbox
+WORKDIR	/opt/netbox/netbox/netbox
 RUN	cp configuration_example.py configuration.py
 
 # Customize
@@ -45,7 +45,7 @@ RUN	sedfile -i "s/^SECRET_KEY = ''$/SECRET_KEY = '******************************
 
 # Install dependencies
 # ? Disable, when pip-venv is used
-WORKDIR /opt/netbox
+WORKDIR	/opt/netbox
 RUN	pip3 install --no-cache-dir --upgrade pip setuptools wheel \
 ;	pip3 install --no-cache-dir -r requirements.txt
 
