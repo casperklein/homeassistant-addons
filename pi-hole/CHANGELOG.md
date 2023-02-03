@@ -1,5 +1,12 @@
 # Changelog
 
+## 2023.01.10
+
+- [Pi-hole 5.15.3](https://github.com/pi-hole/pi-hole/releases/tag/v5.15.3)
+- [AdminLTE 5.18.3](https://github.com/pi-hole/AdminLTE/releases/tag/v5.18.3)
+- [FTL 5.20.1](https://github.com/pi-hole/FTL/releases/tag/v5.20.1)
+- [dnscrypt-proxy 2.1.3](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.3)
+
 ## 2022.12
 
 - [AdminLTE 5.18](https://github.com/pi-hole/AdminLTE/releases/tag/v5.18)

@@ -1,5 +1,5 @@
 # Customize upstream image #########################################################################
-FROM	pihole/pihole:2022.12 as pihole
+FROM	pihole/pihole:2023.01.10 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -12,11 +12,11 @@ RUN	apt-get update && apt-get -y upgrade \
 COPY	rootfs /
 
 # Disable x-frame-options for Home Assistant Ingress
-RUN	sedfile -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/lighttpd.conf*
+RUN	sedfile -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/pihole-admin.conf
 
 # Fix Ingress caching problem
-RUN	sedfile -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf* \
-&&	sedfile -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
+# RUN	sedfile -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf.debian
+# &&	sedfile -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
 
 RUN	rm /bin/sedfile
 
@@ -37,11 +37,14 @@ RUN	rm /bin/fix-dependencies.sh
 # &&	patch -i 1133.diff bash_functions.sh
 
 # Build dnscrypt-proxy from source #################################################################
+# FIXME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# The version of quic-go you're using can't be built on Go 1.20 yet.
+# For more details, please see https://github.com/lucas-clemente/quic-go/wiki/quic-go-and-Go-versions."
 FROM	golang:bullseye as dnscrypt
 
 ENV	GIT_USER="dnscrypt"
 ENV	GIT_REPO="dnscrypt-proxy"
-ENV	GIT_COMMIT="2.1.2"
+ENV	GIT_COMMIT="2.1.3"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 ENV	DEBIAN_FRONTEND=noninteractive
 
