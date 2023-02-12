@@ -1,5 +1,5 @@
 # Customize upstream image #########################################################################
-FROM	pihole/pihole:2023.01.10 as pihole
+FROM	pihole/pihole:2023.02.1 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -44,7 +44,7 @@ FROM	golang:bullseye as dnscrypt
 
 ENV	GIT_USER="dnscrypt"
 ENV	GIT_REPO="dnscrypt-proxy"
-ENV	GIT_COMMIT="2.1.3"
+ENV	GIT_COMMIT="2.1.4"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 ENV	DEBIAN_FRONTEND=noninteractive
 
