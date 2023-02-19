@@ -1,5 +1,9 @@
 # Changelog
 
+## 2023.02.2
+
+- [Minor improvements](https://github.com/pi-hole/docker-pi-hole/releases/tag/2023.02.2)
+
 ## 2023.02.1
 
 - [Pi-hole 5.15.5](https://github.com/pi-hole/pi-hole/releases/tag/v5.15.5)
