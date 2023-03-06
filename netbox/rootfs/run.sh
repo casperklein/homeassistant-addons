@@ -16,6 +16,14 @@ fi
 # Change PostgreSQL data directory
 sedfile -i "s;^data_directory.*;data_directory = '/data/postgresql/13/main';" /etc/postgresql/13/main/postgresql.conf
 
+# Make media files persistant
+if [ -d /data/media ]; then
+	rm -rf /opt/netbox/netbox/media
+else
+	mv /opt/netbox/netbox/media /data/
+fi
+ln -s /data/media /opt/netbox/netbox/media
+
 # Get user/pass from Home Assistant options
 USER=$(jq --raw-output '.user' /data/options.json)
 PASS=$(jq --raw-output '.password' /data/options.json)
