@@ -18,6 +18,10 @@ RUN	sedfile -i '/"X-Frame-Options"/ s/DENY/SAMEORIGIN/g' /etc/.pihole/advanced/p
 # RUN	sedfile -i 's/"mod_expire"/#"mod_expire"/g'	/etc/.pihole/advanced/lighttpd.conf.debian
 # &&	sedfile -i 's/^expire.url/#expire.url/g'	/etc/.pihole/advanced/lighttpd.conf*
 
+# Remove docker-pi-hole update instructions
+RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker-pi-hole#upgrading-persistence-and-customizations" \
+rel="noopener" target="_blank">replace this old container with a fresh upgraded image</a>.||g' /var/www/html/admin/scripts/pi-hole/php/footer.php
+
 RUN	rm /bin/sedfile
 
 # Fixed with 2022.08.3 --> https://github.com/pi-hole/docker-pi-hole/issues/1186#issuecomment-1230214280
