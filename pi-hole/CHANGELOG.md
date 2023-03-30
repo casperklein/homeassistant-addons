@@ -1,5 +1,11 @@
 # Changelog
 
+## 2023.03.1
+
+- [Pi-hole 5.16.2](https://github.com/pi-hole/pi-hole/releases/tag/v5.16.2)
+- [AdminLTE 5.19](https://github.com/pi-hole/AdminLTE/releases/tag/v5.19)
+- [FTL 5.22](https://github.com/pi-hole/FTL/releases/tag/v5.22)
+
 ## 2023.02.2
 
 - [Minor improvements](https://github.com/pi-hole/docker-pi-hole/releases/tag/2023.02.2)

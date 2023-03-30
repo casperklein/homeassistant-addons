@@ -1,5 +1,5 @@
 # Customize upstream image #########################################################################
-FROM	pihole/pihole:2023.02.2 as pihole
+FROM	pihole/pihole:2023.03.1 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -93,7 +93,6 @@ ENV FTL_CMD="no-daemon"
 ENV FTLCONF_LOCAL_IPV4="0.0.0.0"
 ENV IPv6="True"
 ENV PATH="/opt/pihole:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-ENV PHP_ENV_CONFIG="/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"
 ENV PHP_ERROR_LOG="/var/log/lighttpd/error-pihole.log"
 ENV phpver="php"
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS="2"
