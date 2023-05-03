@@ -42,6 +42,9 @@ RUN	sedfile -i "s/^    'USER': '',               # PostgreSQL username$/    'USE
 RUN	sedfile -i "s/^    'PASSWORD': '',           # PostgreSQL password$/    'PASSWORD': 'netbox',           # PostgreSQL password/" configuration.py
 #	If not set to a dummy value, 'python3 manage.py migrate' fails
 RUN	sedfile -i "s/^SECRET_KEY = ''$/SECRET_KEY = '**************************************************'/" configuration.py
+#	disable CSRF middleware. When enabled and using stunnel, the 'CSRF verification failed. Request aborted.'
+#	or set: CSRF_TRUSTED_ORIGINS = [ "https://example.com" ]
+RUN	sedfile -i "s/'django.middleware.csrf.CsrfViewMiddleware'/#'django.middleware.csrf.CsrfViewMiddleware'/" /opt/netbox/netbox/netbox/settings.py
 
 # Install dependencies
 # ? Disable, when pip-venv is used
