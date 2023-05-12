@@ -53,6 +53,10 @@ A file containing the private key. If this file doesn't exist, the add-on start 
 
 **Note**: *The file MUST be stored in the Home Assistant `/ssl` directory, which is the default for Home Assistant.*
 
+### Option: `LOGIN_REQUIRED`
+
+Setting this to `true` will permit only authenticated users to access any part of NetBox. By default, anonymous users are permitted to access most data in NetBox but not make any changes.
+
 ## Plugins
 
 To use [Netbox plugins](https://github.com/netbox-community/netbox/wiki/Plugins), create the directory `/config/netbox` and the two files: `configuration.py` and `requirements.txt`.

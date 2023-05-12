@@ -33,6 +33,9 @@ HTTPS=$(jq --raw-output '.https' /data/options.json)
 CERT=$(jq --raw-output '.certfile' /data/options.json)
 KEY=$(jq --raw-output '.keyfile' /data/options.json)
 
+# Get netbox option
+LOGIN_REQUIRED=$(jq --raw-output '.LOGIN_REQUIRED' /data/options.json)
+
 MAIL=netbox@localhost
 
 # fix permissions after snapshot restore
@@ -89,6 +92,13 @@ pg_ctlcluster 13 main start || {
 	exit 1
 } >&2
 
+# set netbox option
+if [ "$LOGIN_REQUIRED" = true ]; then
+	# https://docs.netbox.dev/en/stable/configuration/security/#login_required
+	echo "Info: Setting 'LOGIN_REQUIRED' to 'true' in configuration.py"
+	sedfile -i 's/^LOGIN_REQUIRED = False$/LOGIN_REQUIRED = True/' /opt/netbox/netbox/netbox/configuration.py
+fi
+
 # import additional configuration (for plugins)
 if [ -f "/config/netbox/configuration.py" ]; then
 	echo "Info: Custom configuration found."
@@ -116,10 +126,10 @@ fi
 # /opt/netbox/upgrade.sh
 # ? ---------
 
-echo "Applying database migrations.."
+echo "Info: Applying database migrations.."
 python3 /opt/netbox/netbox/manage.py migrate
 
-echo "Collecting static files.."
+echo "Info: Collecting static files.."
 python3 /opt/netbox/netbox/manage.py collectstatic --no-input
 
 # add netbox superuser
@@ -162,9 +172,9 @@ python3 /opt/netbox/netbox/manage.py housekeeping	# one-shot
 /opt/netbox/housekeeping-job.sh &			# run once a day
 
 # https://docs.netbox.dev/en/stable/plugins/development/background-tasks/
-echo "Starting RQ worker process.."
+echo "Info: Starting RQ worker process.."
 python3 /opt/netbox/netbox/manage.py rqworker high default low &
 
-echo "Starting netbox.."
+echo "Info: Starting netbox.."
 # exec gunicorn --bind 127.0.0.1:$PORT --pid /var/tmp/netbox.pid --pythonpath /opt/netbox/netbox --config /opt/netbox/gunicorn.py netbox.wsgi
 exec python3 /opt/netbox/netbox/manage.py runserver 0.0.0.0:$PORT --insecure
