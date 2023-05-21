@@ -3,12 +3,12 @@
 set -ueo pipefail
 
 if [ ! -d /data/postgresql/13 ]; then
-	echo "Migrating DB to persistant storage.."
+	echo "Info: Migrating DB to persistant storage.."
 	mkdir -p /data/postgresql/13
 	mv /var/lib/postgresql/13/main /data/postgresql/13
 
 	# Override secret key from image
-	echo "Generating new secret key.."
+	echo "Info: Generating new secret key.."
 	KEY=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 50 || true)
 	sedfile -i "s/^SECRET_KEY.*/SECRET_KEY = '$KEY'/" /opt/netbox/netbox/netbox/configuration.py
 fi
@@ -41,6 +41,7 @@ MAIL=netbox@localhost
 # fix permissions after snapshot restore
 chown -R postgres: /data/postgresql
 
+# TODO Remove with Debian 12 (Bookworm)
 # Upgrade Postgres 11 to 13
 if [ -d /data/postgresql/11 ]; then
 	echo "Info: PostgreSQL 11 database found. Start migration to version 13.."
