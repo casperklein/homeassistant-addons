@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.5.2
+
+- [netbox 3.5.2](https://github.com/netbox-community/netbox/releases/tag/v3.5.2)
+
 ## 3.5.1.1
 
 - [new option: `LOGIN_REQUIRED`](https://github.com/casperklein/homeassistant-addons/blob/master/netbox/README.md#option-login_required)
