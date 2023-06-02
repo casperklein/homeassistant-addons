@@ -2,6 +2,20 @@
 
 set -ueo pipefail
 
+_shutdown() {
+	echo "Info: Container shutdown in progress.."
+	# supervisorctl shutdown &> /dev/null
+	kill 1
+	if [ -n "$NETBOX_PID" ]; then
+		kill "$NETBOX_PID" 2> /dev/null
+		while kill -0 "$NETBOX_PID" 2> /dev/null; do
+			echo "Info: Netbox still running. Waiting.."
+			sleep 1
+		done
+	fi
+}
+trap _shutdown EXIT
+
 if [ ! -d /data/postgresql/13 ]; then
 	echo "Info: Migrating DB to persistant storage.."
 	mkdir -p /data/postgresql/13
@@ -9,7 +23,11 @@ if [ ! -d /data/postgresql/13 ]; then
 
 	# Override secret key from image
 	echo "Info: Generating new secret key.."
-	KEY=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 50 || true)
+	KEY=$(tr -dc A-Za-z0-9 2> /dev/null < /dev/urandom | head -c 50 || true)
+	if [[ ! $KEY =~ ^[A-Za-z0-9]{50}$ ]]; then
+		echo "Error: Key generation failed."
+		exit 1
+	fi >&2
 	sedfile -i "s/^SECRET_KEY.*/SECRET_KEY = '$KEY'/" /opt/netbox/netbox/netbox/configuration.py
 fi
 
@@ -52,7 +70,7 @@ if [ -d /data/postgresql/11 ]; then
 	EOF
 	echo "Info: Install PostgreSQL 11.."
 	apt-get -qq update
-	apt-get -qq install postgresql-11 &>/dev/null
+	apt-get -qq install postgresql-11 &> /dev/null
 	echo "Info: Configure PostgreSQL 11.."
 	sedfile -i "s;^data_directory.*;data_directory = '/data/postgresql/11/main';" /etc/postgresql/11/main/postgresql.conf
 	sedfile -i 's|port = .*|port = 5432|g' /etc/postgresql/11/main/postgresql.conf # when a second PosgreSQL instance is installed, the port is incremented --> 5433
@@ -83,15 +101,19 @@ fi
 # remove stale pid
 rm -f /data/postgresql/13/main/postmaster.pid
 
-/etc/init.d/redis-server start || {
-	echo "Error: Failed to start redis-server"
-	exit 1
-} >&2
+supervisorctl start redis > /dev/null
+while ! redis-cli ping &> /dev/null; do
+	echo "Info: Waiting until Redis is ready.."
+	sleep 1
+done
+echo "Info: Redis is ready.."
 
-pg_ctlcluster 13 main start || {
-	echo "Error: Failed to start postgresql-server"
-	exit 1
-} >&2
+supervisorctl start postgresql > /dev/null
+while ! pg_isready -q; do
+	echo "Info: Waiting until Postgresql is ready.."
+	sleep 1
+done
+echo "Info: Postgresql is ready.."
 
 # set netbox option
 if [ "$LOGIN_REQUIRED" = true ]; then
@@ -139,7 +161,7 @@ if [ -n "$USER" ] && [ -n "$PASS" ]; then
 	if ! python3 /opt/netbox/netbox/manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '$MAIL','$PASS')"; then
 		echo "Error: Failed to create superuser '$USER'."
 		exit 1
-	fi
+	fi >&2
 fi
 
 if [ "$HTTPS" = true ]; then
@@ -170,12 +192,15 @@ fi
 # printf '%s %s\n' "$(date '+[%F %T %z]')" "Housekeeping.." # gunicorn style
 printf '%s %s\n' "$(date '+[%d/%h/%G %T]')" "Housekeeping.."
 python3 /opt/netbox/netbox/manage.py housekeeping	# one-shot
-/opt/netbox/housekeeping-job.sh &			# run once a day
+supervisorctl start housekeeping > /dev/null            # run once a day
 
 # https://docs.netbox.dev/en/stable/plugins/development/background-tasks/
 echo "Info: Starting RQ worker process.."
-python3 /opt/netbox/netbox/manage.py rqworker high default low &
+supervisorctl start rqworker > /dev/null
 
 echo "Info: Starting netbox.."
 # exec gunicorn --bind 127.0.0.1:$PORT --pid /var/tmp/netbox.pid --pythonpath /opt/netbox/netbox --config /opt/netbox/gunicorn.py netbox.wsgi
-exec python3 /opt/netbox/netbox/manage.py runserver 0.0.0.0:$PORT --insecure
+
+python3 /opt/netbox/netbox/manage.py runserver 0.0.0.0:$PORT --insecure &
+NETBOX_PID=$!
+wait
