@@ -3,6 +3,12 @@ FROM	pihole/pihole:2023.05.2 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
+# Check if build args are not empty ################################################################
+ARG	BUILD_ARCH
+ARG	VERSION
+RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
+RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
+
 # Update base image packages, install jq and cleanup
 RUN	apt-get update && apt-get -y upgrade \
 &&	apt-get -y install jq \
@@ -59,15 +65,6 @@ ADD	$GIT_ARCHIVE /
 RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
 WORKDIR	/$GIT_REPO/dnscrypt-proxy
 RUN	go build -ldflags="-s -w" -mod vendor
-
-# Check if build args are not empty ################################################################
-FROM	bash:latest
-
-ARG	BUILD_ARCH
-ARG	VERSION
-
-RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
-RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
 
 # Build final image ################################################################################
 FROM	scratch

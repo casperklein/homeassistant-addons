@@ -8,6 +8,13 @@ ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.
 ENV	PACKAGES="python3 py3-pip python3-dev jpeg-dev zlib-dev build-base jq"
 ENV	PACKAGES_CLEAN="python3-dev zlib-dev build-base"
 
+# Check if build args are not empty ################################################################
+ARG	BUILD_ARCH
+ARG	VERSION
+RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
+RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
+
+# Get ycast
 WORKDIR	/ycast
 ADD	$GIT_ARCHIVE /
 RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
@@ -28,15 +35,6 @@ RUN	pip3 uninstall --no-cache-dir -y setuptools pip
 RUN	apk del $PACKAGES_CLEAN
 
 RUN	find /usr/ -name '*.pyc' -delete
-
-# Check if build args are not empty ################################################################
-FROM	bash:latest
-
-ARG	BUILD_ARCH
-ARG	VERSION
-
-RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
-RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
 
 # Build final image ################################################################################
 FROM	scratch

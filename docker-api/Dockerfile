@@ -2,21 +2,18 @@ FROM	alpine:3 as build
 
 ENV	PACKAGES="bash socat"
 
+# Check if build args are not empty ################################################################
+ARG	BUILD_ARCH
+ARG	VERSION
+RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
+RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
+
 # Install packages
 RUN	apk upgrade --no-cache \
 &&	apk add --no-cache $PACKAGES
 
 # Copy root filesystem
 COPY	rootfs /
-
-# Check if build args are not empty ################################################################
-FROM	bash:latest
-
-ARG	BUILD_ARCH
-ARG	VERSION
-
-RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
-RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
 
 # Build final image ################################################################################
 FROM	scratch

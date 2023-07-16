@@ -14,6 +14,12 @@ ENV	PACKAGES="$PACKAGES stunnel4 jq sudo postgresql redis-server dumb-init super
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
+# Check if build args are not empty ################################################################
+ARG	BUILD_ARCH
+ARG	VERSION
+RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
+RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
+
 # Install packages
 ENV	DEBIAN_FRONTEND=noninteractive
 RUN	apt-get update \
@@ -92,15 +98,6 @@ RUN	mkdocs build
 # Cleanup
 # RUN	apt-get -y purge $PACKAGES_CLEAN \
 # RUN	apt-get -y autoremove
-
-# Check if build args are not empty ################################################################
-FROM	bash:latest
-
-ARG	BUILD_ARCH
-ARG	VERSION
-
-RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
-RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
 
 # Build final image ################################################################################
 FROM	scratch
