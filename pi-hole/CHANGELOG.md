@@ -1,5 +1,10 @@
 # Changelog
 
+## 2023.10.0
+
+- [Pi-hole 5.17.2](https://github.com/pi-hole/pi-hole/releases/tag/v5.17.2)
+- [Web 5.20.2](https://github.com/pi-hole/web/releases/tag/v5.20.2) (previously known as AdminLTE)
+
 ## 2023.05.2.1
 
 - [dnscrypt-proxy 2.1.5](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.5)
