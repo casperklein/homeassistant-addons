@@ -122,6 +122,7 @@ if [ "$LOGIN_REQUIRED" = true ]; then
 	sedfile -i 's/^LOGIN_REQUIRED = False$/LOGIN_REQUIRED = True/' /opt/netbox/netbox/netbox/configuration.py
 fi
 
+# todo evaluate https://github.com/home-assistant/developers.home-assistant/pull/1960/files
 # import additional configuration (for plugins)
 if [ -f "/config/netbox/configuration.py" ]; then
 	echo "Info: Custom configuration found."
