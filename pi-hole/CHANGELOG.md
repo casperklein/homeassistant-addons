@@ -1,5 +1,9 @@
 # Changelog
 
+## 2023.11.0
+
+- [Web 5.21](https://github.com/pi-hole/web/releases/tag/v5.21)
+
 ## 2023.10.0
 
 - [Pi-hole 5.17.2](https://github.com/pi-hole/pi-hole/releases/tag/v5.17.2)
