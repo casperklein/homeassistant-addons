@@ -27,9 +27,6 @@ rel="noopener" target="_blank">replace this old container with a fresh upgraded 
 RUN	rm /bin/sedfile
 
 # Build dnscrypt-proxy from source #################################################################
-# FIXME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# The version of quic-go you're using can't be built on Go 1.20 yet.
-# For more details, please see https://github.com/lucas-clemente/quic-go/wiki/quic-go-and-Go-versions."
 FROM	golang:bullseye as dnscrypt
 
 ENV	GIT_USER="dnscrypt"
