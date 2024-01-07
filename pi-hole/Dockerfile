@@ -26,15 +26,6 @@ rel="noopener" target="_blank">replace this old container with a fresh upgraded 
 
 RUN	rm /bin/sedfile
 
-# Silent capsh error output
-# https://github.com/pi-hole/docker-pi-hole/pull/1133
-# FROM	alpine:3 as patch
-# COPY	--from=pihole /bash_functions.sh /
-# RUN	apk upgrade --no-cache \
-# &&	apk add --no-cache patch wget \
-# &&	wget --progress=dot:giga https://patch-diff.githubusercontent.com/raw/pi-hole/docker-pi-hole/pull/1133.diff \
-# &&	patch -i 1133.diff bash_functions.sh
-
 # Build dnscrypt-proxy from source #################################################################
 # FIXME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # The version of quic-go you're using can't be built on Go 1.20 yet.
