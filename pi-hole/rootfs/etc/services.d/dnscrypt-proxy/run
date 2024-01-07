@@ -4,8 +4,7 @@ set -ueo pipefail
 
 OPTIONS="/data/options.json"
 CONFIG="/dnscrypt-proxy.toml"
-#SERVICE="/var/run/s6/services/dnscrypt-proxy" # S6 v2
-SERVICE="/run/service/dnscrypt-proxy" # S6 v3
+SERVICE="/run/service/dnscrypt-proxy"
 PH_CONFIG="/data/pihole/setupVars.conf"
 
 # Check if there are dnscrypt settings
