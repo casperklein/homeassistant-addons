@@ -30,13 +30,6 @@ rel="noopener" target="_blank">replace this old container with a fresh upgraded 
 
 RUN	rm /bin/sedfile
 
-# Fixed with 2022.08.3 --> https://github.com/pi-hole/docker-pi-hole/issues/1186#issuecomment-1230214280
-# Fix s6 dependencies: wait for cont-init.d to finish, before starting services s6-rc.d
-# This adds "base" as dependency for all services
-# https://github.com/just-containers/s6-overlay/issues/471
-# RUN	/bin/fix-dependencies.sh && rm /bin/fix-dependencies.sh
-RUN	rm /bin/fix-dependencies.sh
-
 # Silent capsh error output
 # https://github.com/pi-hole/docker-pi-hole/pull/1133
 # FROM	alpine:3 as patch
