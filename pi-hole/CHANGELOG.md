@@ -1,5 +1,11 @@
 # Changelog
 
+## 2024.01.0
+
+- [Pi-hole 5.17.3](https://github.com/pi-hole/pi-hole/releases/tag/v5.17.3)
+- [FTL 5.24](https://github.com/pi-hole/FTL/releases/tag/v5.24)
+- Internal code cleanup
+
 ## 2023.11.0
 
 - [Web 5.21](https://github.com/pi-hole/web/releases/tag/v5.21)
