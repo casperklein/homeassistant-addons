@@ -81,5 +81,3 @@ SHELL ["/bin/bash","-c"]
 
 COPY	--from=dnscrypt /dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy /
 COPY	--from=pihole / /
-
-# COPY	--from=patch /bash_functions.sh /
