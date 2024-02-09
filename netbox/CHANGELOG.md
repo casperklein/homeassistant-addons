@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.7.2
+
+- [netbox 3.7.2](https://github.com/netbox-community/netbox/releases/tag/v3.7.2)
+- ⚠️ Starting with this release, custom Netbox configurations (e.g. for plugins) must be placed in `addon_configs/0da538cf_netbox`. Support for the old location `config/netbox` will be removed soon.
+
 ## 3.7.1
 
 - [netbox 3.7.1](https://github.com/netbox-community/netbox/releases/tag/v3.7.1)
