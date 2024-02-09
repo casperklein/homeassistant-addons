@@ -57,20 +57,26 @@ A file containing the private key. If this file doesn't exist, the add-on start 
 
 Setting this to `true` will permit only authenticated users to access any part of NetBox. By default, anonymous users are permitted to access most data in NetBox but not make any changes.
 
-## Plugins
+### Option: `debug`
 
-To use [Netbox plugins](https://github.com/netbox-community/netbox/wiki/Plugins), create the directory `/config/netbox` and the two files: `configuration.py` and `requirements.txt`.
+If enabled, the merged Netbox configuration (default + custom) is stored in `addon_configs/0da538cf_netbox/configuration-merged.py`.
+
+## Custom Netbox configuration
+
+You can extend the default Netbox configuration, e.g. for [plugins](https://github.com/netbox-community/netbox/wiki/Plugins):
+
+* If the file `addon_configs/0da538cf_netbox/configuration.py` exists, it's content will be appended to the Netbox default configuration.
+* If the file `addon_configs/0da538cf_netbox/requirements.txt` exists, the packages listed in that file will be installed by `pip`.
 
 For example:
 
-`/config/netbox/configuration.py`:
+`addon_configs/0da538cf_netbox/configuration.py`:
 
-    PLUGINS = ['netbox_bgp','netbox_dns','netbox_ipcalculator','netbox_qrcode']
+    PLUGINS = ['netbox_bgp','netbox_ipcalculator','netbox_qrcode']
 
-`/config/netbox/requirements.txt`:
+`addon_configs/0da538cf_netbox/requirements.txt`:
 
     netbox-bgp
-    netbox-dns
     netbox-ipcalculator
     netbox-qrcode
 
