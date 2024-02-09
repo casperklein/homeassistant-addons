@@ -47,4 +47,4 @@ To test your setup, visit [https://1.1.1.1/help](https://1.1.1.1/help). If you s
 [version-shield]: https://img.shields.io/badge/dynamic/json?color=blue&label=version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcasperklein%2Fhomeassistant-addons%2Fmaster%2Fpi-hole%2Fconfig.json
 [image-size-shield]: https://img.shields.io/docker/image-size/casperklein/homeassistant-pihole/latest
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
-[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=0da538cf_pi-hole&repository_url=https%3A%2F%2Fgithub.com%2Fcasperklein%2Fhomeassistant-addons
+[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=0da538cf_pihole&repository_url=https%3A%2F%2Fgithub.com%2Fcasperklein%2Fhomeassistant-addons
