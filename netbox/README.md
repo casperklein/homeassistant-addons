@@ -74,13 +74,20 @@ For example:
 
 `addon_configs/0da538cf_netbox/configuration.py`:
 
-    PLUGINS = ['netbox_bgp','netbox_ipcalculator','netbox_qrcode']
+    PLUGINS = ['netbox_bgp','netbox_ipcalculator','netbox_qrcode', 'netbox_metatype_importer']
+
+    PLUGINS_CONFIG = {
+        'netbox_metatype_importer': {
+            'github_token': 'change-me'
+        }
+    }
 
 `addon_configs/0da538cf_netbox/requirements.txt`:
 
     netbox-bgp
     netbox-ipcalculator
     netbox-qrcode
+    netbox-metatype-importer
 
 The *requirements* are downloaded on addon start, so an internet connection is mandatory.
 
