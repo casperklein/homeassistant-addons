@@ -42,19 +42,21 @@ if [ ! -f "$NETBOX_SECRET_KEY" ]; then
 	echo "SECRET_KEY = '$SECRET_KEY'" > "$NETBOX_SECRET_KEY"
 fi
 
-if [ ! -d /data/postgresql/13 ]; then
-	echo "Info: Moving DB to persistant storage.."
-	mkdir -p /data/postgresql/13
-	mv /var/lib/postgresql/13/main /data/postgresql/13
+if [ ! -d /data/postgresql/15 ]; then
+	echo "Info: Moving database to persistant storage.."
+	mkdir -p /data/postgresql/15
+	mv /var/lib/postgresql/15/main /data/postgresql/15
 fi
 # Change PostgreSQL data directory
-sedfile -i "s;^data_directory.*;data_directory = '/data/postgresql/13/main';" /etc/postgresql/13/main/postgresql.conf
+echo "Info: Configuring PostgreSQL.."
+sedfile -i "s;^data_directory.*;data_directory = '/data/postgresql/15/main';" /etc/postgresql/15/main/postgresql.conf
 
 # Make media files persistant
 if [ ! -d /data/media ]; then
 	echo "Info: Moving media to persistant storage.."
 	mv /opt/netbox/netbox/media /data/
 fi
+echo "Info: Setting up media usage.."
 rm -rf /opt/netbox/netbox/media
 ln -s /data/media /opt/netbox/netbox/media
 
@@ -73,53 +75,18 @@ DEBUG=$(jq --raw-output '.debug' /data/options.json)
 # Get netbox option
 LOGIN_REQUIRED=$(jq --raw-output '.LOGIN_REQUIRED' /data/options.json)
 
-# admin email address
-MAIL=netbox@localhost
-
 # fix permissions after snapshot restore
+echo "Info: Fixing PostgreSQL permissions.."
 chown -R postgres: /data/postgresql
 
-# TODO Remove with Debian 12 (Bookworm)
-# Upgrade Postgres 11 to 13
-if [ -d /data/postgresql/11 ]; then
-	echo "Info: PostgreSQL 11 database found. Start migration to version 13.."
-	cat >> /etc/apt/sources.list <<-"EOF"
-		deb http://deb.debian.org/debian buster main
-		deb http://security.debian.org/debian-security buster/updates main
-		deb http://deb.debian.org/debian buster-updates main
-	EOF
-	echo "Info: Install PostgreSQL 11.."
-	apt-get -qq update
-	apt-get -qq install postgresql-11 &> /dev/null
-	echo "Info: Configure PostgreSQL 11.."
-	sedfile -i "s;^data_directory.*;data_directory = '/data/postgresql/11/main';" /etc/postgresql/11/main/postgresql.conf
-	sedfile -i 's|port = .*|port = 5432|g' /etc/postgresql/11/main/postgresql.conf # when a second PosgreSQL instance is installed, the port is incremented --> 5433
-
-	echo "Info: Export netbox database from old cluster.."
-	pg_ctlcluster 11 main start
-	# shellcheck disable=SC2024
-	sudo -u postgres pg_dump netbox > /data/postgresql11_netbox.sql
-
-	#echo "Info: Remove PostgreSQL 11.."
-	pg_ctlcluster 11 main stop
-	#apt-get -y purge postgresql-11 # Remove PostgreSQL directories when package is purged? [yes/no] --> don't know how to automatic answer this
-
-	echo "Info: Import netbox database to new cluster.."
-	pg_ctlcluster 13 main start
-	sudo -u postgres psql -c 'drop database netbox' > /dev/null
-	sudo -u postgres psql -c 'create database netbox' > /dev/null
-	# shellcheck disable=SC2024
-	sudo -u postgres psql netbox < /data/postgresql11_netbox.sql > /dev/null
-	pg_ctlcluster 13 main stop
-
-	echo "Info: Migration successful."
-	rm -rf /data/postgresql/11
-	rm /data/postgresql11_netbox.sql
-	echo "Info: Cleanup done."
+# Debian 11 to 12
+# Upgrade PostgreSQL 13 to 15
+if [ -d /data/postgresql/13 ]; then
+	source /pg_upgrade.sh
 fi
 
 # remove stale pid
-rm -f /data/postgresql/13/main/postmaster.pid
+rm /data/postgresql/15/main/postmaster.pid 2>/dev/null && echo "Info: Removing stale PostgreSQL pid file.."
 
 # set netbox option
 if [ "$LOGIN_REQUIRED" = true ]; then
@@ -131,10 +98,12 @@ fi
 echo -e "\n# custom configuration starts here" >> "$NETBOX_CONFIG"
 
 # update secret key
+echo "Info: Restoring secret key.."
 cat "$NETBOX_SECRET_KEY" >> "$NETBOX_CONFIG"
 
 # import additional configuration (e.g. for plugins)
 if [ -f "/homeassistant/netbox/configuration.py" ]; then
+	# TODO kept for compatibility
 	echo "Info: Custom configuration (config/netbox/configuration.py) found."
 	cat /homeassistant/netbox/configuration.py >> "$NETBOX_CONFIG"
 fi
@@ -146,6 +115,7 @@ fi
 
 # import additional requirements (e.g. for plugins)
 if [ -f "/homeassistant/netbox/requirements.txt" ]; then
+	# TODO kept for compatibility
 	echo "Info: Installing custom requirements (config/netbox/requirements).."
 	pip install --no-cache-dir -r /homeassistant/netbox/requirements.txt
 fi
@@ -156,10 +126,13 @@ if [ -f "/config/requirements.txt" ]; then
 fi
 
 if [ "$DEBUG" = true ]; then
-	echo "# This file is auto-generated and just for debugging" > /config/configuration-merged.py
-	cat "$NETBOX_CONFIG" > /config/configuration-merged.py
+	echo "Info: DEBUG is enabled. Creating /config/configuration-merged.py"
+	echo    "# $(date +%c)"                                           > /config/configuration-merged.py
+	echo -e "# This file is auto-generated and just for debugging\n" >> /config/configuration-merged.py
+	cat "$NETBOX_CONFIG"                                             >> /config/configuration-merged.py
 fi
 
+echo "Info: Starting redis.."
 supervisorctl start redis > /dev/null
 while ! redis-cli ping &> /dev/null; do
 	echo "Info: Waiting until Redis is ready.."
@@ -167,46 +140,35 @@ while ! redis-cli ping &> /dev/null; do
 done
 echo "Info: Redis is ready.."
 
+echo "Info: Starting PostgreSQL.."
 supervisorctl start postgresql > /dev/null
 while ! pg_isready -q; do
-	echo "Info: Waiting until Postgresql is ready.."
+	echo "Info: Waiting until PostgreSQL is ready.."
 	sleep 1
 done
-echo "Info: Postgresql is ready.."
+echo "Info: PostgreSQL is ready.."
 
-# ? pip3-venv
-# source /opt/netbox/venv/bin/activate
+MANAGE_PY="python3 /opt/netbox/netbox/manage.py"
 
-# ? pip3-venv
-# https://docs.netbox.dev/en/stable/installation/3-netbox/#run-the-upgrade-script
-
-# - Create a Python virtual environment
-# - Installs all required Python packages
-# - Run database schema migrations
-# - Builds the documentation locally (for offline use)
-# - Aggregate static resource files on disk
-
-# /opt/netbox/upgrade.sh
-# ? ---------
-
-MANAGE_PY=/opt/netbox/netbox/manage.py
-
-echo "Info: Applying database migrations.."
-python3 "$MANAGE_PY" migrate
-
-echo "Info: Collecting static files.."
-python3 "$MANAGE_PY" collectstatic --no-input
+# run migration when needed
+echo "Info: Check if migration is needed.."
+if ! $MANAGE_PY migrate --check &>/dev/null; then
+	netbox-upgrade.sh
+fi
 
 # add netbox superuser
 if [ -n "$USER" ] && [ -n "$PASS" ]; then
 	echo "Netbox: Creating new superuser: $USER"
-	if ! python3 "$MANAGE_PY" shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '$MAIL','$PASS')"; then
+	# Create user + API token: https://github.com/netbox-community/netbox-docker/blob/f1ca9ab7ebc16b288fd9da8825176c75d6b7ea4f/docker/docker-entrypoint.sh#L74-L80
+	if ! $MANAGE_PY shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '${MAIL:-}','$PASS')"; then
 		echo "Error: Failed to create superuser '$USER'."
 		exit 1
 	fi >&2
 fi
 
+# enable HTTPS
 if [ "$HTTPS" = true ]; then
+	echo "Info: Enabling HTTPS.."
 	[ ! -f "/ssl/$CERT" ] && echo "Error: Certificate '$CERT' not found." >&2 && exit 1
 	[ ! -f "/ssl/$KEY" ] && echo "Error: Certificate key '$KEY' not found." >&2 && exit 1
 
@@ -231,10 +193,8 @@ else
 fi
 
 # Housekeeping
-# printf '%s %s\n' "$(date '+[%F %T %z]')" "Housekeeping.." # gunicorn style
-printf '%s %s\n' "$(date '+[%d/%h/%G %T]')" "Housekeeping.."
-python3 "$MANAGE_PY" housekeeping	# one-shot
-supervisorctl start housekeeping > /dev/null            # run once a day
+echo "Info: Starting housekeeping background job.."
+supervisorctl start housekeeping > /dev/null
 
 # https://docs.netbox.dev/en/stable/plugins/development/background-tasks/
 echo "Info: Starting RQ worker process.."
@@ -243,6 +203,8 @@ supervisorctl start rqworker > /dev/null
 echo "Info: Starting netbox.."
 # exec gunicorn --bind 127.0.0.1:$PORT --pid /var/tmp/netbox.pid --pythonpath /opt/netbox/netbox --config /opt/netbox/gunicorn.py netbox.wsgi
 
-python3 "$MANAGE_PY" runserver 0.0.0.0:$PORT --insecure &
+[ "$DEBUG" = true ] && echo "Debug: Startup took $SECONDS seconds."
+
+$MANAGE_PY runserver 0.0.0.0:$PORT --insecure &
 NETBOX_PID=$!
 wait

@@ -1,20 +1,18 @@
-FROM	debian:11-slim as build
+FROM	debian:12-slim as build
 
 ENV	GIT_USER="netbox-community"
 ENV	GIT_REPO="netbox"
 ENV	GIT_COMMIT="v3.7.2"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
-#ENV	PACKAGES="python3-venv stunnel4 jq sudo postgresql libpq-dev python3-pip python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev graphviz libpq-dev libssl-dev redis-server zlib1g-dev libjpeg-dev"
-ENV	PACKAGES="python3-pip"
-# python3-venv"
-#                                                  python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev"
-# ENV	PACKAGES_CLEAN="                           python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev"
-ENV	PACKAGES="$PACKAGES stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix"
+#? https://docs.netbox.dev/en/stable/installation/3-netbox/#install-system-packages
+# ENV	PACKAGES="python3 python3-pip python3-venv python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev"
+# ENV	PACKAGES="$PACKAGES stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix"
+ENV	PACKAGES="python3-venv stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix"
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
-# Check if build args are not empty ################################################################
+# Check if build args are not empty
 ARG	BUILD_ARCH
 ARG	VERSION
 RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
@@ -58,30 +56,31 @@ RUN	sedfile -i "s/^SECRET_KEY = ''$/SECRET_KEY = '******************************
 #	or set: CSRF_TRUSTED_ORIGINS = [ "https://example.com" ]
 RUN	sedfile -i "s/'django.middleware.csrf.CsrfViewMiddleware'/#'django.middleware.csrf.CsrfViewMiddleware'/" /opt/netbox/netbox/netbox/settings.py
 
+# create and use python virtual environment
+ENV	VIRTUAL_ENV=/opt/netbox/venv
+RUN	python3 -m venv "$VIRTUAL_ENV"
+ENV	PATH="$VIRTUAL_ENV/bin:$PATH"
+
 # Install dependencies
-# ? Disable, when pip-venv is used
 WORKDIR	/opt/netbox
-RUN	pip3 install --no-cache-dir --upgrade pip setuptools wheel \
-;	pip3 install --no-cache-dir -r requirements.txt
+# RUN	pip3 install --no-cache-dir --upgrade pip setuptools wheel \
+RUN	pip3 install --no-cache-dir --upgrade pip wheel \
+&&	pip3 install --no-cache-dir -r requirements.txt
 
 # Setup netbox
 WORKDIR	/opt/netbox/netbox
 RUN	/etc/init.d/redis-server start \
-&&	pg_ctlcluster 13 main start \
+&&	pg_ctlcluster 15 main start \
 &&	sudo -u postgres psql < /db.sql \
 &&	rm -v /db.sql \
-# ? no pip3-venv
-&&	python3 manage.py migrate \
-&&	python3 manage.py collectstatic --no-input \
-# ? pip3-venv; see run.sh for comments
-# &&	/opt/netbox/upgrade.sh \
+&&	netbox-upgrade.sh \
 &&	/etc/init.d/redis-server stop \
-&&	pg_ctlcluster 13 main stop \
+&&	pg_ctlcluster 15 main stop \
 #	Disable x-frame-options for usage with https://www.home-assistant.io/integrations/panel_iframe/
 &&	sedfile -i "s;X_FRAME_OPTIONS = 'SAMEORIGIN';X_FRAME_OPTIONS = 'ALLOWALL';" /opt/netbox/netbox/netbox/settings.py \
 #	Let PostgreSQL listen on all interfaces
-&&	sedfile -i "s/#listen_addresses =.*/listen_addresses = '*'/" /etc/postgresql/13/main/postgresql.conf \
-&&	echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/13/main/pg_hba.conf
+&&	sedfile -i "s/#listen_addresses =.*/listen_addresses = '*'/" /etc/postgresql/15/main/postgresql.conf \
+&&	echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/15/main/pg_hba.conf
 
 # Customize redis
 RUN	sedfile -i 's|^daemonize yes$|daemonize no|' /etc/redis/redis.conf
@@ -96,15 +95,17 @@ RUN	sedfile -i 's|^daemonize yes$|daemonize no|' /etc/redis/redis.conf
 # WORKDIR	/opt/netbox/
 # RUN	mkdocs build
 
-# Cleanup
-# RUN	apt-get -y purge $PACKAGES_CLEAN \
-# RUN	apt-get -y autoremove
-
-# Build final image ################################################################################
+# Build final image
 FROM	scratch
 
 ARG	BUILD_ARCH
 ARG	VERSION
+ENV	VERSION="$VERSION"
+
+# activate python virtual environment
+# needed for rqworker, run.sh, housekeeping.sh
+# same as 'source /opt/netbox/venv/bin/activate'
+ENV	PATH="/opt/netbox/venv/bin:$PATH"
 
 LABEL	io.hass.name="Netbox"
 LABEL	io.hass.description="NetBox is an open source web application designed to help manage and document computer networks"
