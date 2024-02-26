@@ -1,5 +1,5 @@
 # Customize upstream image #########################################################################
-FROM	pihole/pihole:2024.02.0 as pihole
+FROM	pihole/pihole:2024.02.1 as pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
