@@ -36,6 +36,5 @@
     "80/tcp": "Netbox WebGUI",
     "5432/tcp": "PostgreSQL"
   },
-  "init": false,
-  "stage": "experimental"
+  "init": false
 }
