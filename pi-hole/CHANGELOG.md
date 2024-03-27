@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024.03.0
+
+- [Pi-hole 5.18](https://github.com/pi-hole/pi-hole/releases/tag/v5.18)
+
 ## 2024.02.2
 
 
