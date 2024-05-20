@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024.05.0
+
+- [FTL 5.25.2](https://github.com/pi-hole/FTL/releases/tag/v5.25.2)
+
 ## 2024.03.2
 
 - [Pi-hole 5.18.2](https://github.com/pi-hole/pi-hole/releases/tag/v5.18.2)
