@@ -37,7 +37,7 @@ Example add-on configuration:
 
 If set, a new netbox superuser is created on add-on start.
 
-**Note**: *Use this options only once. Don't forget to remove the credentials afterwards.*
+**Important: Use these options only once. Check the log and after successful creation of the user, remove the credentials from the configuration.**
 
 ### Option: `https`
 

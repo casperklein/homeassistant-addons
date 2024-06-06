@@ -160,9 +160,16 @@ fi
 if [ -n "$USER" ] && [ -n "$PASS" ]; then
 	echo "Netbox: Creating new superuser: $USER"
 	# Create user + API token: https://github.com/netbox-community/netbox-docker/blob/f1ca9ab7ebc16b288fd9da8825176c75d6b7ea4f/docker/docker-entrypoint.sh#L74-L80
-	if ! $MANAGE_PY shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '${MAIL:-}','$PASS')"; then
-		echo "Error: Failed to create superuser '$USER'."
-		exit 1
+	if ! RESULT=$($MANAGE_PY shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '${MAIL:-}','$PASS')" 2>&1); then
+		if grep -qP 'Key \(username\)=.+ already exists' <<<"$RESULT"; then
+			echo "Error: Failed to create superuser '$USER', because the user already exists. Remove 'user' and 'password' from the addon options."
+		else
+			echo "$RESULT"
+			echo "Error: Failed to create superuser '$USER'. See error details above."
+		fi
+		echo "Info:  The addon will continue startup in 1 minute."
+		sleep 1m
+		# exit 1
 	fi >&2
 fi
 
