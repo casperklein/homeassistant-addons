@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024.06.0
+
+- [Maintenance release](https://github.com/pi-hole/docker-pi-hole/releases/tag/2024.06.0)
+
 ## 2024.05.0
 
 - [FTL 5.25.2](https://github.com/pi-hole/FTL/releases/tag/v5.25.2)
