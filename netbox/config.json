@@ -1,6 +1,6 @@
 {
   "name": "Netbox",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "slug": "netbox",
   "description": "NetBox is an open source web application designed to help manage and document computer networks",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/netbox",
@@ -16,7 +16,7 @@
     "https": false,
     "certfile": "fullchain.pem",
     "keyfile": "privatekey.pem",
-    "LOGIN_REQUIRED": false,
+    "LOGIN_REQUIRED": true,
     "debug": false
   },
   "schema": {

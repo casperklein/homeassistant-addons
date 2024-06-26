@@ -7,10 +7,16 @@ shopt -s inherit_errexit
 
 MANAGE_PY="python3 /opt/netbox/netbox/manage.py"
 
-echo "Info: Applying database migrations.."
+_info() {
+	local GREEN=$'\e[0;32m'
+	local RESET=$'\e[0m'
+	echo "${GREEN}Info: $1$RESET"
+}
+
+_info "Applying database migrations.."
 $MANAGE_PY migrate
 
-echo "Info: Collecting static files.."
+_info "Collecting static files.."
 $MANAGE_PY collectstatic --no-input
 
 # Your models in app(s): 'netbox_bgp' have changes that are not yet reflected in a migration, and so won't be applied.
@@ -19,7 +25,7 @@ $MANAGE_PY collectstatic --no-input
 # $MANAGE_PY makemigrations && $MANAGE_PY migrate
 
 # Trace any missing cable paths (not typically needed)
-echo "Info: Running trace_paths.."
+_info "Running trace_paths.."
 $MANAGE_PY trace_paths --no-input
 
 # TODO Needs reverse proxy for auto-indexing: http://netboxhost/static/docs/ --> http://netboxhost/static/docs/index.html
@@ -28,14 +34,14 @@ $MANAGE_PY trace_paths --no-input
 # mkdocs build
 
 # Delete any stale content types
-echo "Info: Removing stale content types.."
+_info "Removing stale content types.."
 $MANAGE_PY remove_stale_contenttypes --no-input
 
 # Rebuild the search cache (lazily)
-echo "Info: Building search index (lazy).."
+_info "Building search index (lazy).."
 $MANAGE_PY reindex --lazy
 
 #? done by housekeeping-job.sh
 # Delete any expired user sessions
-# echo "Info: Removing expired user sessions.."
+# _info "Removing expired user sessions.."
 # $MANAGE_PY clearsessions

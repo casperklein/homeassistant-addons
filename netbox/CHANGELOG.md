@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.6
+
+- [netbox 4.0.6](https://github.com/netbox-community/netbox/releases/tag/v4.0.6)
+- Addon log colored
+- [LOGIN_REQUIRED now defaults to true](https://github.com/netbox-community/netbox/issues/16107)
+
 ## 4.0.5
 
 - [netbox 4.0.5](https://github.com/netbox-community/netbox/releases/tag/v4.0.5)

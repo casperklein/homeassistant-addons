@@ -57,7 +57,7 @@ A file containing the private key. If this file doesn't exist, the add-on start 
 
 ### Option: `LOGIN_REQUIRED`
 
-Setting this to `true` will permit only authenticated users to access any part of NetBox. By default, anonymous users are permitted to access most data in NetBox but not make any changes.
+Setting this to `false` will permit anonymous users to access most data in NetBox, but not make any changes. By default, anonymous users are not permitted to access any data in NetBox.
 
 ### Option: `debug`
 
