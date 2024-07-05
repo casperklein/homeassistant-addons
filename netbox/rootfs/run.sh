@@ -17,17 +17,9 @@ _log() {
 	echo "$OUTPUT"
 }
 
-_debug() {
-	_log debug "$1"
-}
-
-_error() {
-	_log error "$1"
-}
-
-_info() {
-	_log info "$1"
-}
+_debug() { _log debug "$1"; }
+_error() { _log error "$1"; }
+_info()  { _log info  "$1"; }
 
 _shutdown() {
 	_info "Container shutdown in progress.."
