@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024.07.0
+
+- [Pi-hole 5.18.3](https://github.com/pi-hole/pi-hole/releases/tag/v5.18.3)
+
 ## 2024.06.0
 
 - [Maintenance release](https://github.com/pi-hole/docker-pi-hole/releases/tag/2024.06.0)
