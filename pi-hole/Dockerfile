@@ -1,5 +1,5 @@
 # Customize upstream image #########################################################################
-FROM	pihole/pihole:2024.07.0 as pihole
+FROM	pihole/pihole:2024.07.0 AS pihole
 
 SHELL	["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -27,7 +27,7 @@ rel="noopener" target="_blank">replace this old container with a fresh upgraded 
 RUN	rm /bin/sedfile
 
 # Build dnscrypt-proxy from source #################################################################
-FROM	golang:bullseye as dnscrypt
+FROM	golang:bullseye AS dnscrypt
 
 ENV	GIT_USER="dnscrypt"
 ENV	GIT_REPO="dnscrypt-proxy"
