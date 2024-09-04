@@ -1,4 +1,4 @@
-FROM	alpine:3 as build
+FROM	alpine:3 AS build
 
 ENV	PACKAGES="bash socat"
 
