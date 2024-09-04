@@ -1,4 +1,4 @@
-FROM	debian:12-slim as build
+FROM	debian:12-slim AS build
 
 ENV	GIT_USER="netbox-community"
 ENV	GIT_REPO="netbox"
