@@ -9,10 +9,10 @@
   "startup": "application",
   "boot": "auto",
   "options": {
-        "bookmarks": []
+        "bookmarks": ""
   },
   "schema": {
-        "bookmarks": ["str"]
+        "bookmarks": "str?"
   },
   "ports": {
         "80/tcp": 80
