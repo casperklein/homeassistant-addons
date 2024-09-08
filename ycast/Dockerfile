@@ -50,6 +50,11 @@ LABEL	image="casperklein/homeassistant-ycast:${VERSION}"
 LABEL	maintainer="Casper Klein"
 LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/ycast"
 
+# If this is set to a non-empty string, Python won’t try to write .pyc files on the import of source modules.
+ENV     PYTHONDONTWRITEBYTECODE=1
+# Show python output immediately, not buffered.
+ENV     PYTHONUNBUFFERED=1
+
 WORKDIR	/ycast
 CMD	["/run.sh"]
 
