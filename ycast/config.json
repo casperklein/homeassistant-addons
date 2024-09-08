@@ -1,6 +1,6 @@
 {
   "name": "YCast",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "slug": "ycast",
   "description": "Self hosted vTuner internet radio service emulation",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/ycast",

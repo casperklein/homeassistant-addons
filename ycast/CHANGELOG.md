@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.5
+
+- make bookmarks optional
+- update default stations
+
 ## 1.1.4
 
 - maintenance release
