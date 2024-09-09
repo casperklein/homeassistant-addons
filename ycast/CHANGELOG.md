@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.6
+
+- fix regression reported in [#22](https://github.com/casperklein/homeassistant-addons/issues/22)
+
 ## 1.1.5
 
 - make bookmarks optional
