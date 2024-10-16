@@ -136,12 +136,12 @@ fi
 if [ -f "/homeassistant/netbox/requirements.txt" ]; then
 	# TODO kept for compatibility: 2024-02-24 / netbox 3.7.3
 	_info "Installing custom requirements (config/netbox/requirements).."
-	pip install --no-cache-dir -r /homeassistant/netbox/requirements.txt
+	uv pip install --no-cache-dir -r /homeassistant/netbox/requirements.txt
 fi
 if [ -f "/config/requirements.txt" ]; then
 	dos2unix -q /config/requirements.txt
 	_info "Installing custom requirements (addon_configs/0da538cf_netbox/requirements.txt).."
-	pip install --no-cache-dir -r /config/requirements.txt
+	uv pip install --no-cache-dir -r /config/requirements.txt
 fi
 
 if [ "$DEBUG" = true ]; then

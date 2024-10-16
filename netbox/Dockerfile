@@ -6,9 +6,8 @@ ENV	GIT_COMMIT="v4.1.3"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
 #? https://docs.netbox.dev/en/stable/installation/3-netbox/#install-system-packages
-# ENV	PACKAGES="python3 python3-pip python3-venv python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev"
-# ENV	PACKAGES="$PACKAGES stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix"
-ENV	PACKAGES="python3-venv stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix"
+# ENV	PACKAGES="python3-venv stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix"
+ENV	PACKAGES="             stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix"
 ENV	PACKAGES_BUILD="python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev"
 ENV	PACKAGES="$PACKAGES $PACKAGES_BUILD"
 ENV 	PACKAGES_CLEAN="$PACKAGES_BUILD"
@@ -59,16 +58,20 @@ RUN	sedfile -i "s/^SECRET_KEY = ''$/SECRET_KEY = '******************************
 #	or set: CSRF_TRUSTED_ORIGINS = [ "https://example.com" ]
 RUN	sedfile -i "s/'django.middleware.csrf.CsrfViewMiddleware'/#'django.middleware.csrf.CsrfViewMiddleware'/" /opt/netbox/netbox/netbox/settings.py
 
+# Install 'uv', an extremely fast Python package and project manager, written in Rust.
+# https://github.com/astral-sh/uv
+COPY	--from=ghcr.io/astral-sh/uv:latest /uv /usr/bin/uv
+
 # create and use python virtual environment
-ENV	VIRTUAL_ENV=/opt/netbox/venv
-RUN	python3 -m venv "$VIRTUAL_ENV"
+ENV	VIRTUAL_ENV=/opt/netbox/.venv
+RUN	uv venv "$VIRTUAL_ENV"
 ENV	PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install dependencies
 WORKDIR	/opt/netbox
 # RUN	pip3 install --no-cache-dir --upgrade pip setuptools wheel \
-RUN	pip3 install --no-cache-dir --upgrade pip wheel \
-&&	pip3 install --no-cache-dir -r requirements.txt
+# RUN	pip3 install --no-cache-dir --upgrade pip wheel \
+RUN	uv pip install --no-cache-dir -r requirements.txt
 
 # Setup netbox
 WORKDIR	/opt/netbox/netbox
@@ -111,8 +114,11 @@ ENV	VERSION="$VERSION"
 
 # activate python virtual environment
 # needed for rqworker, run.sh, housekeeping.sh
-# same as 'source /opt/netbox/venv/bin/activate'
-ENV	PATH="/opt/netbox/venv/bin:$PATH"
+# same as 'source /opt/netbox/.venv/bin/activate'
+ENV	PATH="/opt/netbox/.venv/bin:$PATH"
+
+# Show python output immediately, not buffered.
+ENV     PYTHONUNBUFFERED=1
 
 LABEL	io.hass.name="Netbox"
 LABEL	io.hass.description="NetBox is an open source web application designed to help manage and document computer networks"
