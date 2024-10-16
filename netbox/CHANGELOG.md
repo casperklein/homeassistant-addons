@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.4
+
+- [netbox 4.1.4](https://github.com/netbox-community/netbox/releases/tag/v4.1.4)
+- Image size reduced
+- Using 'uv' instead of 'pip'
+
 ## 4.1.3
 
 - [netbox 4.1.3](https://github.com/netbox-community/netbox/releases/tag/v4.1.3)
