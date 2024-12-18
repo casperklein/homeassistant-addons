@@ -1,6 +1,6 @@
 {
   "name": "Netbox",
-  "version": "4.1.8",
+  "version": "4.1.9",
   "slug": "netbox",
   "description": "NetBox is an open source web application designed to help manage and document computer networks",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/netbox",
