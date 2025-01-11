@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024.07.0.2
+
+- [dnscrypt-proxy 2.1.7](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.7)
+
 ## 2024.07.0.1
 
 - [dnscrypt-proxy 2.1.6](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.6)
