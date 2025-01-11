@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024.07.0.1
+
+- [dnscrypt-proxy 2.1.6](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.6)
+
 ## 2024.07.0
 
 - [Pi-hole 5.18.3](https://github.com/pi-hole/pi-hole/releases/tag/v5.18.3)

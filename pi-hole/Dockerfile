@@ -31,7 +31,7 @@ FROM	golang:bullseye AS dnscrypt
 
 ENV	GIT_USER="dnscrypt"
 ENV	GIT_REPO="dnscrypt-proxy"
-ENV	GIT_COMMIT="2.1.5"
+ENV	GIT_COMMIT="2.1.6"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 ENV	DEBIAN_FRONTEND=noninteractive
 
