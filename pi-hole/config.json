@@ -1,6 +1,6 @@
 {
   "name": "Pi-hole",
-  "version": "2024.07.0.2",
+  "version": "2025.03.0",
   "slug": "pihole",
   "description": "Network-wide Ad Blocking",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/pi-hole",
@@ -8,20 +8,24 @@
   "arch": ["aarch64", "amd64", "armhf", "armv7"],
   "webui": "[PROTO:ssl]://[HOST]:[PORT:80]",
   "ingress": true,
-  "ingress_port": 80,
-  "ingress_entry": "/admin/",
+  "ingress_port": 8080,
   "panel_icon": "mdi:pi-hole",
   "startup": "system",
   "ports": {
     "53/tcp": 53,
     "53/udp": 53,
-    "80/tcp": null
+    "80/tcp": null,
+    "443/tcp": null,
+    "123/udp": null
   },
   "ports_description": {
     "53/tcp": "DNS server port",
     "53/udp": "DNS server port",
-    "80/tcp": "UNPROTECTED web UI (not required for Ingress)"
+    "80/tcp": "UNPROTECTED web UI (not required for Ingress)",
+    "443/tcp": "UNPROTECTED web UI (not required for Ingress)",
+    "123/udp": "NTP server port (not required, unless NTP is activated in Pi-hole)"
   },
+  "privileged": ["SYS_NICE"],
   "boot": "auto",
   "timeout": 60,
   "options": {
@@ -35,5 +39,7 @@
 		  }
 	  ]
   },
-  "init": false
+  "init": false,
+  "backup_pre": "supervisor.sh stop Pi-hole",
+  "backup_post": "supervisor.sh start Pi-hole"
 }

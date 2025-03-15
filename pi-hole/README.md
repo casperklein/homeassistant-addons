@@ -36,6 +36,10 @@ In Pi-hole the following **must** be configured:
 
 To test your setup, visit [https://1.1.1.1/help](https://1.1.1.1/help). If you see "Using DNS over HTTPS (DoH): yes", all should be fine :)
 
+## NTP
+
+To use Pi-hole also as an NTP server, it must be enabled under *System / Settings / All settings / Network Time Sync*. Additionally, port 123/UDP must be exposed in the add-on configuration.
+
 ## Not implemented
 
 - Pi-hole DHCP server functionality

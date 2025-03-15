@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -ueo pipefail
-
-killall dnscrypt-proxy

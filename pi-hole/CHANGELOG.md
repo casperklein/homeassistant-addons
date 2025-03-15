@@ -1,5 +1,29 @@
 # Changelog
 
+## 2025.03.0
+
+A new major version of Pi-hole has been released. Be sure to create a backup before updating.
+
+### Addon Updates
+
+- The base image was switched from Debian to Alpine, reducing the add-on size by more than 50%.
+- NTP support has been added.
+- The Pi-hole process is now stopped before Home Assistant creates a backup, ensuring database consistency.
+- Extensive internal rewrites to support Pi-hole v6.
+
+### Pi-hole v6 Release Notes
+
+- [Introducing Pi-hole v6](https://pi-hole.net/blog/2025/02/18/introducing-pi-hole-v6/)
+- [FTL](https://github.com/pi-hole/FTL/releases/tag/v6.0)
+- [Web](https://github.com/pi-hole/web/releases/tag/v6.0)
+- [Core](https://github.com/pi-hole/pi-hole/releases/tag/v6.0)
+
+### Included Versions
+
+- [Pi-hole 6.0.5](https://github.com/pi-hole/pi-hole/releases/tag/v6.0.5)
+- [Web 6.0.2](https://github.com/pi-hole/web/releases/tag/v6.0.2)
+- [FTL 6.0.4](https://github.com/pi-hole/FTL/releases/tag/v6.0.4)
+
 ## 2024.07.0.2
 
 - [dnscrypt-proxy 2.1.7](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.7)

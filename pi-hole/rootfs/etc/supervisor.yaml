@@ -1,0 +1,29 @@
+supervisor:
+  logfile: "/dev/stdout"
+  sigterm_grace_period: 55
+  keep_running: "off"
+
+jobs:
+  - name: "Initialization"
+    command: "/usr/bin/home-assistant.sh || kill -SIGTERM 1"
+    autostart: "on"
+    restart: "off"
+    logfile: "/dev/stdout"
+
+  - name: "DNSCrypt-Proxy"
+    command: "/usr/bin/dnscrypt-proxy-init.sh"
+    autostart: "on"
+    restart: "error"
+    logfile: "/dev/stdout"
+
+  - name: "Pi-hole"
+    command: "/usr/bin/start.sh"
+    autostart: "off"
+    restart: "error"
+    logfile: "/dev/stdout"
+
+  - name: "Ingress-Proxy"
+    command: "nginx -g 'daemon off;'"
+    autostart: "on"
+    restart: "error"
+    logfile: "/dev/stdout"
