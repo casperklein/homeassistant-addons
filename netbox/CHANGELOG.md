@@ -94,7 +94,7 @@
 ## 4.0.6
 
 - [netbox 4.0.6](https://github.com/netbox-community/netbox/releases/tag/v4.0.6)
-- Addon log colored
+- Add-on log colored
 - [LOGIN_REQUIRED now defaults to true](https://github.com/netbox-community/netbox/issues/16107)
 
 ## 4.0.5
@@ -132,7 +132,7 @@
 
 - [netbox 3.7.3](https://github.com/netbox-community/netbox/releases/tag/v3.7.3)
 - Base image updated to Debian 12
-- PostgreSQL 13 updated to 15. The database migration can take some time on the first addon start.
+- PostgreSQL 13 updated to 15. The database migration can take some time on the first add-on start.
 - Improved startup time
   - Netbox database migrations are only run, when needed.
   - First Housekeeping background job run is delayed for 5 minutes.
@@ -469,7 +469,7 @@ This is a major release update. It might be worth, reading the changelogs :wink:
 
 - Base image upgraded to Debian 11 (PostgreSQL 11 --> 13, Redis 5.0.3 --> 6.0.5)
 - This and future releases migrates the netbox DB from PostgreSQL 11 to 13.
-- Make sure, to make a backup/snapshot of this addon before you update.
+- Make sure, to make a backup/snapshot of this add-on before you update.
 
 ## 2.11.12
 

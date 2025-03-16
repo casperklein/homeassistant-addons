@@ -11,6 +11,10 @@ YCast is a self hosted replacement for the vTuner internet radio service which m
 
 Visit [YCast project page](https://github.com/milaq/YCast) for more information.
 
+## Support
+
+If you like the add-on and would like to support my work, you might [![Buy me a coffee][coffee-shield]][paypal]
+
 ## Installation
 
 [![Open this add-on in your Home Assistant instance.][addon-badge]][addon]
@@ -37,3 +41,5 @@ Visit [Yamaha News](https://de.yamaha.com/de/news_events/2019/0305_av_update_on_
 [image-size-shield]: https://img.shields.io/docker/image-size/casperklein/homeassistant-ycast/latest
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
 [addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=0da538cf_ycast&repository_url=https%3A%2F%2Fgithub.com%2Fcasperklein%2Fhomeassistant-addons
+[coffee-shield]: https://img.shields.io/badge/Buy_me_a_coffee-blue?logo=paypal&color=blue
+[paypal]: https://www.paypal.com/donate/?hosted_button_id=7C95GXVEQFE8C

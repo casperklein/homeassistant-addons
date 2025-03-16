@@ -7,7 +7,11 @@
 ![Supports armv7 architecture][armv7-shield]
 ![Docker image size][image-size-shield]
 
-[Network-wide Ad Blocking - A black hole for Internet advertisements](https://pi-hole.net/)
+The [Pi-hole](https://pi-hole.net/) is a DNS sinkhole that protects your devices from unwanted content without installing any client-side software.
+
+## Support
+
+If you like the add-on and would like to support my work, you might [![Buy me a coffee][coffee-shield]][paypal]
 
 ## Installation
 
@@ -19,7 +23,7 @@
 
 ## How to use DNSCrypt or DNS over HTTPS (DoH) with Pi-hole
 
-This is achieved by using [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy). You have to configure one or more DNS server for use with dnscrypt-proxy. To use Cloudflare DNS for example, put this in the add-on configuration:
+This is achieved by using [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy). You have to configure one or more DNS servers for use with dnscrypt-proxy. To use Cloudflare DNS, for example, put this in the add-on configuration:
 
     dnscrypt:
       - name: "Cloudflare 1.1.1.1"
@@ -52,3 +56,5 @@ To use Pi-hole also as an NTP server, it must be enabled under *System / Setting
 [image-size-shield]: https://img.shields.io/docker/image-size/casperklein/homeassistant-pihole/latest
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
 [addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=0da538cf_pihole&repository_url=https%3A%2F%2Fgithub.com%2Fcasperklein%2Fhomeassistant-addons
+[coffee-shield]: https://img.shields.io/badge/Buy_me_a_coffee-blue?logo=paypal&color=blue
+[paypal]: https://www.paypal.com/donate/?hosted_button_id=7C95GXVEQFE8C

@@ -4,7 +4,7 @@
 
 A new major version of Pi-hole has been released. Be sure to create a backup before updating.
 
-### Addon Updates
+### Add-on Updates
 
 - The base image was switched from Debian to Alpine, reducing the add-on size by more than 50%.
 - NTP support has been added.
@@ -55,9 +55,6 @@ A new major version of Pi-hole has been released. Be sure to create a backup bef
 ## 2024.03.0
 
 - [Pi-hole 5.18](https://github.com/pi-hole/pi-hole/releases/tag/v5.18)
-
-## 2024.02.2
-
 
 ## 2024.02.1
 
