@@ -17,7 +17,7 @@ If you like the add-on and would like to support my work, you might [![Buy me a 
 
 ## Installation
 
-[![Open this add-on in your Home Assistant instance.][addon-badge]][addon]
+[![Open this add-on in your Home Assistant instance.][addon-shield]][addon]
 
 1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance or use the button above.
 1. Install the YCast add-on.
@@ -39,7 +39,7 @@ Visit [Yamaha News](https://de.yamaha.com/de/news_events/2019/0305_av_update_on_
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-blue.svg
 [version-shield]: https://img.shields.io/badge/dynamic/json?color=blue&label=version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcasperklein%2Fhomeassistant-addons%2Fmaster%2Fycast%2Fconfig.json
 [image-size-shield]: https://img.shields.io/docker/image-size/casperklein/homeassistant-ycast/latest
-[addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
+[addon-shield]: https://img.shields.io/badge/Show%20add--on%20on%20my-Home%20Assistant-blue?style=for-the-badge&logo=home-assistant
 [addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=0da538cf_ycast&repository_url=https%3A%2F%2Fgithub.com%2Fcasperklein%2Fhomeassistant-addons
 [coffee-shield]: https://img.shields.io/badge/Buy_me_a_coffee-blue?logo=paypal&color=blue
 [paypal]: https://www.paypal.com/donate/?hosted_button_id=7C95GXVEQFE8C
