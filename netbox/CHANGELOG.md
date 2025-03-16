@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.2.5.1
+
+- Run `manage.py collectstatic` on add-on start, regardless of whether the database requires migration ([#28](https://github.com/casperklein/homeassistant-addons/issues/28)).
+- Include the `setuptools` and `wheel`  pip packages ([#29](https://github.com/casperklein/homeassistant-addons/issues/29)).
+
 ## 4.2.5
 
 - [netbox 4.2.5](https://github.com/netbox-community/netbox/releases/tag/v4.2.5)

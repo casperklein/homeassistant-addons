@@ -73,6 +73,9 @@ WORKDIR	/opt/netbox
 # RUN	pip3 install --no-cache-dir --upgrade pip wheel \
 RUN	uv pip install --no-cache-dir -r requirements.txt
 
+# Needed for some plugins, e.g. qrcode: https://github.com/casperklein/homeassistant-addons/issues/29
+RUN	uv pip install --no-cache-dir setuptools wheel
+
 # Setup netbox
 WORKDIR	/opt/netbox/netbox
 RUN	/etc/init.d/redis-server start \

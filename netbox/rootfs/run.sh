@@ -173,6 +173,9 @@ MANAGE_PY="python3 /opt/netbox/netbox/manage.py"
 _info "Check if migration is needed.."
 if ! $MANAGE_PY migrate --check &>/dev/null; then
 	netbox-upgrade.sh
+else
+	# Run collectstatic, regardless of whether the database needs migration (https://github.com/casperklein/homeassistant-addons/issues/28)
+	$MANAGE_PY collectstatic --no-input
 fi
 
 # add netbox superuser
