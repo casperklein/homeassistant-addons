@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.6
+
+- [netbox 4.2.6](https://github.com/netbox-community/netbox/releases/tag/v4.2.6)
+
 ## 4.2.5.1
 
 - Run `manage.py collectstatic` on add-on start, regardless of whether the database requires migration ([#28](https://github.com/casperklein/homeassistant-addons/issues/28)).
