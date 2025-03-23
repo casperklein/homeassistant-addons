@@ -1,7 +1,7 @@
 FROM	pihole/pihole:2025.03.0 AS pihole
 
 ARG	YQ_VERSION=v4.45.1
-ARG	SV_VERSION=0.2
+ARG	SV_VERSION=0.3
 ARG	TARGETARCH
 
 SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
