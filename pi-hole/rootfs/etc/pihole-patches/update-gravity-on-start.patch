@@ -1,0 +1,12 @@
+--- bash_functions.sh.old   2025-03-19
++++ bash_functions.sh       2025-03-19
+@@ -122,6 +122,9 @@
+         local upgradeOutput
+         upgradeOutput=$(upgrade_gravityDB "${gravityDBfile}" "/etc/pihole")
+         printf "%b" "${upgradeOutput}\\n" | sed 's/^/     /'
++
++        echo -e "\e[0;34m  [i] 'update_gravity_on_start' is enabled in the add-on settings. Gravity update will now take place.\e[0m"
++        pihole -g
+     fi
+     echo ""
+ }

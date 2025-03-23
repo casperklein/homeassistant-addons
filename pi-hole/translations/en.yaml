@@ -1,0 +1,4 @@
+configuration:
+  update_gravity_on_start:
+    name: "Update gravity on startup"
+    description: "Update the list of ad-serving domains on startup"

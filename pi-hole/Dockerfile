@@ -15,7 +15,7 @@ RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && ex
 # Update base image packages and install additional software
 RUN <<EOF
 	apk upgrade --no-cache
-	apk add     --no-cache dumb-init nginx bash-completion
+	apk add     --no-cache dumb-init nginx patch bash-completion
 EOF
 
 # Install yq
