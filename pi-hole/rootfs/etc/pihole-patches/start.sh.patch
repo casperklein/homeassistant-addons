@@ -1,0 +1,11 @@
+--- start.sh.old  2025-03-23
++++ start.sh      2025-03-23
+@@ -93,6 +93,8 @@
+     echo "  [i] FTL log output is disabled. Remove the Environment variable TAIL_FTL_LOG, or set it to 1 to enable FTL log output."
+   fi
+
++  supervisor.sh start "DNSCrypt-Proxy" &>/dev/null
++
+   # Wait for the capsh process (which spawned FTL) to finish
+   wait $CAPSH_PID
+   FTL_EXIT_CODE=$?

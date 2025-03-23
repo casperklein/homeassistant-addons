@@ -16,15 +16,6 @@ _status() {
 	printf -- '%s\n' "$RESET" # Reset color
 }
 
-# (tail -F /var/log/pihole/FTL.log &) | grep -qF 'INFO: Blocking status is'
-# sleep 5
-
-# When migrating from v5, $PH_CONFIG may not exist yet
-# Initialization must be completed
-until [ -f "$PH_CONFIG" ]; do
-	sleep 10
-done
-
 # Get all upstream DNS servers
 DNS=()
 while read -r UPSTREAMS; do
@@ -44,7 +35,7 @@ done
 if (( $(jq '.dnscrypt | length' "$ADDON_OPTIONS") > 0 )); then
 	# Append configuration only on first run
 	if ! grep -qF 'server_names' "$DNSCRYPT_CONFIG"; then
-		_status "Creating DNSCrypt-Proxy configuration"
+		# _status "Creating DNSCrypt-Proxy configuration"
 
 		# Read settings
 		while read -r SERVER; do
@@ -86,7 +77,6 @@ if (( $(jq '.dnscrypt | length' "$ADDON_OPTIONS") > 0 )); then
 		fi
 	fi
 
-	_status "Starting DNSCrypt-Proxy"
 	exec dnscrypt-proxy -config "$DNSCRYPT_CONFIG"
 else
 	_status "INFO: No DNSCrypt/DoH settings found in the add-on configuration"
