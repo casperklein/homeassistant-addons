@@ -1,5 +1,12 @@
 # Changelog
 
+## 2025.03.0.1
+
+- Improved DNSCrypt-Proxy startup
+- New add-on option: Update gravity on startup
+- supervisor.sh output is now colorized
+- Disabled Nginx access logging
+
 ## 2025.03.0
 
 A new major version of Pi-hole has been released. Be sure to create a backup before updating.
