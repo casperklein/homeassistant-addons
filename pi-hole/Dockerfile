@@ -56,7 +56,7 @@ RUN	rm /etc/nginx/http.d/default.conf /usr/bin/sedfile
 # Build dnscrypt-proxy from source #################################################################
 FROM	golang:bookworm AS dnscrypt
 
-ARG	DNSCRYPT_VERSION="2.1.7"
+ARG	DNSCRYPT_VERSION="2.1.8"
 ENV	URL="https://github.com/dnscrypt/dnscrypt-proxy/archive/$DNSCRYPT_VERSION.tar.gz"
 
 ENV	DEBIAN_FRONTEND="noninteractive"

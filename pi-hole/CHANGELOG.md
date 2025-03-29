@@ -1,5 +1,9 @@
 # Changelog
 
+## 2025.03.0.2
+
+- [DNSCrypt-Proxy 2.1.8](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.8)
+
 ## 2025.03.0.1
 
 - Improved DNSCrypt-Proxy startup
