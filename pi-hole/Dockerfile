@@ -89,6 +89,9 @@ LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/pi-ho
 # Disable Pi-hole authentication --> Single Sign On via HA Ingress
 ENV	FTLCONF_webserver_api_password=""
 
+# Needed to substitute with HA Ingress token
+ENV	FTLCONF_webserver_paths_prefix="/live-long-and-prosper"
+
 # Disable DHCP
 ENV	FTLCONF_dhcp_active="false"
 
