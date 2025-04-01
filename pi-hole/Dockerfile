@@ -44,12 +44,6 @@ RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker
 # RUN	sedfile -i 's|.*# Wait for the capsh process.*|  supervisor.sh start "DNSCrypt-Proxy" >/dev/null\n\n&|' /usr/bin/start.sh
 RUN	patch -i /etc/pihole-patches/start.sh.patch /usr/bin/start.sh
 
-# TODO Remove after https://github.com/pi-hole/pi-hole/pull/6057 is merged and released
-RUN	sedfile -i 's|chown -R pihole:pihole /etc/pihole /var/log/pihole|chown -R pihole:pihole /etc/pihole/ /var/log/pihole/|' /opt/pihole/pihole-FTL-prestart.sh
-
-# TODO Remove after https://github.com/pi-hole/pi-hole/pull/6095 is merged and released
-RUN	sedfile -i 's|saveLocation})|saveLocation} 2>/dev/null)|' /opt/pihole/gravity.sh
-
 # Remove obsolete files
 RUN	rm /etc/nginx/http.d/default.conf /usr/bin/sedfile
 
