@@ -92,6 +92,9 @@ ENV	FTLCONF_webserver_api_password=""
 # Needed to substitute with HA Ingress token
 ENV	FTLCONF_webserver_paths_prefix="/live-long-and-prosper"
 
+# Let Pi-hole listen on port 8080
+ENV	FTLCONF_webserver_port="127.0.0.1:8080,443s"
+
 # Disable DHCP
 ENV	FTLCONF_dhcp_active="false"
 

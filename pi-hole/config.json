@@ -8,7 +8,7 @@
   "arch": ["aarch64", "amd64", "armhf", "armv7"],
   "webui": "[PROTO:ssl]://[HOST]:[PORT:80]",
   "ingress": true,
-  "ingress_port": 8080,
+  "ingress_port": 80,
   "panel_icon": "mdi:pi-hole",
   "startup": "system",
   "ports": {
