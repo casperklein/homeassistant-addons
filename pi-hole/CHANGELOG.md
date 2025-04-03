@@ -1,5 +1,10 @@
 # Changelog
 
+## 2025.03.1.1
+
+- Fix gravity update cronjob on sunday
+- Fix for [#32](https://github.com/casperklein/homeassistant-addons/issues/32)
+
 ## 2025.03.1
 
 - [Pi-hole 6.0.6](https://github.com/pi-hole/pi-hole/releases/tag/v6.0.6)
