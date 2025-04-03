@@ -44,6 +44,9 @@ RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker
 # RUN	sedfile -i 's|.*# Wait for the capsh process.*|  supervisor.sh start "DNSCrypt-Proxy" >/dev/null\n\n&|' /usr/bin/start.sh
 RUN	patch -i /etc/pihole-patches/start.sh.patch /usr/bin/start.sh
 
+# TODO Temporary fix until https://github.com/pi-hole/docker-pi-hole/pull/1803 is merged and released
+RUN	sedfile -i 's| 7 PATH| 0 PATH|' /crontab.txt
+
 # Remove obsolete files
 RUN	rm /etc/nginx/http.d/default.conf /usr/bin/sedfile
 
