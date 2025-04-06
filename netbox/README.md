@@ -29,11 +29,10 @@ If you like the add-on and would like to support my work, you might [![Buy me a 
 
 Example add-on configuration:
 
-    "user": "admin"
-    "password": "insecure"
-    "https": true
-    "certfile": "fullchain.pem"
-    "keyfile": "privatekey.pem"
+    user: "admin"
+    password: "insecure"
+    LOGIN_REQUIRED: true
+    debug: false
 
 **Note**: *This is just an example, don't copy and paste it! Create your own!*
 
@@ -42,22 +41,6 @@ Example add-on configuration:
 If set, a new netbox superuser is created on add-on start.
 
 **Important: Use these options only once. Check the log and after successful creation of the user, remove the credentials from the configuration.**
-
-### Option: `https`
-
-Enables/Disables HTTPS on the web interface. Set it `true` to enable it, `false` otherwise.
-
-### Option: `certfile`
-
-A file containing a certificate, including its chain. If this file doesn't exist, the add-on start will fail.
-
-**Note**: *The file MUST be stored in the Home Assistant `/ssl` directory, which is the default for Home Assistant.*
-
-### Option: `keyfile`
-
-A file containing the private key. If this file doesn't exist, the add-on start will fail.
-
-**Note**: *The file MUST be stored in the Home Assistant `/ssl` directory, which is the default for Home Assistant.*
 
 ### Option: `LOGIN_REQUIRED`
 
