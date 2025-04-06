@@ -1,0 +1,13 @@
+configuration:
+  user:
+    name: "User"
+    description: "Create a new user on add-on start."
+  password:
+    name: "Password"
+    description: "Password for the new user."
+  LOGIN_REQUIRED:
+    name: "Login required"
+    description: "Setting this to `false` will permit anonymous users to access most data in NetBox, but not make any changes. By default, anonymous users are not permitted to access any data in NetBox."
+  debug:
+    name: "Debug"
+    description: "If enabled, the merged Netbox configuration (default + custom) is stored in `addon_configs/0da538cf_netbox/configuration-merged.py`."
