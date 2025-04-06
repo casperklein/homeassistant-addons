@@ -111,10 +111,8 @@ RUN <<EOF
 EOF
 
 # Build the local documentation
-# TODO Needs reverse proxy for auto-indexing: http://netboxhost/static/docs/ --> http://netboxhost/static/docs/index.html
-# TODO https://github.com/netbox-community/netbox/discussions/13165
-# WORKDIR	/opt/netbox/
-# RUN	mkdocs build
+WORKDIR	/opt/netbox/
+RUN	mkdocs build
 
 # Cleanup
 RUN     apt-get -y purge $PACKAGES_CLEAN \
