@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.2.6.1
+
+- Netbox is now stopped before Home Assistant creates a backup, ensuring database consistency.
+- Removed legacy compatibility code.
+- Replaced built-in development server with Gunicorn WSGI server.
+- Nginx reverse proxy added.
+- Changed default port 80 mapping from 5580 to 8001 for consistency with upstream.
+- Removed HTTPS support, which wasn't working anyway.
+- Fix for [#30](https://github.com/casperklein/homeassistant-addons/issues/30)
+- Fix for [#33](https://github.com/casperklein/homeassistant-addons/issues/33)
+
 ## 4.2.6
 
 - [netbox 4.2.6](https://github.com/netbox-community/netbox/releases/tag/v4.2.6)
@@ -260,7 +271,7 @@
 
 ## 3.4.5.1
 
-- Bugfix: Make media files persistant ([#11](https://github.com/casperklein/homeassistant-addons/issues/11))
+- Bugfix: Make media files persistent ([#11](https://github.com/casperklein/homeassistant-addons/issues/11))
 
 ## 3.4.5
 
