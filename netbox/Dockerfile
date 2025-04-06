@@ -6,8 +6,8 @@ ENV	GIT_COMMIT="v4.2.6"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
 #? https://docs.netbox.dev/en/stable/installation/3-netbox/#install-system-packages
-# ENV	PACKAGES="python3-venv stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix"
-ENV	PACKAGES="             stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix"
+# ENV	PACKAGES="python3-venv stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix nginx net-tools"
+ENV	PACKAGES="             stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix nginx net-tools"
 ENV	PACKAGES_BUILD="python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev"
 ENV	PACKAGES="$PACKAGES $PACKAGES_BUILD"
 ENV 	PACKAGES_CLEAN="$PACKAGES_BUILD"
@@ -78,25 +78,37 @@ RUN	uv pip install --no-cache-dir setuptools wheel
 
 # Setup netbox
 WORKDIR	/opt/netbox/netbox
-RUN	/etc/init.d/redis-server start \
-&&	pg_ctlcluster 15 main start \
-&&	sudo -u postgres psql < /db.sql \
-&&	rm -v /db.sql \
-&&	netbox-upgrade.sh \
-&&	/etc/init.d/redis-server stop \
-&&	pg_ctlcluster 15 main stop \
-#	Disable x-frame-options for usage with https://www.home-assistant.io/integrations/panel_iframe/
-&&	sedfile -i "s;X_FRAME_OPTIONS = 'SAMEORIGIN';X_FRAME_OPTIONS = 'ALLOWALL';" /opt/netbox/netbox/netbox/settings.py \
-#	Let PostgreSQL listen on all interfaces
-&&	sedfile -i "s/#listen_addresses =.*/listen_addresses = '*'/" /etc/postgresql/15/main/postgresql.conf \
-&&	echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/15/main/pg_hba.conf
+RUN <<EOF
+	/etc/init.d/redis-server start
+	pg_ctlcluster 15 main start
 
-# Customize redis
-RUN	sedfile -i 's|^daemonize yes$|daemonize no|' /etc/redis/redis.conf
+	sudo -u postgres psql < /db.sql
+	rm -v /db.sql
 
-# Setup gunicorn
-# RUN	cp /opt/netbox/contrib/gunicorn.py	/opt/netbox/gunicorn.py \
-# &&	sedfile -i "/bind = '127.0.0.1:8001'/d"	/opt/netbox/gunicorn.py
+	netbox-upgrade.sh
+
+	/etc/init.d/redis-server stop
+	pg_ctlcluster 15 main stop
+
+	# Disable x-frame-options for usage with https://www.home-assistant.io/integrations/panel_iframe/
+	sedfile -i "s;X_FRAME_OPTIONS = 'SAMEORIGIN';X_FRAME_OPTIONS = 'ALLOWALL';" /opt/netbox/netbox/netbox/settings.py
+
+	# Let PostgreSQL listen on all interfaces
+	sedfile -i "s/#listen_addresses =.*/listen_addresses = '*'/" /etc/postgresql/15/main/postgresql.conf
+	echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/15/main/pg_hba.conf
+EOF
+
+RUN <<EOF
+	# Customize redis
+	sedfile -i 's|^daemonize yes$|daemonize no|' /etc/redis/redis.conf
+
+	# Setup nginx
+	mv /opt/netbox/contrib/nginx.conf /etc/nginx/sites-available/netbox
+	rm /etc/nginx/sites-enabled/default
+
+	# Setup gunicorn
+	mv /opt/netbox/contrib/gunicorn.py	/opt/netbox/gunicorn.py
+EOF
 
 # Build the local documentation
 # TODO Needs reverse proxy for auto-indexing: http://netboxhost/static/docs/ --> http://netboxhost/static/docs/index.html
