@@ -12,7 +12,7 @@ ENV	PACKAGES_BUILD="python3-dev build-essential libxml2-dev libxslt1-dev libffi-
 ENV	PACKAGES="$PACKAGES $PACKAGES_BUILD"
 ENV 	PACKAGES_CLEAN="$PACKAGES_BUILD"
 
-SHELL	["/bin/bash", "-o", "pipefail", "-c"]
+SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
 
 # Check if build args are not empty
 ARG	BUILD_ARCH
@@ -22,10 +22,12 @@ RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && ex
 
 # Install packages
 ENV	DEBIAN_FRONTEND=noninteractive
-RUN	apt-get update \
-&&	apt-get -y upgrade \
-&&	apt-get -y --no-install-recommends install $PACKAGES \
-&&	rm -rf /var/lib/apt/lists/*
+RUN <<EOF
+	apt-get update
+	apt-get -y upgrade
+	apt-get -y --no-install-recommends install $PACKAGES
+	rm -rf /var/lib/apt/lists/*
+EOF
 
 # Download source
 WORKDIR	/opt/netbox
@@ -35,28 +37,33 @@ RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
 # Copy root filesystem
 COPY	rootfs /
 
-# Change supervisord defaults
-# Fix for: CRIT Supervisor is running as root. Privileges were not dropped because no user is specified in the config file.
-RUN	sedfile -i 's|\[supervisord\]|[supervisord]\nuser=root|'                            /etc/supervisor/supervisord.conf \
-# Fix for: CRIT Server 'unix_http_server' running without any HTTP authentication checking.
-&&	sedfile -i 's|\[unix_http_server\]|[unix_http_server]\nusername=foo\npassword=foo|' /etc/supervisor/supervisord.conf \
-&&	sedfile -i 's|\[supervisorctl\]|[supervisorctl]\nusername=foo\npassword=foo|'       /etc/supervisor/supervisord.conf
+RUN <<EOF
+	# Change supervisord defaults
+	# Fix for: CRIT Supervisor is running as root. Privileges were not dropped because no user is specified in the config file.
+	sedfile -i 's|\[supervisord\]|[supervisord]\nuser=root|'                            /etc/supervisor/supervisord.conf
+
+	# Fix for: CRIT Server 'unix_http_server' running without any HTTP authentication checking.
+	sedfile -i 's|\[unix_http_server\]|[unix_http_server]\nusername=foo\npassword=foo|' /etc/supervisor/supervisord.conf
+	sedfile -i 's|\[supervisorctl\]|[supervisorctl]\nusername=foo\npassword=foo|'       /etc/supervisor/supervisord.conf
+EOF
 
 WORKDIR	/opt/netbox/netbox/netbox
-RUN	cp configuration_example.py configuration.py
 
-# Customize netbox
-# https://github.com/netbox-community/netbox/blob/develop/netbox/netbox/configuration_example.py
-#	ALLOWED_HOSTS = [] --> ALLOWED_HOSTS = ['*']
-RUN	sedfile -i "s/^ALLOWED_HOSTS = \[\]$/ALLOWED_HOSTS = ['*']/" configuration.py
-#	Set PostgreSQL user/password
-RUN	sedfile -i "s/^    'USER': '',               # PostgreSQL username$/    'USER': 'netbox',               # PostgreSQL username/" configuration.py
-RUN	sedfile -i "s/^    'PASSWORD': '',           # PostgreSQL password$/    'PASSWORD': 'netbox',           # PostgreSQL password/" configuration.py
-#	If not set to a dummy value, 'python3 manage.py migrate' fails
-RUN	sedfile -i "s/^SECRET_KEY = ''$/SECRET_KEY = '**************************************************'/" configuration.py
-#	disable CSRF middleware. When enabled and using stunnel, the 'CSRF verification failed. Request aborted.'
-#	or set: CSRF_TRUSTED_ORIGINS = [ "https://example.com" ]
-RUN	sedfile -i "s/'django.middleware.csrf.CsrfViewMiddleware'/#'django.middleware.csrf.CsrfViewMiddleware'/" /opt/netbox/netbox/netbox/settings.py
+RUN <<EOF
+	cp configuration_example.py configuration.py
+
+	# Customize netbox
+	# https://github.com/netbox-community/netbox/blob/develop/netbox/netbox/configuration_example.py
+	# ALLOWED_HOSTS = [] --> ALLOWED_HOSTS = ['*']
+	sedfile -i "s/^ALLOWED_HOSTS = \[\]$/ALLOWED_HOSTS = ['*']/" configuration.py
+
+	# Set PostgreSQL user/password
+	sedfile -i "s/^    'USER': '',               # PostgreSQL username$/    'USER': 'netbox',               # PostgreSQL username/" configuration.py
+	sedfile -i "s/^    'PASSWORD': '',           # PostgreSQL password$/    'PASSWORD': 'netbox',           # PostgreSQL password/" configuration.py
+
+	# If not set to a dummy value, 'python3 manage.py migrate' fails
+	sedfile -i "s/^SECRET_KEY = ''$/SECRET_KEY = '**************************************************'/" configuration.py
+EOF
 
 # Install 'uv', an extremely fast Python package and project manager, written in Rust.
 # https://github.com/astral-sh/uv
@@ -67,14 +74,16 @@ ENV	VIRTUAL_ENV=/opt/netbox/.venv
 RUN	uv venv "$VIRTUAL_ENV"
 ENV	PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# Install dependencies
 WORKDIR	/opt/netbox
 # RUN	pip3 install --no-cache-dir --upgrade pip setuptools wheel \
 # RUN	pip3 install --no-cache-dir --upgrade pip wheel \
-RUN	uv pip install --no-cache-dir -r requirements.txt
 
-# Needed for some plugins, e.g. qrcode: https://github.com/casperklein/homeassistant-addons/issues/29
-RUN	uv pip install --no-cache-dir setuptools wheel
+RUN <<EOF
+	# Install dependencies
+	uv pip install --no-cache-dir -r requirements.txt
+	# Needed for some plugins, e.g. qrcode: https://github.com/casperklein/homeassistant-addons/issues/29
+	uv pip install --no-cache-dir setuptools wheel
+EOF
 
 # Setup netbox
 WORKDIR	/opt/netbox/netbox
@@ -115,8 +124,10 @@ WORKDIR	/opt/netbox/
 RUN	mkdocs build
 
 # Cleanup
-RUN     apt-get -y purge $PACKAGES_CLEAN \
-&&      apt-get -y autoremove
+RUN <<EOF
+	apt-get -y purge $PACKAGES_CLEAN
+	apt-get -y autoremove
+EOF
 
 # Build final image
 FROM	scratch
