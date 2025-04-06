@@ -23,7 +23,7 @@
     "debug": "bool"
   },
   "ports": {
-    "80/tcp": 5580,
+    "80/tcp": 8001,
     "5432/tcp": null
   },
   "ports_description": {
