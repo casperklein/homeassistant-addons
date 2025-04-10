@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.7
+
+- [netbox 4.2.7](https://github.com/netbox-community/netbox/releases/tag/v4.2.7)
+
 ## 4.2.6.1
 
 - Netbox is now stopped before Home Assistant creates a backup, ensuring database consistency.
