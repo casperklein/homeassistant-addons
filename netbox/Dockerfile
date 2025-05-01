@@ -2,7 +2,7 @@ FROM	debian:12-slim AS build
 
 ENV	GIT_USER="netbox-community"
 ENV	GIT_REPO="netbox"
-ENV	GIT_COMMIT="v4.2.9"
+ENV	GIT_COMMIT="v4.3.0"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
 #? https://docs.netbox.dev/en/stable/installation/3-netbox/#install-system-packages
@@ -58,8 +58,8 @@ RUN <<EOF
 	sedfile -i "s/^ALLOWED_HOSTS = \[\]$/ALLOWED_HOSTS = ['*']/" configuration.py
 
 	# Set PostgreSQL user/password
-	sedfile -i "s/^    'USER': '',               # PostgreSQL username$/    'USER': 'netbox',               # PostgreSQL username/" configuration.py
-	sedfile -i "s/^    'PASSWORD': '',           # PostgreSQL password$/    'PASSWORD': 'netbox',           # PostgreSQL password/" configuration.py
+	sedfile -i "s/^        'USER': '',               # PostgreSQL username$/        'USER': 'netbox',               # PostgreSQL username/" configuration.py
+	sedfile -i "s/^        'PASSWORD': '',           # PostgreSQL password$/        'PASSWORD': 'netbox',           # PostgreSQL password/" configuration.py
 
 	# If not set to a dummy value, 'python3 manage.py migrate' fails
 	sedfile -i "s/^SECRET_KEY = ''$/SECRET_KEY = '**************************************************'/" configuration.py
