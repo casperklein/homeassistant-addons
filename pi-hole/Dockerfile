@@ -1,7 +1,7 @@
 # check=skip=SecretsUsedInArgOrEnv
 FROM	pihole/pihole:2025.03.1 AS pihole
 
-ARG	YQ_VERSION=v4.45.3
+ARG	YQ_VERSION=v4.45.4
 ARG	SV_VERSION=0.4
 ARG	TARGETARCH
 
