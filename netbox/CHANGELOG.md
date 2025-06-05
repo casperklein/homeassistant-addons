@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.2
+
+- [netbox 4.3.2](https://github.com/netbox-community/netbox/releases/tag/v4.3.2)
+
 ## 4.3.1
 
 - [netbox 4.3.1](https://github.com/netbox-community/netbox/releases/tag/v4.3.1)
