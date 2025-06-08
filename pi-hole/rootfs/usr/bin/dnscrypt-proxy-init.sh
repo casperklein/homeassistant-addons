@@ -5,6 +5,7 @@ set -ueo pipefail
 ADDON_OPTIONS="/data/options.json"
 DNSCRYPT_CONFIG="/etc/dnscrypt-proxy.toml"
 PH_CONFIG="/etc/pihole/pihole.toml"
+CONFIGURED_IN_PH=0
 
 _status() {
 	local BLUE=$'\e[0;34m'
@@ -23,7 +24,6 @@ while read -r UPSTREAMS; do
 done < <(yq -r '.dns.upstreams[]' "$PH_CONFIG")
 
 # Check if DNSCrypt-Proxy is configured in Pi-hole
-CONFIGURED_IN_PH=0
 for i in "${DNS[@]}"; do
 	if [ "$i" == "127.0.0.1#5353" ]; then
 		CONFIGURED_IN_PH=1
