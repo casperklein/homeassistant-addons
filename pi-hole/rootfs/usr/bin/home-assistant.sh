@@ -76,5 +76,8 @@ if [ "$UPDATE_GRAVITY_ON_START" == "true" ]; then
 	patch -i /etc/pihole-patches/update-gravity-on-start.patch /usr/bin/bash_functions.sh >/dev/null
 fi
 
+supervisor.sh start "DNSCrypt-Proxy" >/dev/null
+sleep 3
+
 _status "Starting Pi-hole"
 supervisor.sh start "Pi-hole" >/dev/null
