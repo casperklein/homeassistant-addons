@@ -1,5 +1,5 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2025.03.1 AS pihole
+FROM	pihole/pihole:2025.06.1 AS pihole
 
 ARG	YQ_VERSION=v4.45.4
 ARG	SV_VERSION=0.4
@@ -116,5 +116,5 @@ EXPOSE 53/udp
 # EXPOSE 67/udp
 EXPOSE 80/tcp
 # Healthcheck is disabled, to avoid waiting 30s (until container is healthy) to access Pi-hole via HA Ingress
-# HEALTHCHECK CMD dig +short +norecurse +retry=0 @127.0.0.1 pi.hole || exit 1
+# HEALTHCHECK CMD dig -p $(pihole-FTL --config dns.port) +short +norecurse +retry=0 @127.0.0.1 pi.hole || exit 1
 WORKDIR /

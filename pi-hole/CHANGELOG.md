@@ -1,5 +1,16 @@
 # Changelog
 
+## 2025.06.1
+
+- [Pi-hole 6.1.2](https://github.com/pi-hole/pi-hole/releases/tag/v6.1.2) ([6.1](https://github.com/pi-hole/pi-hole/releases/tag/v6.1), [6.1.1](https://github.com/pi-hole/pi-hole/releases/tag/v6.1.1))
+- [Web 6.2.1](https://github.com/pi-hole/web/releases/tag/v6.2.1) ([6.2](https://github.com/pi-hole/web/releases/tag/v6.2))
+- [FTL 6.2.2](https://github.com/pi-hole/FTL/releases/tag/v6.2.2) ([6.2](https://github.com/pi-hole/FTL/releases/tag/v6.2), [6.2.1](https://github.com/pi-hole/FTL/releases/tag/v6.2.1))
+- [DNSCrypt-Proxy 2.1.12](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.12)
+- [supervisor.sh 0.4](https://github.com/casperklein/supervisor.sh/releases/tag/0.4)
+- [yq 4.45.4](https://github.com/mikefarah/yq/releases/tag/v4.45.4)
+- Disabled a misleading build warning
+- Changed service order: DNSCrypt-Proxy now starts before Pi-hole
+
 ## 2025.03.1.1
 
 - Fix gravity update cronjob on sunday
