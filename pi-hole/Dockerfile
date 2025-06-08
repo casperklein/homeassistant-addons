@@ -88,8 +88,8 @@ LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/pi-ho
 # Disable Pi-hole authentication --> Single Sign On via HA Ingress
 ENV	FTLCONF_webserver_api_password=""
 
-# Needed to substitute with HA Ingress token
-# ENV	FTLCONF_webserver_paths_prefix="/live-long-and-prosper"
+# Placeholder for HA Ingress token (required for substitution, see rootfs/etc/nginx/http.d/ingress-proxy.conf)
+ENV	FTLCONF_webserver_paths_prefix="/live-long-and-prosper"
 
 # Let Pi-hole listen on port 8080
 ENV	FTLCONF_webserver_port="127.0.0.1:8080,443s"
