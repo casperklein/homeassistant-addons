@@ -1,5 +1,9 @@
 # Changelog
 
+## 2025.06.2
+
+- [FTL 6.2.3](https://github.com/pi-hole/FTL/releases/tag/v6.2.3)
+
 ## 2025.06.1
 
 - [Pi-hole 6.1.2](https://github.com/pi-hole/pi-hole/releases/tag/v6.1.2) ([6.1](https://github.com/pi-hole/pi-hole/releases/tag/v6.1), [6.1.1](https://github.com/pi-hole/pi-hole/releases/tag/v6.1.1))

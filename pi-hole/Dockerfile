@@ -1,5 +1,5 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2025.06.1 AS pihole
+FROM	pihole/pihole:2025.06.2 AS pihole
 
 ARG	YQ_VERSION=v4.45.4
 ARG	SV_VERSION=0.4
