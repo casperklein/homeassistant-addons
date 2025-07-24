@@ -1,0 +1,4 @@
+configuration:
+  forward_host:
+    name: "Internal IP address of the Pi-hole addon"
+    description: "IP address or hostname to which DHCP requests will be forwarded"

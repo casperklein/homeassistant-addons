@@ -1,0 +1,19 @@
+{
+  "name": "Pi-hole-DHCP-helper",
+  "version": "0.1",
+  "slug": "pi-hole-dhcp-helper",
+  "description": "This is a helper add-on that forwards DHCP requests to a Pi-hole instance.",
+  "url": "https://github.com/casperklein/homeassistant-addons/tree/master/pi-hole-dhcp-helper",
+  "image": "casperklein/homeassistant-pi-hole-dhcp-helper",
+  "arch": ["aarch64", "amd64", "armhf", "armv7"],
+  "host_network": true,
+  "privileged": ["NET_ADMIN"],
+  "docker_api": true,
+  "options": {
+    "forward_host": ""
+  },
+  "schema": {
+    "forward_host": "str?"
+  },
+  "init": false
+}
