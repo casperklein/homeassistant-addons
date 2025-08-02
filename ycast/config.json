@@ -5,19 +5,26 @@
   "description": "Self hosted vTuner internet radio service emulation",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/ycast",
   "image": "casperklein/homeassistant-ycast",
-  "arch": ["amd64","aarch64","armhf","armv7"],
+  "arch": [
+    "amd64",
+    "aarch64",
+    "armhf",
+    "armv7"
+  ],
   "startup": "application",
   "boot": "auto",
   "options": {
-        "bookmarks": []
+    "bookmarks": []
   },
   "schema": {
-        "bookmarks": ["str?"]
+    "bookmarks": [
+      "str?"
+    ]
   },
   "ports": {
-        "80/tcp": 80
+    "80/tcp": 80
   },
   "ports_description": {
-        "80/tcp": "YCast Webserver"
+    "80/tcp": "YCast Webserver"
   }
 }

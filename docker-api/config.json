@@ -5,19 +5,22 @@
   "description": "Expose Home Assistant OS Docker API via network",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/docker-api",
   "image": "casperklein/homeassistant-docker-api",
-  "arch": ["amd64","aarch64", "armhf", "armv7"],
+  "arch": [
+    "amd64",
+    "aarch64",
+    "armhf",
+    "armv7"
+  ],
   "startup": "application",
   "boot": "auto",
   "webui": "http://[HOST]:[PORT:2375]/version",
-  "options": {
-  },
-  "schema": {
-  },
+  "options": {},
+  "schema": {},
   "ports": {
-        "2375/tcp": 2375
+    "2375/tcp": 2375
   },
   "ports_description": {
-	  "2375/tcp": "Docker API (un-encrypted)"
+    "2375/tcp": "Docker API (un-encrypted)"
   },
   "init": true,
   "docker_api": true

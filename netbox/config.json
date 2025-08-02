@@ -5,11 +5,19 @@
   "description": "NetBox is an open source web application designed to help manage and document computer networks",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/netbox",
   "image": "casperklein/homeassistant-netbox",
-  "arch": ["amd64","aarch64"],
+  "arch": [
+    "amd64",
+    "aarch64"
+  ],
   "startup": "application",
   "boot": "auto",
   "webui": "[PROTO:https]://[HOST]:[PORT:80]/",
-  "map": ["addon_config:rw", "media:rw", "share:rw", "ssl"],
+  "map": [
+    "addon_config:rw",
+    "media:rw",
+    "share:rw",
+    "ssl"
+  ],
   "options": {
     "user": "",
     "password": "",
