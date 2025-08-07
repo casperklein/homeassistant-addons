@@ -1,12 +1,15 @@
 [dns]
   listeningMode = "all"
 
+  [dns.cache]
+    optimizer = -3600
+
 [dhcp]
   [ntp.ipv4]
-  active = false
+    active = false
 
   [ntp.ipv6]
-  active = false
+    active = false
 
   [ntp.sync]
-  active = false
+    active = false

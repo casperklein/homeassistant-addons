@@ -1,0 +1,16 @@
+--- header.lp.old	2025-08-06
++++ header.lp	2025-08-06
+@@ -107,13 +107,11 @@
+ ?>
+     <link rel="stylesheet" href="<?=pihole.fileversion('vendor/bootstrap-select/bootstrap-select.min.css')?>">
+ <? end ?>
+-<? if is_authenticated then ?>
+     <link rel="stylesheet" href="<?=pihole.fileversion('vendor/datatables/datatables.min.css')?>">
+     <link rel="stylesheet" href="<?=pihole.fileversion('vendor/datatables-buttons/datatables.buttons.min.css')?>">
+     <link rel="stylesheet" href="<?=pihole.fileversion('vendor/datatables-select/datatables.select.min.css')?>">
+     <link rel="stylesheet" href="<?=pihole.fileversion('vendor/daterangepicker/daterangepicker.min.css')?>">
+     <link rel="stylesheet" href="<?=pihole.fileversion('vendor/bootstrap-toggle/bootstrap-toggle.min.css')?>">
+-<? end ?>
+     <link rel="stylesheet" href="<?=pihole.fileversion('vendor/waitMe-js/waitMe.min.css')?>">
+     <link rel="stylesheet" href="<?=pihole.fileversion('vendor/select2/select2.min.css')?>">
+     <link rel="stylesheet" href="<?=pihole.fileversion('vendor/adminLTE/AdminLTE.min.css')?>">

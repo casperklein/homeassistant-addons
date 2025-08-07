@@ -1,0 +1,35 @@
+server {
+	listen %HTTP_PORT% default_server;
+	listen [::]:%HTTP_PORT% default_server;
+	listen %HTTPS_PORT% default_server ssl;
+	listen [::]:%HTTPS_PORT% default_server ssl;
+
+	%HTTP2%
+
+	include /etc/nginx/includes/auth-location.conf;
+	include /etc/nginx/includes/ssl.conf;
+
+	# Redirect / requests to Pi-hole's dashboard --> /admin/
+	location = / {
+		return 302 admin/;
+	}
+
+    	location / {
+		# Forward client IP address
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+		include /etc/nginx/includes/auth-request.conf;
+
+		# Enables string replacement in responses with the specified MIME types in addition to "text/html"
+		sub_filter_types application/javascript; #text/css
+
+		# Indicates whether to look for each string to replace once or repeatedly
+		sub_filter_once off;
+
+		# Remove FTLCONF_webserver_paths_prefix
+		sub_filter '/live-long-and-prosper' '';
+
+		# Pass requests to Pi-hole
+		proxy_pass http://127.0.0.1:31415/;
+	}
+}

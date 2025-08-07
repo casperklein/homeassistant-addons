@@ -1,5 +1,31 @@
 # Changelog
 
+## 2025.08.0
+
+This update adds full support for NTP and DHCP, meaning Pi-hole's entire feature set is now fully supported.
+
+**Before updating, it's strongly recommended to make a backup of the add-on so it can be restored in case of any issues.**
+
+### New features
+
+- DHCP support added.
+- NTP support for synchronizing the system time added.
+- For direct HTTPS access, a certificate can be configured. If no certificate is provided, a self-signed certificate will be generated and used.
+- Authentication option for direct HTTP/HTTPS access added.
+- IPv6 support for direct web access added.
+- Information about using Bastgau's custom Pi-hole integration for Home Assistant has been added to the README file.
+
+### Breaking changes
+
+- DNSCrypt-Proxy now listens on `127.0.0.1#5335`. If you are using DNSCrypt-Proxy, you must update Pi-hole’s custom DNS server setting with this new value.
+- Previously, the DNS and NTP ports could be exposed in the network settings. This option has been removed as it's no longer needed. It's recommended to reset the network settings to reflect the new changes.
+
+### Internal changes
+
+- The add-on network mode changed from *bridge* to *host*.
+- If a service fails to start or exits unexpectedly, the add-on now stops.
+- Web access is now more streamlined: all requests are handled by Nginx. Previously, Pi-hole served HTTPS directly.
+
 ## 2025.07.1
 
 - [Pi-hole 6.1.4](https://github.com/pi-hole/pi-hole/releases/tag/v6.1.4) ([6.1.3](https://github.com/pi-hole/pi-hole/releases/tag/v6.1.3))

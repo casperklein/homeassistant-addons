@@ -35,18 +35,33 @@ DNS stamps contain all the parameters required to connect to a secure DNS server
 
 In Pi-hole the following **must** be configured:
 
-- Custom DNS server: `127.0.0.1#5353`
+- Custom DNS server: `127.0.0.1#5335`
 - Disable all other configured DNS servers
 
 To test your setup, visit [https://1.1.1.1/help](https://1.1.1.1/help). If you see "Using DNS over HTTPS (DoH): yes", all should be fine :)
 
-## NTP
+## Pi-hole integration and custom card
 
-To use Pi-hole also as an NTP server, it must be enabled under *System / Settings / All settings / Network Time Sync*. Additionally, port 123/UDP must be exposed in the add-on configuration.
+If you want to integrate Pi-hole with Home Assistant, I highly recommend [Bastgau's custom integration](https://github.com/bastgau/ha-pi-hole-v6).
+It’s better maintained and provides more features than the built-in native integration.
 
-## Not implemented
+To set up the integration:
 
-- Pi-hole DHCP server functionality
+1. Use `http://127.0.0.1:31415/api` as the *Address*.
+
+1. Leave the *Password* field blank.
+
+Once you've set up the integration, you can also use [this](https://github.com/homeassistant-extras/pi-hole-card) custom Pi-hole card.
+
+## Direct HTTP/HTTPS access
+
+You can open the Pi-hole Web UI in Home Assistant using Ingress. Simply click *Open Web UI* on the add-on page.
+
+If you also want to enable direct HTTP/HTTPS access, open the add-on's Network settings and assign a port to HTTP/HTTPS.
+
+For HTTPS, you can configure a certificate and key file located in `/ssl` in the add-on settings. If no certificate is provided, a self-signed certificate will be generated and used.
+
+You can secure direct access by enabling the *Authentication* option in the add-on configuration. Any valid Home Assistant user account can be used to log in.
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg

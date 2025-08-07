@@ -1,7 +1,7 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2025.07.1 AS pihole
+FROM	pihole/pihole:2025.08.0 AS pihole
 
-ARG	YQ_VERSION=v4.45.4
+ARG	YQ_VERSION=v4.47.1
 ARG	SV_VERSION=0.4
 ARG	TARGETARCH
 
@@ -44,7 +44,10 @@ RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker
 # RUN	sedfile -i 's|updateComponentAvailable = true;|updateComponentAvailable = false;|g' /var/www/html/admin/scripts/js/footer.js
 
 # Remove obsolete files
-RUN	rm /etc/nginx/http.d/default.conf /usr/bin/sedfile
+RUN	rm /etc/nginx/http.d/default.conf
+
+# Temporary fix, until https://github.com/pi-hole/web/issues/3577 is solved.
+RUN	patch -i /etc/pihole-patches/header.lp.patch /var/www/html/admin/scripts/lua/header.lp
 
 # Build dnscrypt-proxy from source #################################################################
 FROM	golang:bookworm AS dnscrypt
@@ -88,14 +91,14 @@ LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/pi-ho
 # Disable Pi-hole authentication --> Single Sign On via HA Ingress
 ENV	FTLCONF_webserver_api_password=""
 
-# Placeholder for HA Ingress token (required for substitution, see rootfs/etc/nginx/http.d/ingress-proxy.conf)
+# Placeholder for HA Ingress token (required for substitution, see rootfs/etc/nginx/http.d/ingress.conf)
 ENV	FTLCONF_webserver_paths_prefix="/live-long-and-prosper"
 
-# Let Pi-hole listen on port 8080
-ENV	FTLCONF_webserver_port="127.0.0.1:8080,443s"
+# Let Pi-hole web server listen on port 3.1415
+ENV	FTLCONF_webserver_port="127.0.0.1:31415"
 
 # Disable DHCP
-ENV	FTLCONF_dhcp_active="false"
+# ENV	FTLCONF_dhcp_active="false"
 
 COPY	--from=dnscrypt /build/dnscrypt-proxy/dnscrypt-proxy /usr/bin/
 COPY	--from=pihole / /

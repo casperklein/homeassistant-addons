@@ -6,6 +6,7 @@ ADDON_OPTIONS="/data/options.json"
 DNSCRYPT_CONFIG="/etc/dnscrypt-proxy.toml"
 PH_CONFIG="/etc/pihole/pihole.toml"
 CONFIGURED_IN_PH=0
+PIHOLE_SETTING="127.0.0.1#5335"
 
 _status() {
 	local BLUE=$'\e[0;34m'
@@ -17,18 +18,20 @@ _status() {
 	printf -- '%s\n' "$RESET" # Reset color
 }
 
-# Get all upstream DNS servers
 DNS=()
-while read -r UPSTREAMS; do
-	DNS+=("$UPSTREAMS")
-done < <(yq -r '.dns.upstreams[]' "$PH_CONFIG")
+# Get all upstream DNS servers
+if [ -f "$PH_CONFIG" ]; then # $PH_CONFIG does normally not exist on first startup; However, since custom default settings (/etc/pihole-custom-defaults/pihole.toml) are copied, the file exist. Keeping the check as safety net.
+	while read -r UPSTREAMS; do
+		DNS+=("$UPSTREAMS")
+	done < <(yq -r '.dns.upstreams[]' "$PH_CONFIG")
 
-# Check if DNSCrypt-Proxy is configured in Pi-hole
-for i in "${DNS[@]}"; do
-	if [ "$i" == "127.0.0.1#5353" ]; then
-		CONFIGURED_IN_PH=1
-	fi
-done
+	# Check if DNSCrypt-Proxy is configured in Pi-hole
+	for i in "${DNS[@]}"; do
+		if [ "$i" == "$PIHOLE_SETTING" ]; then
+			CONFIGURED_IN_PH=1
+		fi
+	done
+fi
 
 # Check if there are dnscrypt settings
 # if ! grep -qF '"dnscrypt": []' "$ADDON_OPTIONS"; then
@@ -67,7 +70,7 @@ if (( $(jq '.dnscrypt | length' "$ADDON_OPTIONS") > 0 )); then
 	fi
 
 	if (( CONFIGURED_IN_PH == 0 )); then
-		_status "WARNING: Custom DNS server 127.0.0.1#5353 is not configured. DNSCrypt/DoH name resolution will not work until this is resolved."
+		_status "WARNING: Custom DNS server $PIHOLE_SETTING is not configured in Pi-hole. DNSCrypt/DoH name resolution will not work until this is resolved."
 	fi
 
 	# Check if custom DNS server is properly configured
@@ -84,7 +87,7 @@ else
 
 	# Check if custom DNS server is configured
 	if (( CONFIGURED_IN_PH == 1 )); then
-		_status "WARNING: DNSCrypt-Proxy (127.0.0.1#5353) is configured as a custom DNS upstream server. DNS resolution will not work until DNSCrypt-Proxy is set up in the add-on configuration."
+		_status "WARNING: DNSCrypt-Proxy ($PIHOLE_SETTING) is configured in Pi-hole as a custom DNS upstream server. DNS resolution will not work until DNSCrypt-Proxy is set up in the add-on configuration."
 	fi
 
 	exit 0 # Graceful exit, to not trigger a restart by supervisor.sh

@@ -1,4 +1,15 @@
 configuration:
+  dnscrypt:
+    name: "DNSCrypt configuration"
   update_gravity_on_start:
     name: "Update gravity on startup"
     description: "Update the list of ad-serving domains on startup"
+  authentication:
+    name: "Enable authentication"
+    description: "Enable authentication for direct HTTP/HTTPS access"
+  certificate:
+    name: "certificate"
+    description: "The certificate file to use for SSL"
+  certificate_key:
+    name: "certificate_key"
+    description: "The private key file to use for SSL"

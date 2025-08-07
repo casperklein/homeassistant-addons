@@ -5,26 +5,26 @@ supervisor:
   color: "\e[0;32m"
 
 jobs:
-  - name: "Ingress-Proxy"
-    command: "nginx -g 'daemon off;'"
-    autostart: "on"
-    restart: "error"
-    logfile: "/dev/stdout"
-
   - name: "Initialization"
-    command: "/usr/bin/home-assistant.sh || kill -SIGTERM 1"
+    command: "/usr/bin/addon-init.sh || kill -SIGTERM 1"
     autostart: "on"
     restart: "off"
     logfile: "/dev/stdout"
 
-  - name: "Pi-hole"
-    command: "sleep 0.5; /usr/bin/start.sh"
+  - name: "Nginx"
+    command: "nginx -g 'daemon off;' || kill -SIGTERM 1"
     autostart: "off"
     restart: "off"
     logfile: "/dev/stdout"
 
   - name: "DNSCrypt-Proxy"
-    command: "/usr/bin/dnscrypt-proxy-init.sh"
+    command: "/usr/bin/dnscrypt-proxy-init.sh || kill -SIGTERM 1"
     autostart: "off"
-    restart: "error"
+    restart: "off"
+    logfile: "/dev/stdout"
+
+  - name: "Pi-hole"
+    command: "sleep 0.5; /usr/bin/start.sh || kill -SIGTERM 1"
+    autostart: "off"
+    restart: "off"
     logfile: "/dev/stdout"

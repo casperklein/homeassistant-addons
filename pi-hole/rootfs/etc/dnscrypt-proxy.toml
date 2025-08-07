@@ -1,2 +1,2 @@
-listen_addresses = ['0.0.0.0:5353']
+listen_addresses = ['127.0.0.1:5335']
 cache = false
