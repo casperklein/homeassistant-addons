@@ -116,7 +116,7 @@ EXPOSE 123/udp
 EXPOSE 443/tcp
 EXPOSE 53/tcp
 EXPOSE 53/udp
-# EXPOSE 67/udp
+EXPOSE 67/udp
 EXPOSE 80/tcp
 # Healthcheck is disabled, to avoid waiting 30s (until container is healthy) to access Pi-hole via HA Ingress
 # HEALTHCHECK CMD dig -p $(pihole-FTL --config dns.port) +short +norecurse +retry=0 @127.0.0.1 pi.hole || exit 1
