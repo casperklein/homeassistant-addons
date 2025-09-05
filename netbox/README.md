@@ -82,19 +82,19 @@ The *requirements* are downloaded at add-on startup, so an internet connection i
 
 ### Main page
 
-![Screenshot of main page](https://github.com/netbox-community/netbox/raw/develop/docs/media/screenshots/home-light.png "Main page")
+![Screenshot of main page](https://github.com/netbox-community/netbox/raw/main/docs/media/screenshots/home-light.png "Main page")
 
 ### Rack elevation
 
-![Screenshot of rack elevation](https://github.com/netbox-community/netbox/raw/develop/docs/media/screenshots/rack.png "Rack elevation")
+![Screenshot of rack elevation](https://github.com/netbox-community/netbox/raw/main/docs/media/screenshots/rack.png "Rack elevation")
 
 ### Prefix hierarchy
 
-![Screenshot of prefix hierarchy](https://github.com/netbox-community/netbox/raw/develop/docs/media/screenshots/prefixes-list.png "Prefix hierarchy")
+![Screenshot of prefix hierarchy](https://github.com/netbox-community/netbox/raw/main/docs/media/screenshots/prefixes-list.png "Prefix hierarchy")
 
 ### Cable Trace
 
-![Screenshot of cable trace](https://github.com/netbox-community/netbox/raw/develop/docs/media/screenshots/cable-trace.png "Cable Trace")
+![Screenshot of cable trace](https://github.com/netbox-community/netbox/raw/main/docs/media/screenshots/cable-trace.png "Cable Trace")
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg
