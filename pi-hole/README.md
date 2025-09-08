@@ -25,11 +25,10 @@ If you like the add-on and would like to support my work, you might [![Buy me a 
 
 This is achieved by using [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy). You have to configure one or more DNS servers for use with dnscrypt-proxy. To use Cloudflare DNS, for example, put this in the add-on configuration:
 
-    dnscrypt:
-      - name: "Cloudflare 1.1.1.1"
-        stamp: "sdns://AgcAAAAAAAAABzEuMS4xLjEAEmNsb3VkZmxhcmUtZG5zLmNvbQovZG5zLXF1ZXJ5"
-      - name: "Cloudflare 1.0.0.1"
-        stamp: "sdns://AgcAAAAAAAAABzEuMC4wLjEAEmNsb3VkZmxhcmUtZG5zLmNvbQovZG5zLXF1ZXJ5"
+    - name: "Cloudflare 1.1.1.1"
+      stamp: "sdns://AgcAAAAAAAAABzEuMS4xLjEAEmNsb3VkZmxhcmUtZG5zLmNvbQovZG5zLXF1ZXJ5"
+    - name: "Cloudflare 1.0.0.1"
+      stamp: "sdns://AgcAAAAAAAAABzEuMC4wLjEAEmNsb3VkZmxhcmUtZG5zLmNvbQovZG5zLXF1ZXJ5"
 
 DNS stamps contain all the parameters required to connect to a secure DNS server as a single string. To create own stamps, you can use: [https://dnscrypt.info/stamps/](https://dnscrypt.info/stamps/). Or you can just use any of these [public servers](https://dnscrypt.info/public-servers).
 
