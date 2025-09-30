@@ -24,7 +24,7 @@ jobs:
     logfile: "/dev/stdout"
 
   - name: "Pi-hole"
-    command: "sleep 0.5; /usr/bin/start.sh || kill -SIGTERM 1"
+    command: "killall -q crond; sleep 0.5; /usr/bin/start.sh || kill -SIGTERM 1"
     autostart: "off"
     restart: "off"
     logfile: "/dev/stdout"

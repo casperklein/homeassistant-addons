@@ -1,5 +1,22 @@
 # Changelog
 
+## 2025.08.0.1
+
+This update fixes an issue where multiple `crond` instances could corrupt the Gravity database. It also updates DNSCrypt-Proxy to version 2.1.14.
+
+### Fixes
+
+- Do not run multiple `crond` instances after a Home Assistant backup ([#43](https://github.com/casperklein/homeassistant-addons/issues/43))
+
+### Updates
+
+- [DNSCrypt-Proxy 2.1.14](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.14)
+
+### Internal
+
+- [supervisor.sh 0.6](https://github.com/casperklein/supervisor.sh/releases/tag/0.6)
+- [yq 4.47.2](https://github.com/mikefarah/yq/releases/tag/v4.47.2)
+
 ## 2025.08.0
 
 This update adds full support for NTP and DHCP, meaning Pi-hole's entire feature set is now fully supported.

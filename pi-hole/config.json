@@ -1,6 +1,6 @@
 {
   "name": "Pi-hole",
-  "version": "2025.08.0",
+  "version": "2025.08.0.1",
   "slug": "pihole",
   "description": "Network-wide Ad Blocking",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/pi-hole",
@@ -55,6 +55,6 @@
     "certificate_key": "str?"
   },
   "init": false,
-  "backup_pre": "supervisor.sh stop Pi-hole",
+  "backup_pre": "bash -c 'killall -q crond; supervisor.sh stop Pi-hole'",
   "backup_post": "supervisor.sh start Pi-hole"
 }
