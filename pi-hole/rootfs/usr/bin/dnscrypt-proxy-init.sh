@@ -90,5 +90,7 @@ else
 		_status "WARNING: DNSCrypt-Proxy ($PIHOLE_SETTING) is configured in Pi-hole as a custom DNS upstream server. DNS resolution will not work until DNSCrypt-Proxy is set up in the add-on configuration."
 	fi
 
-	exit 0 # Graceful exit, to not trigger a restart by supervisor.sh
+	# DNSCrypt-Proxy job is configured as 'required'. 'exit 0' would supervisor stop
+	# exit 0
+	supervisor.sh stop "DNSCrypt-Proxy" >/dev/null
 fi

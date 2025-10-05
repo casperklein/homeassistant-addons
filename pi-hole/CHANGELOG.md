@@ -1,5 +1,15 @@
 # Changelog
 
+## 2025.08.0.2
+
+This update is a maintenance release and includes minor enhancements.
+
+### Internal changes
+
+- Added log messages for when the Home Assistant backup starts and finishes.
+- [supervisor.sh 0.7](https://github.com/casperklein/supervisor.sh/releases/tag/0.7)
+- The job configuration now avoids sub-shells. This fixes a non-critical issue where Pi-hole reported twice that a stop was requested.
+
 ## 2025.08.0.1
 
 This update fixes an issue where multiple `crond` instances could corrupt the Gravity database. It also updates DNSCrypt-Proxy to version 2.1.14.
