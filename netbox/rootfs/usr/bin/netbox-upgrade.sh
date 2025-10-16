@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# https://github.com/netbox-community/netbox/blob/develop/upgrade.sh
+# https://github.com/netbox-community/netbox/blob/main/upgrade.sh
 
 set -ueo pipefail
 shopt -s inherit_errexit
