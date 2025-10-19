@@ -1,5 +1,13 @@
 # Changelog
 
+## 2025.08.0.3
+
+This update is a maintenance release and includes only minor enhancements:
+
+- Adjusted wording in log messages to better match this add-on.
+- [supervisor.sh 0.8](https://github.com/casperklein/supervisor.sh/releases/tag/0.8)
+- [yq 4.48.1](https://github.com/mikefarah/yq/releases/tag/v4.48.1)
+
 ## 2025.08.0.2
 
 This update is a maintenance release and includes minor enhancements.

@@ -1,8 +1,8 @@
 # check=skip=SecretsUsedInArgOrEnv
 FROM	pihole/pihole:2025.08.0 AS pihole
 
-ARG	YQ_VERSION=v4.47.2
-ARG	SV_VERSION=0.7
+ARG	YQ_VERSION=v4.48.1
+ARG	SV_VERSION=0.8
 ARG	TARGETARCH
 
 SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
@@ -38,6 +38,11 @@ EOF
 # Copy root filesystem
 COPY	rootfs /
 
+# Adjust wording slightly. Pi-hole may be stopped (during HA backup), but the add-on keeps running.
+RUN	sedfile -i    's|echo "  \[i\] Container stop requested..."|echo "  \[i\] Pi-hole stop requested..."|'   /usr/bin/start.sh
+# Hide Docker instructions that are not applicable for this add-on
+RUN	sedfile -i    's|echo "  \[i\] Container will now stop or restart depending on your restart policy"|#&|' /usr/bin/start.sh
+RUN	sedfile -i -E 's|echo "\s+https://docs.docker.com/engine/containers/start-containers-automatically/|#&|' /usr/bin/start.sh
 # Remove docker-pi-hole update instructions
 RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker-pi-hole#upgrading-persistence-and-customizations" rel="noopener noreferrer" target="_blank">replace this old container with a fresh upgraded image</a>.||' /var/www/html/admin/scripts/js/footer.js
 # Disable update checks completely

@@ -11,3 +11,4 @@ _status() {
 }
 
 _status "$*" >> /tmp/notify
+sleep 1
