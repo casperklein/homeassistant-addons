@@ -1,6 +1,4 @@
 [dns]
-  listeningMode = "all"
-
   [dns.cache]
     optimizer = -3600
 

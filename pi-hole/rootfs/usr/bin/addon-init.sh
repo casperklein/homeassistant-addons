@@ -53,8 +53,8 @@ else
 	_status "Migrating the Pi-hole configuration to persistent storage"
 	mv /etc/pihole /data/pihole
 
+	# https://docs.pi-hole.net/ftldns/configfile/
 	_status "Customize initial default settings:"
-	_status "  - dns.listeningMode:     all" # Pi-hole uses eth0 by default. If the interface name differs (e.g. end0), DNS resolution will not work (out-of-the-box).
 	_status "  - dns.cache.optimizer: -3600" # Respect the TTL and do not return any outdated DNS data.
 	_status "  - ntp.ipv4.active:     false" # No need to activate NTP, while DHCP is disabled.
 	_status "  - ntp.ipv6.active:     false" # No need to activate NTP, while DHCP is disabled.
@@ -82,14 +82,14 @@ fi
 # SLUG="0da538cf_pihole"
 SLUG="self"
 
-_status "Configure Ingress IP and port"
+_status "Configure Ingress IP address and port"
 # "hassio_api": "true" is not needed in the addon config.json for these queries --> https://developers.home-assistant.io/docs/add-ons/communication#supervisor-api
 IP=$(           curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r .data.ip_address)
 INGRESS_PORT=$( curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r .data.ingress_port)
 HTTP_PORT=$(    curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r '.data.network | ."80/tcp" // empty')
 HTTPS_PORT=$(   curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r '.data.network | ."443/tcp" // empty')
 
-# Configure ingress IP and port
+# Configure Ingress IP address and port
 sedfile -i "s|%INTERFACE%|$IP|"      /etc/nginx/http.d/ingress.conf
 sedfile -i "s|%PORT%|$INGRESS_PORT|" /etc/nginx/http.d/ingress.conf
 

@@ -1,8 +1,8 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2025.08.0 AS pihole
+FROM	pihole/pihole:2025.10.3 AS pihole
 
 ARG	YQ_VERSION=v4.48.1
-ARG	SV_VERSION=0.8
+ARG	SV_VERSION=0.9
 ARG	TARGETARCH
 
 SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
@@ -50,10 +50,6 @@ RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker
 
 # Remove obsolete files
 RUN	rm /etc/nginx/http.d/default.conf
-
-# todo
-# Temporary fix, until https://github.com/pi-hole/web/issues/3577 is solved.
-RUN	patch -i /etc/pihole-patches/header.lp.patch /var/www/html/admin/scripts/lua/header.lp
 
 # Build dnscrypt-proxy from source #################################################################
 FROM	golang:bookworm AS dnscrypt

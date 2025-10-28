@@ -1,5 +1,18 @@
 # Changelog
 
+## 2025.10.3
+
+### Pi-hole Updates
+
+- [Pi-hole Blog](https://pi-hole.net/blog/2025/10/25/pi-hole-ftl-v6-3-web-v6-3-and-core-v6-2-released/)
+- [Pi-hole 6.2.2](https://github.com/pi-hole/pi-hole/releases/tag/v6.2.2) ([6.2.1](https://github.com/pi-hole/pi-hole/releases/tag/v6.2.1), [6.2.0](https://github.com/pi-hole/pi-hole/releases/tag/v6.2.0))
+- [Web 6.3](https://github.com/pi-hole/web/releases/tag/v6.3)
+- [FTL 6.3.2](https://github.com/pi-hole/FTL/releases/tag/v6.3.2) ([6.3.1](https://github.com/pi-hole/FTL/releases/tag/v6.3.1), [6.3](https://github.com/pi-hole/FTL/releases/tag/v6.3))
+
+### Internal
+
+- [supervisor.sh 0.9](https://github.com/casperklein/supervisor.sh/releases/tag/0.9)
+
 ## 2025.08.0.3
 
 This update is a maintenance release and includes only minor enhancements:
@@ -352,13 +365,13 @@ A new major version of Pi-hole has been released. Be sure to create a backup bef
 
 ## 5.8
 
-- [Pi-hole Blog](https://pi-hole.net/2021/04/14/pi-hole-ftl-v5-8-web-v5-5-and-core-v5-3-released/#page-content)
+- [Pi-hole Blog](https://pi-hole.net/2021/04/14/pi-hole-ftl-v5-8-web-v5-5-and-core-v5-3-released/)
 - [FTL 5.8](https://github.com/pi-hole/FTL/releases/tag/v5.8)
 - [AdminLTE 5.5](https://github.com/pi-hole/AdminLTE/releases/tag/v5.5)
 
 ## 5.7
 
-- [Pi-hole Blog](https://pi-hole.net/2021/02/16/pi-hole-ftl-v5-7-and-web-v5-4-released/#page-content)
+- [Pi-hole Blog](https://pi-hole.net/2021/02/16/pi-hole-ftl-v5-7-and-web-v5-4-released/)
 - [FTL 5.7](https://github.com/pi-hole/FTL/releases/tag/v5.7)
 - [AdminLTE 5.4](https://github.com/pi-hole/AdminLTE/releases/tag/v5.4)
 
