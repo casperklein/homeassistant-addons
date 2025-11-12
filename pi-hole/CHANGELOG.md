@@ -1,5 +1,15 @@
 # Changelog
 
+## 2025.11.0
+
+### Pi-hole Updates
+
+- [FTL 6.3.3](https://github.com/pi-hole/FTL/releases/tag/v6.3.3)
+
+### Internal
+
+- [supervisor.sh 0.10](https://github.com/casperklein/supervisor.sh/releases/tag/0.10)
+
 ## 2025.10.3
 
 ### Pi-hole Updates

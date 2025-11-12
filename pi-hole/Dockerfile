@@ -1,8 +1,8 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2025.10.3 AS pihole
+FROM	pihole/pihole:2025.11.0 AS pihole
 
 ARG	YQ_VERSION=v4.48.1
-ARG	SV_VERSION=0.9
+ARG	SV_VERSION=0.10
 ARG	TARGETARCH
 
 SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
@@ -45,6 +45,8 @@ RUN	sedfile -i    's|echo "  \[i\] Container will now stop or restart depending 
 RUN	sedfile -i -E 's|echo "\s+https://docs.docker.com/engine/containers/start-containers-automatically/|#&|' /usr/bin/start.sh
 # Remove docker-pi-hole update instructions
 RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker-pi-hole#upgrading-persistence-and-customizations" rel="noopener noreferrer" target="_blank">replace this old container with a fresh upgraded image</a>.||' /var/www/html/admin/scripts/js/footer.js
+# Display real FTL exit code. 'start.sh' sometimes returns 143 (SIGTERM) or 1.
+RUN	sedfile -i 's;echo "  \[i\] pihole-FTL exited with status.*;tac \$FTLlogFile | grep -m 1 "FTL terminated after";' /usr/bin/start.sh
 # Disable update checks completely
 # RUN	sedfile -i 's|updateComponentAvailable = true;|updateComponentAvailable = false;|g' /var/www/html/admin/scripts/js/footer.js
 

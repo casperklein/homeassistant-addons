@@ -83,7 +83,6 @@ if (( $(jq '.dnscrypt | length' "$ADDON_OPTIONS") > 0 )); then
 	exec dnscrypt-proxy -config "$DNSCRYPT_CONFIG"
 else
 	_status "INFO: No DNSCrypt/DoH settings found in the add-on configuration"
-	_status "INFO: DNSCrypt-Proxy is not being started"
 
 	# Check if custom DNS server is configured
 	if (( CONFIGURED_IN_PH == 1 )); then
