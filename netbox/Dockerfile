@@ -88,6 +88,10 @@ EOF
 # Setup netbox
 WORKDIR	/opt/netbox/netbox
 RUN <<EOF
+	# Media directory was removed from repo in netbox 4.4.0: https://github.com/netbox-community/netbox/commit/9a2fab1d486183f06dbed4267b9eae24723f1d8a
+	mkdir media
+	chmod 775 media
+
 	/etc/init.d/redis-server start
 	pg_ctlcluster 15 main start
 
