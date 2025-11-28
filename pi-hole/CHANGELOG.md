@@ -1,5 +1,19 @@
 # Changelog
 
+## 2025.11.1
+
+### Pi-hole Updates
+
+- [Pi-hole Blog](https://pi-hole.net/blog/2025/11/27/pi-hole-ftl-v6-4-web-v6-4-and-core-v6-3-released/)
+- [Pi-hole 6.3](https://github.com/pi-hole/pi-hole/releases/tag/v6.3)
+- [Web 6.4](https://github.com/pi-hole/web/releases/tag/v6.4)
+- [FTL 6.4.1](https://github.com/pi-hole/FTL/releases/tag/v6.4.1)
+
+### Internal
+
+- [yq 4.49.1](https://github.com/mikefarah/yq/releases/tag/v4.49.1)
+- [supervisor.sh 0.11](https://github.com/casperklein/supervisor.sh/releases/tag/0.11)
+
 ## 2025.11.0
 
 ### Pi-hole Updates
