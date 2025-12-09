@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.8
+
+- [netbox 4.4.8](https://github.com/netbox-community/netbox/releases/tag/v4.4.8)
+
 ## 4.4.7.1
 
 - Fix startup bug on fresh installations ([#44](https://github.com/casperklein/homeassistant-addons/issues/44))
