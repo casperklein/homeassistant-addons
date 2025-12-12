@@ -10,5 +10,6 @@ _status() {
 	printf -- '%s\n' "$RESET" # Reset color
 }
 
-_status "$*" >> /tmp/notify
+# Output to docker log
+_status "$*" > /proc/1/fd/1
 sleep 1

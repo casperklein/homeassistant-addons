@@ -164,9 +164,6 @@ if [[ -n "$HTTP_PORT" || -n "$HTTPS_PORT" ]]; then
 	fi
 fi
 
-# Start Notification
-supervisor.sh start "Notification" >/dev/null
-
 # Start Nginx
 supervisor.sh start "Nginx" >/dev/null
 

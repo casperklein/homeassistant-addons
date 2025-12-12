@@ -2,7 +2,7 @@
 FROM	pihole/pihole:2025.11.1 AS pihole
 
 ARG	YQ_VERSION=v4.49.1
-ARG	SV_VERSION=0.11
+ARG	SV_VERSION=0.12
 ARG	TARGETARCH
 
 SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
@@ -39,14 +39,21 @@ EOF
 COPY	rootfs /
 
 # Adjust wording slightly. Pi-hole may be stopped (during HA backup), but the add-on keeps running.
-RUN	sedfile -i    's|echo "  \[i\] Container stop requested..."|echo "  \[i\] Pi-hole stop requested..."|'   /usr/bin/start.sh
+RUN	sedfile -i    's|echo "  \[i\] Container stop requested..."|echo "  [i] Pi-hole stop requested..."|'   /usr/bin/start.sh
+
 # Hide Docker instructions that are not applicable for this add-on
 RUN	sedfile -i    's|echo "  \[i\] Container will now stop or restart depending on your restart policy"|#&|' /usr/bin/start.sh
 RUN	sedfile -i -E 's|echo "\s+https://docs.docker.com/engine/containers/start-containers-automatically/|#&|' /usr/bin/start.sh
+
 # Remove docker-pi-hole update instructions
 RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker-pi-hole#upgrading-persistence-and-customizations" rel="noopener noreferrer" target="_blank">replace this old container with a fresh upgraded image</a>.||' /var/www/html/admin/scripts/js/footer.js
-# Display real FTL exit code. 'start.sh' sometimes returns 143 (SIGTERM) or 1.
-RUN	sedfile -i 's;echo "  \[i\] pihole-FTL exited with status.*;tac \$FTLlogFile | grep -m 1 "FTL terminated after";' /usr/bin/start.sh
+
+# Display real FTL exit code. 'start.sh' sometimes returns 143 (SIGTERM) or 1 despite FTL exits gracefully (0)
+RUN	sedfile -i 's,echo "  \[i\] pihole-FTL exited with status.*,echo -n "  [i] pihole-"; tac \$FTLlogFile | grep -o -m 1 "FTL terminated after.*!",' /usr/bin/start.sh
+
+# Make crond output visible
+RUN	sedfile -it 's|^\s*/usr/sbin/crond$|& -L /proc/1/fd/1|' /usr/bin/bash_functions.sh
+
 # Disable update checks completely
 # RUN	sedfile -i 's|updateComponentAvailable = true;|updateComponentAvailable = false;|g' /var/www/html/admin/scripts/js/footer.js
 
@@ -54,9 +61,9 @@ RUN	sedfile -i 's;echo "  \[i\] pihole-FTL exited with status.*;tac \$FTLlogFile
 RUN	rm /etc/nginx/http.d/default.conf
 
 # Build dnscrypt-proxy from source #################################################################
-FROM	golang:bookworm AS dnscrypt
+FROM	golang:trixie AS dnscrypt
 
-ARG	DNSCRYPT_VERSION="2.1.14"
+ARG	DNSCRYPT_VERSION="2.1.15"
 ENV	URL="https://github.com/dnscrypt/dnscrypt-proxy/archive/$DNSCRYPT_VERSION.tar.gz"
 
 ENV	DEBIAN_FRONTEND="noninteractive"
@@ -100,9 +107,6 @@ ENV	FTLCONF_webserver_paths_prefix="/live-long-and-prosper"
 
 # Let Pi-hole web server listen on port 3.1415
 ENV	FTLCONF_webserver_port="127.0.0.1:31415"
-
-# Disable DHCP
-# ENV	FTLCONF_dhcp_active="false"
 
 COPY	--from=dnscrypt /build/dnscrypt-proxy/dnscrypt-proxy /usr/bin/
 COPY	--from=pihole / /

@@ -1,5 +1,19 @@
 # Changelog
 
+## 2025.11.1.1
+
+This is a maintenance release, without Pi-hole specific changes.
+
+### Internal
+
+- [DNSCrypt-Proxy 2.1.15](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.15)
+- [supervisor.sh 0.12](https://github.com/casperklein/supervisor.sh/releases/tag/0.12)
+- Golang build image for DNSCrypt-Proxy updated from Bookworm to Trixie.
+- Improved status messages:
+  - Get FTL exit code from log file instead of `start.sh`.
+  - `crond` startup is now visible.
+- Notification service removed and logging simplified.
+
 ## 2025.11.1
 
 ### Pi-hole Updates

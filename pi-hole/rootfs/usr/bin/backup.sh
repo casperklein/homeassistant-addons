@@ -5,12 +5,12 @@ case "$1" in
 		# https://github.com/casperklein/homeassistant-addons/issues/43
 		killall -q crond
 
-		notify.sh "Home Assistant is creating a backup. Stopping Pi-hole to ensure database consistency."
+		log.sh "Home Assistant is creating a backup. Stopping Pi-hole to ensure database consistency."
 		supervisor.sh stop "Pi-hole"
 		;;
 
 	post)
-		notify.sh "Home Assistant has finished creating the backup. Starting Pi-hole to resume normal operation."
+		log.sh "Home Assistant has finished creating the backup. Starting Pi-hole to resume normal operation."
 		supervisor.sh start "Pi-hole"
 		;;
 

@@ -32,10 +32,3 @@ jobs:
     restart: "off"
     required: "yes"
     logfile: "/dev/stdout"
-
-  - name: "Notification"
-    command: "touch /tmp/notify; tail -n0 -f /tmp/notify"
-    autostart: "off"
-    restart: "on"
-    required: "no"
-    logfile: "/dev/stdout"
