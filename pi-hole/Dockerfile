@@ -39,7 +39,7 @@ EOF
 COPY	rootfs /
 
 # Adjust wording slightly. Pi-hole may be stopped (during HA backup), but the add-on keeps running.
-RUN	sedfile -i    's|echo "  \[i\] Container stop requested..."|echo "  [i] Pi-hole stop requested..."|'   /usr/bin/start.sh
+RUN	sedfile -i    's|echo "  \[i\] Container stop requested..."|echo "  [i] Pi-hole stop requested..."|' /usr/bin/start.sh
 
 # Hide Docker instructions that are not applicable for this add-on
 RUN	sedfile -i    's|echo "  \[i\] Container will now stop or restart depending on your restart policy"|#&|' /usr/bin/start.sh
@@ -52,7 +52,7 @@ RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker
 RUN	sedfile -i 's,echo "  \[i\] pihole-FTL exited with status.*,echo -n "  [i] pihole-"; tac \$FTLlogFile | grep -o -m 1 "FTL terminated after.*!",' /usr/bin/start.sh
 
 # Make crond output visible
-RUN	sedfile -it 's|^\s*/usr/sbin/crond$|& -L /proc/1/fd/1|' /usr/bin/bash_functions.sh
+RUN	sedfile -i 's|^\s*/usr/sbin/crond$|& -L /proc/1/fd/1|' /usr/bin/bash_functions.sh
 
 # Disable update checks completely
 # RUN	sedfile -i 's|updateComponentAvailable = true;|updateComponentAvailable = false;|g' /var/www/html/admin/scripts/js/footer.js
