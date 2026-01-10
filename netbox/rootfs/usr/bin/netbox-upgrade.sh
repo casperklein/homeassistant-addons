@@ -28,11 +28,6 @@ $MANAGE_PY collectstatic --no-input
 _info "Running trace_paths.."
 $MANAGE_PY trace_paths --no-input
 
-# TODO Needs reverse proxy for auto-indexing: http://netboxhost/static/docs/ --> http://netboxhost/static/docs/index.html
-# TODO https://github.com/netbox-community/netbox/discussions/13165
-# Build the local documentation
-# mkdocs build
-
 # Delete any stale content types
 _info "Removing stale content types.."
 $MANAGE_PY remove_stale_contenttypes --no-input

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -ueo pipefail
+enable sleep
 
 _log() {
 	local RED=$'\e[0;31m'
@@ -48,28 +49,36 @@ trap _shutdown EXIT
 NETBOX_CONFIG_CUSTOM=/config/configuration.py
 NETBOX_CONFIG=/opt/netbox/netbox/netbox/configuration.py
 NETBOX_SECRET_KEY=/data/secret-key.py
+NETBOX_API_TOKEN_PEPPERS=/data/api-token-peppers.py
+
+_generate_secret() {
+	python -c "import secrets; print(secrets.token_urlsafe(50))"
+}
 
 if [ ! -f "$NETBOX_SECRET_KEY" ]; then
-	# Override secret key from image
+	_info "Creating new secret key.."
 	# https://docs.netbox.dev/en/stable/configuration/required-parameters/#secret_key
-	_info "Generating new secret key.."
-	SECRET_KEY=$(tr -dc A-Za-z0-9 2> /dev/null < /dev/urandom | head -c 50 || true)
-	if [[ ! $SECRET_KEY =~ ^[A-Za-z0-9]{50}$ ]]; then
-		_error "Key generation failed."
-		exit 1
-	fi >&2
-	echo "SECRET_KEY = '$SECRET_KEY'" > "$NETBOX_SECRET_KEY"
+	# SECRET_KEY = '**************************************************'
+	printf -- "%s%s%s\n" "SECRET_KEY = '" "$(_generate_secret)" "'" > "$NETBOX_SECRET_KEY"
 fi
 
-if [ ! -d /data/postgresql/15 ]; then
-	_info "Moving database to persistent storage.."
-	mkdir -p /data/postgresql/15
-	mv /var/lib/postgresql/15/main /data/postgresql/15
+if [ ! -f "$NETBOX_API_TOKEN_PEPPERS" ]; then
+	_info "Creating new API token pepper.."
+	# Define a mapping of cryptographic peppers to use when hashing API tokens.
+	# API_TOKEN_PEPPERS = {1: '**************************************************'}
+	printf -- "%s%s%s\n" "API_TOKEN_PEPPERS = {1: '" "$(_generate_secret)" "'}" > "$NETBOX_API_TOKEN_PEPPERS"
 fi
+
+if [ ! -d /data/postgresql/17 ]; then
+	_info "Moving database to persistent storage.."
+	mkdir -p /data/postgresql/17
+	mv /var/lib/postgresql/17/main /data/postgresql/17
+fi
+
 # Change PostgreSQL data directory
 if [ ! -f /first_start ]; then
 	_info "Configuring PostgreSQL.."
-	sedfile -i "s;^data_directory.*;data_directory = '/data/postgresql/15/main';" /etc/postgresql/15/main/postgresql.conf
+	sedfile -i "s;^data_directory.*;data_directory = '/data/postgresql/17/main';" /etc/postgresql/17/main/postgresql.conf
 fi
 
 # Make media files persistent
@@ -86,7 +95,7 @@ if [ ! -h /opt/netbox/netbox/media ]; then
 fi
 
 # Get user/pass from Home Assistant options
-USER=$(jq --raw-output '.user' /data/options.json)
+USER=$(jq --raw-output '.user'     /data/options.json)
 PASS=$(jq --raw-output '.password' /data/options.json)
 
 # Create /config/configuration-merged.py ?
@@ -99,17 +108,23 @@ LOGIN_REQUIRED=$(jq --raw-output '.LOGIN_REQUIRED' /data/options.json)
 _info "Fixing PostgreSQL permissions.."
 chown -R postgres: /data/postgresql
 
-# Debian 11 to 12
-# Upgrade PostgreSQL 13 to 15
-if [ -d /data/postgresql/13 ]; then
+# Debian 12 to 13
+# Upgrade PostgreSQL 15 to 17
+if [ -d /data/postgresql/15 ]; then
 	source /pg_upgrade.sh
 fi
 
 # remove stale pid
-rm /data/postgresql/15/main/postmaster.pid 2>/dev/null && _info "Removing stale PostgreSQL pid file.."
+rm /data/postgresql/17/main/postmaster.pid 2>/dev/null && _info "Removing stale PostgreSQL pid file.."
 
 if [ ! -f /first_start ]; then
-	# set netbox option
+	_info "Restoring secret key.."
+	sedfile -i "s/^SECRET_KEY =.*/$(<"$NETBOX_SECRET_KEY")/" "$NETBOX_CONFIG"
+
+	_info "Restoring API token pepper.."
+	sedfile -i "s/^API_TOKEN_PEPPERS =.*/$(<"$NETBOX_API_TOKEN_PEPPERS")/" "$NETBOX_CONFIG"
+
+	# Set netbox option
 	if [ "$LOGIN_REQUIRED" = false ]; then
 		# https://docs.netbox.dev/en/stable/configuration/security/#login_required
 		_info "Setting 'LOGIN_REQUIRED' to 'false' in configuration.py"
@@ -118,18 +133,14 @@ if [ ! -f /first_start ]; then
 
 	echo -e "\n# custom configuration starts here" >> "$NETBOX_CONFIG"
 
-	# update secret key
-	_info "Restoring secret key.."
-	cat "$NETBOX_SECRET_KEY" >> "$NETBOX_CONFIG"
-
-	# import additional configuration (e.g. for plugins)
+	# Import additional configuration (e.g. for plugins)
 	if [ -f "$NETBOX_CONFIG_CUSTOM" ]; then
 		_info "Custom configuration (addon_configs/0da538cf_netbox/configration.py) found."
 		dos2unix -q "$NETBOX_CONFIG_CUSTOM"
 		cat "$NETBOX_CONFIG_CUSTOM" >> "$NETBOX_CONFIG"
 	fi
 
-	# import additional requirements (e.g. for plugins)
+	# Import additional requirements (e.g. for plugins)
 	if [ -f "/config/requirements.txt" ]; then
 		dos2unix -q /config/requirements.txt
 		_info "Installing custom requirements (addon_configs/0da538cf_netbox/requirements.txt).."

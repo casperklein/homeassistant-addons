@@ -1,5 +1,7 @@
 #!/bin/bash
 
+enable sleep
+
 housekeeping() {
 	# printf '%s %s\n' "$(date '+[%F %T %z]')" "Housekeeping.." # gunicorn style
 	printf '%s %s\n' "$(date '+[%d/%h/%G %T]')" "Housekeeping.."

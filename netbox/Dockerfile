@@ -1,13 +1,12 @@
-FROM	debian:12-slim AS build
+FROM	debian:13-slim AS build
 
 ENV	GIT_USER="netbox-community"
 ENV	GIT_REPO="netbox"
-ENV	GIT_COMMIT="v4.4.10"
+ENV	GIT_COMMIT="v4.5.0"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
 #? https://docs.netbox.dev/en/stable/installation/3-netbox/#install-system-packages
-# ENV	PACKAGES="python3-venv stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix nginx net-tools"
-ENV	PACKAGES="             stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix nginx net-tools"
+ENV	PACKAGES="stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix nginx net-tools bash-builtins"
 ENV	PACKAGES_BUILD="python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev"
 ENV	PACKAGES="$PACKAGES $PACKAGES_BUILD"
 ENV 	PACKAGES_CLEAN="$PACKAGES_BUILD"
@@ -37,8 +36,8 @@ RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
 # Copy root filesystem
 COPY	rootfs /
 
+# Change supervisord defaults
 RUN <<EOF
-	# Change supervisord defaults
 	# Fix for: CRIT Supervisor is running as root. Privileges were not dropped because no user is specified in the config file.
 	sedfile -i 's|\[supervisord\]|[supervisord]\nuser=root|'                            /etc/supervisor/supervisord.conf
 
@@ -50,10 +49,11 @@ EOF
 WORKDIR	/opt/netbox/netbox/netbox
 
 RUN <<EOF
+	# Create default configuration
 	cp configuration_example.py configuration.py
 
 	# Customize netbox
-	# https://github.com/netbox-community/netbox/blob/develop/netbox/netbox/configuration_example.py
+	# https://github.com/netbox-community/netbox/blob/main/netbox/netbox/configuration_example.py
 	# ALLOWED_HOSTS = [] --> ALLOWED_HOSTS = ['*']
 	sedfile -i "s/^ALLOWED_HOSTS = \[\]$/ALLOWED_HOSTS = ['*']/" configuration.py
 
@@ -61,22 +61,23 @@ RUN <<EOF
 	sedfile -i "s/^        'USER': '',               # PostgreSQL username$/        'USER': 'netbox',               # PostgreSQL username/" configuration.py
 	sedfile -i "s/^        'PASSWORD': '',           # PostgreSQL password$/        'PASSWORD': 'netbox',           # PostgreSQL password/" configuration.py
 
-	# If not set to a dummy value, 'python3 manage.py migrate' fails
-	sedfile -i "s/^SECRET_KEY = ''$/SECRET_KEY = '**************************************************'/" configuration.py
+	# Set a dummy value (will be replaced on add-on start), otherwise 'python3 manage.py migrate' fails.
+	sedfile -i "s/^SECRET_KEY = ''.*/SECRET_KEY = '**************************************************'/" configuration.py
+
+	# Set a dummy value (will be replaced on add-on start) to avoid warnings
+	sedfile -i "s/^API_TOKEN_PEPPERS = {}.*/API_TOKEN_PEPPERS = {1: '**************************************************'}/" configuration.py
 EOF
 
-# Install 'uv', an extremely fast Python package and project manager, written in Rust.
+# Install 'uv', an extremely fast Python package and project manager
 # https://github.com/astral-sh/uv
 COPY	--from=ghcr.io/astral-sh/uv:latest /uv /usr/bin/uv
 
-# create and use python virtual environment
+# Create and use python virtual environment
 ENV	VIRTUAL_ENV=/opt/netbox/.venv
 RUN	uv venv "$VIRTUAL_ENV"
 ENV	PATH="$VIRTUAL_ENV/bin:$PATH"
 
 WORKDIR	/opt/netbox
-# RUN	pip3 install --no-cache-dir --upgrade pip setuptools wheel \
-# RUN	pip3 install --no-cache-dir --upgrade pip wheel \
 
 RUN <<EOF
 	# Install dependencies
@@ -93,7 +94,7 @@ RUN <<EOF
 	chmod 775 media
 
 	/etc/init.d/redis-server start
-	pg_ctlcluster 15 main start
+	pg_ctlcluster 17 main start
 
 	sudo -u postgres psql < /db.sql
 	rm -v /db.sql
@@ -101,26 +102,25 @@ RUN <<EOF
 	netbox-upgrade.sh
 
 	/etc/init.d/redis-server stop
-	pg_ctlcluster 15 main stop
+	pg_ctlcluster 17 main stop
 
 	# Disable x-frame-options for usage with https://www.home-assistant.io/integrations/panel_iframe/
 	sedfile -i "s;X_FRAME_OPTIONS = 'SAMEORIGIN';X_FRAME_OPTIONS = 'ALLOWALL';" /opt/netbox/netbox/netbox/settings.py
 
 	# Let PostgreSQL listen on all interfaces
-	sedfile -i "s/#listen_addresses =.*/listen_addresses = '*'/" /etc/postgresql/15/main/postgresql.conf
-	echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/15/main/pg_hba.conf
+	sedfile -i "s/#listen_addresses =.*/listen_addresses = '*'/" /etc/postgresql/17/main/postgresql.conf
+	echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/17/main/pg_hba.conf
 EOF
 
 RUN <<EOF
 	# Customize redis
 	sedfile -i 's|^daemonize yes$|daemonize no|' /etc/redis/redis.conf
 
-	# Setup nginx
-	mv /opt/netbox/contrib/nginx.conf /etc/nginx/sites-available/netbox
+	# Remove nginx default site config
 	rm /etc/nginx/sites-enabled/default
 
 	# Setup gunicorn
-	mv /opt/netbox/contrib/gunicorn.py	/opt/netbox/gunicorn.py
+	mv /opt/netbox/contrib/gunicorn.py /opt/netbox/gunicorn.py
 EOF
 
 # Build the local documentation
