@@ -2,7 +2,7 @@ FROM	debian:13-slim AS build
 
 ENV	GIT_USER="netbox-community"
 ENV	GIT_REPO="netbox"
-ENV	GIT_COMMIT="v4.5.0"
+ENV	GIT_COMMIT="v4.5.1"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
 #? https://docs.netbox.dev/en/stable/installation/3-netbox/#install-system-packages
@@ -90,8 +90,9 @@ EOF
 WORKDIR	/opt/netbox/netbox
 RUN <<EOF
 	# Media directory was removed from repo in netbox 4.4.0: https://github.com/netbox-community/netbox/commit/9a2fab1d486183f06dbed4267b9eae24723f1d8a
-	mkdir media
-	chmod 775 media
+	# Media directory was reintroduced in netbox 4.5.1 https://github.com/netbox-community/netbox/pull/21074
+	# mkdir media
+	# chmod 775 media
 
 	/etc/init.d/redis-server start
 	pg_ctlcluster 17 main start

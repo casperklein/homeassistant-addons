@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.5.1
+
+- [netbox 4.5.1](https://github.com/netbox-community/netbox/releases/tag/v4.5.1)
+
 ## 4.5.0
 
 This update introduces breaking changes in netbox and migrates the database to a newer version.
