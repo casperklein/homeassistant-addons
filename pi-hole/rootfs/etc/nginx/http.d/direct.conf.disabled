@@ -30,6 +30,9 @@ server {
 		sub_filter '/live-long-and-prosper' '';
 
 		# Pass requests to Pi-hole
-		proxy_pass http://127.0.0.1:31415/;
+		# Do not decode the request URI to prevent issues like this: https://github.com/pi-hole/FTL/issues/2260#issuecomment-3708486059
+		# Solution: https://stackoverflow.com/a/49702013
+		# tl;dr Do not add a trailing slash or explicitly use $request_uri like below
+		proxy_pass http://127.0.0.1:31415$request_uri;
 	}
 }

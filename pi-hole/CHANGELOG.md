@@ -1,5 +1,15 @@
 # Changelog
 
+## 2025.11.1.2
+
+This is a bugfix and maintenance release.
+
+### Internal
+
+- Fixed an [issue](https://github.com/pi-hole/FTL/issues/2260) that prevented enabling or disabling lists in Pi-hole.
+- [supervisor.sh 0.13](https://github.com/casperklein/supervisor.sh/releases/tag/0.13)
+- [yq 4.52.2](https://github.com/mikefarah/yq/releases/tag/v4.52.2)
+
 ## 2025.11.1.1
 
 This is a maintenance release, without Pi-hole specific changes.
@@ -25,8 +35,8 @@ This is a maintenance release, without Pi-hole specific changes.
 
 ### Internal
 
-- [yq 4.49.1](https://github.com/mikefarah/yq/releases/tag/v4.49.1)
 - [supervisor.sh 0.11](https://github.com/casperklein/supervisor.sh/releases/tag/0.11)
+- [yq 4.49.1](https://github.com/mikefarah/yq/releases/tag/v4.49.1)
 
 ## 2025.11.0
 
