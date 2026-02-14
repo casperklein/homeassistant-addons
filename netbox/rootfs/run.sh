@@ -36,7 +36,7 @@ _shutdown() {
 }
 trap _shutdown EXIT
 
-# get addon identifier
+# get app identifier
 # printf %s https://github.com/casperklein/homeassistant-addons | sha1sum | head -c8
 # 0da538cf
 
@@ -197,12 +197,12 @@ if [ ! -f /first_start ]; then
 		# Create user + API token: https://github.com/netbox-community/netbox-docker/blob/f1ca9ab7ebc16b288fd9da8825176c75d6b7ea4f/docker/docker-entrypoint.sh#L74-L80
 		if ! RESULT=$($MANAGE_PY shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$USER', '${MAIL:-}','$PASS')" 2>&1); then
 			if grep -qP 'Key \(username\)=.+ already exists' <<<"$RESULT"; then
-				_error "Failed to create superuser '$USER', because the user already exists. Remove 'user' and 'password' from the add-on options."
+				_error "Failed to create superuser '$USER', because the user already exists. Remove 'user' and 'password' from the apps options."
 			else
 				_error "$RESULT"
 				_error "Failed to create superuser '$USER'. See error details above."
 			fi
-			_info " The add-on will continue startup in 1 minute."
+			_info " The app will continue startup in 1 minute."
 			sleep 1m
 			# exit 1
 		fi >&2

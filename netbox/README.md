@@ -9,25 +9,25 @@
 
 ## Support
 
-If you like the add-on and would like to support my work, you might [![Buy me a coffee][coffee-shield]][paypal]
+If you like the app and would like to support my work, you might [![Buy me a coffee][coffee-shield]][paypal]
 
 ## Installation
 
-[![Open this add-on in your Home Assistant instance.][addon-shield]][addon]
+[![Open this app in your Home Assistant instance.][addon-shield]][addon]
 
-1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance or use the button above.
-1. Install the netbox add-on.
-1. Set *user* and *password* in the add-on options.
-    * This will add a new superuser to netbox after the add-on starts.
-    * The credentials must be removed from the add-on options afterwards, otherwise the add-on will not start.
-1. Start the add-on.
+1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant apps repository to your Home Assistant instance or use the button above.
+1. Install the netbox app.
+1. Set *user* and *password* in the app options.
+    * This will add a new superuser to netbox after the app starts.
+    * The credentials must be removed from the app options afterwards, otherwise the app will not start.
+1. Start the app.
 1. Click on the "OPEN WEB UI" button to open Netbox.
 
 ## Configuration
 
-**Note**: *Remember to restart the add-on when the configuration is changed.*
+**Note**: *Remember to restart the app when the configuration is changed.*
 
-Example add-on configuration:
+Example app configuration:
 
     user: "admin"
     password: "insecure"
@@ -38,7 +38,7 @@ Example add-on configuration:
 
 ### Option: `user` / `password`
 
-If set, a new netbox superuser is created on add-on start.
+If set, a new netbox superuser is created on app start.
 
 **Important: Use these options only once. Check the log and after successful creation of the user, remove the credentials from the configuration.**
 
@@ -76,7 +76,7 @@ For example:
     netbox-qrcode
     netbox-metatype-importer
 
-The *requirements* are downloaded at add-on startup, so an internet connection is necessary.
+The *requirements* are downloaded during the app startup, so an internet connection is necessary.
 
 ## Screenshots
 

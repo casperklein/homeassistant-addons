@@ -13,21 +13,21 @@ Visit [YCast project page](https://github.com/milaq/YCast) for more information.
 
 ## Support
 
-If you like the add-on and would like to support my work, you might [![Buy me a coffee][coffee-shield]][paypal]
+If you like the app and would like to support my work, you might [![Buy me a coffee][coffee-shield]][paypal]
 
 ## Installation
 
-[![Open this add-on in your Home Assistant instance.][addon-shield]][addon]
+[![Open this app in your Home Assistant instance.][addon-shield]][addon]
 
-1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance or use the button above.
-1. Install the YCast add-on.
+1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant apps repository to your Home Assistant instance or use the button above.
+1. Install the YCast app.
 1. Configure bookmarks (optional):
 
        bookmarks:
          - 'Rock Antenne: https://mp3channels.webradio.rockantenne.de/rockantenne'
          - 'SWR1 BW: https://liveradio.swr.de/sw282p3/swr1bw/play.mp3'
 
-1. Start the add-on.
+1. Start the app.
 
 ## Your Yamaha internet radio stopped working?
 

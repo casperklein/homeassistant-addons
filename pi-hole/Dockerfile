@@ -38,10 +38,10 @@ EOF
 # Copy root filesystem
 COPY	rootfs /
 
-# Adjust wording slightly. Pi-hole may be stopped (during HA backup), but the add-on keeps running.
+# Adjust wording slightly. Pi-hole may be stopped (during HA backup), but the app keeps running.
 RUN	sedfile -i    's|echo "  \[i\] Container stop requested..."|echo "  [i] Pi-hole stop requested..."|' /usr/bin/start.sh
 
-# Hide Docker instructions that are not applicable for this add-on
+# Hide Docker instructions that are not applicable for this app
 RUN	sedfile -i    's|echo "  \[i\] Container will now stop or restart depending on your restart policy"|#&|' /usr/bin/start.sh
 RUN	sedfile -i -E 's|echo "\s+https://docs.docker.com/engine/containers/start-containers-automatically/|#&|' /usr/bin/start.sh
 

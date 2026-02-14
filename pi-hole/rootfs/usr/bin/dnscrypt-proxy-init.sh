@@ -82,11 +82,11 @@ if (( $(jq '.dnscrypt | length' "$ADDON_OPTIONS") > 0 )); then
 
 	exec dnscrypt-proxy -config "$DNSCRYPT_CONFIG"
 else
-	_status "INFO: No DNSCrypt/DoH settings found in the add-on configuration"
+	_status "INFO: No DNSCrypt/DoH settings found in the app configuration"
 
 	# Check if custom DNS server is configured
 	if (( CONFIGURED_IN_PH == 1 )); then
-		_status "WARNING: DNSCrypt-Proxy ($PIHOLE_SETTING) is configured in Pi-hole as a custom DNS upstream server. DNS resolution will not work until DNSCrypt-Proxy is set up in the add-on configuration."
+		_status "WARNING: DNSCrypt-Proxy ($PIHOLE_SETTING) is configured in Pi-hole as a custom DNS upstream server. DNS resolution will not work until DNSCrypt-Proxy is set up in the app configuration."
 	fi
 
 	# DNSCrypt-Proxy job is configured as 'required'. 'exit 0' would supervisor stop

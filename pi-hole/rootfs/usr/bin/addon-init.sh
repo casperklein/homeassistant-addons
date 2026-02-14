@@ -49,7 +49,7 @@ if [ -d /data/pihole ]; then
 
 	_migrate_dnsmasq_v6
 else
-	_status "The add-on is running for the first time"
+	_status "The app is running for the first time"
 	_status "Migrating the Pi-hole configuration to persistent storage"
 	mv /etc/pihole /data/pihole
 
@@ -72,7 +72,7 @@ _delete_obsolete_files
 
 OPTIONS="/data/options.json"
 
-# Get 'update_gravity_on_start' add-on setting
+# Get 'update_gravity_on_start' app setting
 UPDATE_GRAVITY_ON_START=$(jq -r '.update_gravity_on_start' "$OPTIONS")
 if [ "$UPDATE_GRAVITY_ON_START" == "true" ]; then
 	# Run gravity update on Pi-hole start
@@ -83,7 +83,7 @@ fi
 SLUG="self"
 
 _status "Configure Ingress IP address and port"
-# "hassio_api": "true" is not needed in the addon config.json for these queries --> https://developers.home-assistant.io/docs/add-ons/communication#supervisor-api
+# "hassio_api": "true" is not needed in the addon config.json for these queries --> https://developers.home-assistant.io/docs/apps/communication/#supervisor-api
 IP=$(           curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r .data.ip_address)
 INGRESS_PORT=$( curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r .data.ingress_port)
 HTTP_PORT=$(    curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r '.data.network | ."80/tcp" // empty')
@@ -113,7 +113,7 @@ if [[ -n "$HTTP_PORT" || -n "$HTTPS_PORT" ]]; then
 		_status "Enabling HTTPS access on port $HTTPS_PORT"
 
 		sedfile -i "s|%HTTPS_PORT%|$HTTPS_PORT|" "$DIRECT_CONF"
-		sedfile -i 's|%HTTP2%|http2 on;|'      "$DIRECT_CONF"
+		sedfile -i 's|%HTTP2%|http2 on;|'        "$DIRECT_CONF"
 
 		# Get certificate paths
 		CERTIFICATE=/ssl/$(    jq -r '.certificate'     "$OPTIONS")
@@ -151,7 +151,7 @@ if [[ -n "$HTTP_PORT" || -n "$HTTPS_PORT" ]]; then
 		sedfile -i -E '/^\s*include.+ssl.conf/d' "$DIRECT_CONF"
 	fi
 
-	# Get 'authentication' add-on setting
+	# Get 'authentication' app setting
 	AUTHENTICATION=$(jq -r '.authentication' "$OPTIONS")
 
 	# Enable/disable authentication based on configuration

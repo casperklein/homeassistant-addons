@@ -61,10 +61,10 @@ RUN <<EOF
 	sedfile -i "s/^        'USER': '',               # PostgreSQL username$/        'USER': 'netbox',               # PostgreSQL username/" configuration.py
 	sedfile -i "s/^        'PASSWORD': '',           # PostgreSQL password$/        'PASSWORD': 'netbox',           # PostgreSQL password/" configuration.py
 
-	# Set a dummy value (will be replaced on add-on start), otherwise 'python3 manage.py migrate' fails.
+	# Set a dummy value (will be replaced on app start), otherwise 'python3 manage.py migrate' fails.
 	sedfile -i "s/^SECRET_KEY = ''.*/SECRET_KEY = '**************************************************'/" configuration.py
 
-	# Set a dummy value (will be replaced on add-on start) to avoid warnings
+	# Set a dummy value (will be replaced on app start) to avoid warnings
 	sedfile -i "s/^API_TOKEN_PEPPERS = {}.*/API_TOKEN_PEPPERS = {1: '**************************************************'}/" configuration.py
 EOF
 

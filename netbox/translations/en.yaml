@@ -1,7 +1,7 @@
 configuration:
   user:
     name: "User"
-    description: "Create a new user on add-on start."
+    description: "Create a new user on app start."
   password:
     name: "Password"
     description: "Password for the new user."

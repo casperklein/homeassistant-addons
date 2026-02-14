@@ -7,8 +7,8 @@ assignees: casperklein
 
 ---
 
-**Add-on name**
-Name the add-on in question.
+**App name**
+Name the app in question.
 
 **Describe the bug**
 A clear and concise description of what the bug is.

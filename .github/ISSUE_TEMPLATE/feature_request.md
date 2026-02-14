@@ -1,14 +1,14 @@
 ---
 name: Feature request
-about: Request a feature for an add-on
+about: Request a feature for an app
 title: ''
 labels: feature request
 assignees: casperklein
 
 ---
 
-**Add-on name**
-Name the add-on in question.
+**App name**
+Name the app in question.
 
 **Describe the feature you'd like**
 A clear and concise description of what you want to happen.

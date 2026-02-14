@@ -11,19 +11,19 @@ The [Pi-hole](https://pi-hole.net/) is a DNS sinkhole that protects your devices
 
 ## Support
 
-If you like the add-on and would like to support my work, you might [![Buy me a coffee][coffee-shield]][paypal]
+If you like the app and would like to support my work, you might [![Buy me a coffee][coffee-shield]][paypal]
 
 ## Installation
 
-[![Open this add-on in your Home Assistant instance.][addon-shield]][addon]
+[![Open this app in your Home Assistant instance.][addon-shield]][addon]
 
-1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant add-ons repository to your Home Assistant instance or use the button above.
-1. Install the Pi-hole add-on.
-1. Start the add-on.
+1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant apps repository to your Home Assistant instance or use the button above.
+1. Install the Pi-hole app.
+1. Start the app.
 
 ## How to use DNSCrypt or DNS over HTTPS (DoH) with Pi-hole
 
-This is achieved by using [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy). You have to configure one or more DNS servers for use with dnscrypt-proxy. To use Cloudflare DNS, for example, put this in the add-on configuration:
+This is achieved by using [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy). You have to configure one or more DNS servers for use with dnscrypt-proxy. To use Cloudflare DNS, for example, put this in the app configuration:
 
     - name: "Cloudflare 1.1.1.1"
       stamp: "sdns://AgcAAAAAAAAABzEuMS4xLjEAEmNsb3VkZmxhcmUtZG5zLmNvbQovZG5zLXF1ZXJ5"
@@ -54,13 +54,13 @@ Once you've set up the integration, you can also use [this](https://github.com/h
 
 ## Direct HTTP/HTTPS access
 
-You can open the Pi-hole Web UI in Home Assistant using Ingress. Simply click *Open Web UI* on the add-on page.
+You can open the Pi-hole Web UI in Home Assistant using Ingress. Simply click *Open Web UI* on the app page.
 
-If you also want to enable direct HTTP/HTTPS access, open the add-on's Network settings and assign a port to HTTP/HTTPS.
+If you also want to enable direct HTTP/HTTPS access, open the app's Network settings and assign a port to HTTP/HTTPS.
 
-For HTTPS, you can configure a certificate and key file located in `/ssl` in the add-on settings. If no certificate is provided, a self-signed certificate will be generated and used.
+For HTTPS, you can configure a certificate and key file located in `/ssl` in the app settings. If no certificate is provided, a self-signed certificate will be generated and used.
 
-You can secure direct access by enabling the *Authentication* option in the add-on configuration. Any valid Home Assistant user account can be used to log in.
+You can secure direct access by enabling the *Authentication* option in the app configuration. Any valid Home Assistant user account can be used to log in.
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg
