@@ -1,8 +1,8 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2025.11.1 AS pihole
+FROM	pihole/pihole:2026.02.0 AS pihole
 
-ARG	YQ_VERSION=v4.52.2
-ARG	SV_VERSION=0.13
+ARG	YQ_VERSION=v4.52.4
+ARG	SV_VERSION=0.14
 ARG	TARGETARCH
 
 SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
@@ -13,13 +13,29 @@ ARG	VERSION
 RUN	[ -z "$BUILD_ARCH" ] && echo "Error: Build argument 'BUILD_ARCH' is missing" && exit 1 || true
 RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && exit 1 || true
 
+# Check if default CSP value was updated
+RUN <<EOF
+	FTL_VERSION=$(pihole -v | grep FTL | awk '{print $4}')
+	FTL_CONFIG=$(curl -sSLf https://raw.githubusercontent.com/pi-hole/FTL/refs/tags/$FTL_VERSION/src/config/config.c)
+	CSP_CHECKSUM=$(grep 'cJSON_CreateStringReference("Content-Security-Policy:' <<<"$FTL_CONFIG" | sha256sum)
+	if [ "$CSP_CHECKSUM" != "8dc61a69645135453cf334bfc013ffae11a437a201234352e0a8be2f8ec2f6d4  -" ]; then
+		echo "Warning: The CSP default value was updated."
+		echo "Verify changes at: https://github.com/pi-hole/FTL/blob/$FTL_VERSION/src/config/config.c"
+		echo "Update 'add_header Content-Security-Policy' in rootfs/etc/nginx/http.d/ingress.conf"
+		exit 1
+	fi
+EOF
+
 # Update base image packages and install additional software
 RUN <<EOF
 	apk upgrade --no-cache
 	apk add     --no-cache dumb-init nginx nginx-mod-http-lua patch
 EOF
 
-# Install yq
+# Copy root filesystem
+COPY	rootfs /
+
+# Install yq (needed for supervisor.sh and rootfs/usr/bin/dnscrypt-proxy-init.sh)
 RUN <<EOF
 	curl -sSLf -o /usr/bin/yq "https://github.com/mikefarah/yq/releases/download/$YQ_VERSION/yq_linux_$TARGETARCH"
 	chmod +x /usr/bin/yq
@@ -33,10 +49,10 @@ RUN <<EOF
 	curl -sSLf -o /usr/bin/supervisor.sh               "https://raw.githubusercontent.com/casperklein/supervisor.sh/refs/tags/$SV_VERSION/supervisor.sh"
 	curl -sSLf -o /etc/bash_completion.d/supervisor.sh "https://raw.githubusercontent.com/casperklein/supervisor.sh/refs/tags/$SV_VERSION/supervisor-completion.bash"
 	chmod +x /usr/bin/supervisor.sh
-EOF
 
-# Copy root filesystem
-COPY	rootfs /
+	# Validate configuration
+	supervisor.sh lint > /dev/null
+EOF
 
 # Adjust wording slightly. Pi-hole may be stopped (during HA backup), but the app keeps running.
 RUN	sedfile -i    's|echo "  \[i\] Container stop requested..."|echo "  [i] Pi-hole stop requested..."|' /usr/bin/start.sh

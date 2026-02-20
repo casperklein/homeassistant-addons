@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026.02.0
+
+### Pi-hole Updates
+
+- [Pi-hole Blog](https://pi-hole.net/blog/2026/02/17/pi-hole-ftl-v6-5-web-v6-4-1-and-core-v6-4-released/)
+- [Pi-hole 6.4](https://github.com/pi-hole/pi-hole/releases/tag/v6.4)
+- [Web 6.4.1](https://github.com/pi-hole/web/releases/tag/v6.4.1)
+- [FTL 6.5](https://github.com/pi-hole/FTL/releases/tag/v6.5)
+
+### Internal
+
+- Content-Security-Policy header adjusted for HA Ingress
+- [supervisor.sh 0.14](https://github.com/casperklein/supervisor.sh/releases/tag/0.14)
+- [yq 4.52.4](https://github.com/mikefarah/yq/releases/tag/v4.52.4)
+
 ## 2025.11.1.2
 
 This is a bugfix and maintenance release.
