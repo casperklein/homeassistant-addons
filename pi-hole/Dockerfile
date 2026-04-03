@@ -1,7 +1,7 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2026.02.0 AS pihole
+FROM	pihole/pihole:2026.04.0 AS pihole
 
-ARG	YQ_VERSION=v4.52.4
+ARG	YQ_VERSION=v4.52.5
 ARG	SV_VERSION=0.14
 ARG	TARGETARCH
 
@@ -18,10 +18,13 @@ RUN <<EOF
 	FTL_VERSION=$(pihole -v | grep FTL | awk '{print $4}')
 	FTL_CONFIG=$(curl -sSLf https://raw.githubusercontent.com/pi-hole/FTL/refs/tags/$FTL_VERSION/src/config/config.c)
 	CSP_CHECKSUM=$(grep 'cJSON_CreateStringReference("Content-Security-Policy:' <<<"$FTL_CONFIG" | sha256sum)
-	if [ "$CSP_CHECKSUM" != "8dc61a69645135453cf334bfc013ffae11a437a201234352e0a8be2f8ec2f6d4  -" ]; then
+	if [ "$CSP_CHECKSUM" != "1f981ee8f2a91fcf659a646264937ce7c36ad2f113687de8a905b6d013d1af88  -" ]; then
 		echo "Warning: The CSP default value was updated."
+		echo
 		echo "Verify changes at: https://github.com/pi-hole/FTL/blob/$FTL_VERSION/src/config/config.c"
 		echo "Update 'add_header Content-Security-Policy' in rootfs/etc/nginx/http.d/ingress.conf"
+		echo
+		echo "New Checksum: $CSP_CHECKSUM"
 		exit 1
 	fi
 EOF
