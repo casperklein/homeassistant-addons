@@ -2,7 +2,7 @@ FROM	debian:13-slim AS build
 
 ENV	GIT_USER="netbox-community"
 ENV	GIT_REPO="netbox"
-ENV	GIT_COMMIT="v4.5.6"
+ENV	GIT_COMMIT="v4.5.7"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
 #? https://docs.netbox.dev/en/stable/installation/3-netbox/#install-system-packages
@@ -93,6 +93,7 @@ RUN <<EOF
 	# Media directory was reintroduced in netbox 4.5.1 https://github.com/netbox-community/netbox/pull/21074
 	# mkdir media
 	# chmod 775 media
+	mkdir media && exit 1 || true
 
 	/etc/init.d/redis-server start
 	pg_ctlcluster 17 main start
