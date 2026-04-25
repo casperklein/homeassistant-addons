@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026.04.1
+
+### Pi-hole Updates
+
+- [Pi-hole Blog](https://pi-hole.net/blog/2026/04/24/pi-hole-ftl-v6-6-1-and-core-v6-4-2-released/)
+- [Pi-hole 6.4.2](https://github.com/pi-hole/pi-hole/releases/tag/v6.4.2)
+- [FTL 6.6.1](https://github.com/pi-hole/FTL/releases/tag/v6.6.1)
+
+### Internal
+
+- [yq 4.53.2](https://github.com/mikefarah/yq/releases/tag/v4.53.2)
+
 ## 2026.04.0
 
 ### Pi-hole Updates

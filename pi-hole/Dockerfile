@@ -1,7 +1,7 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2026.04.0 AS pihole
+FROM	pihole/pihole:2026.04.1 AS pihole
 
-ARG	YQ_VERSION=v4.52.5
+ARG	YQ_VERSION=v4.53.2
 ARG	SV_VERSION=0.14
 ARG	TARGETARCH
 
@@ -69,6 +69,11 @@ RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker
 
 # Display real FTL exit code. 'start.sh' sometimes returns 143 (SIGTERM) or 1 despite FTL exits gracefully (0)
 RUN	sedfile -i 's,echo "  \[i\] pihole-FTL exited with status.*,echo -n "  [i] pihole-"; tac \$FTLlogFile | grep -o -m 1 "FTL terminated after.*!",' /usr/bin/start.sh
+
+# Hide uncritical error message --> wait: pid 123 is not a child of this shell
+# There is a race condition, when supervisor is faster sending SIGTERM to FTL than start.sh
+# start.sh:stop()
+RUN	sedfile -i 's|        wait $CAPSH_PID|& 2>/dev/null|' /usr/bin/start.sh
 
 # Make crond output visible
 RUN	sedfile -i 's|^\s*/usr/sbin/crond$|& -L /proc/1/fd/1|' /usr/bin/bash_functions.sh
