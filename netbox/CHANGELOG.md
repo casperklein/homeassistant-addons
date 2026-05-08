@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.6.0
+
+- [netbox 4.6.0](https://github.com/netbox-community/netbox/releases/tag/v4.6.0)
+- The app option `LOGIN_REQUIRED` is now [deprecated](https://github.com/netbox-community/netbox/issues/21936) and will be removed in version v5.0.0.
+- [Obsolete](https://github.com/netbox-community/netbox/issues/21304) housekeeping job removed.
+- Local docs are now build with [zensical](https://github.com/netbox-community/netbox/issues/21635)
+
 ## 4.5.10
 
 - [netbox 4.5.10](https://github.com/netbox-community/netbox/releases/tag/v4.5.10)

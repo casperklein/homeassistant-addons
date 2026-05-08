@@ -13,11 +13,9 @@ _info() {
 	echo "${GREEN}Info: $1$RESET"
 }
 
+# Apply any database migrations
 _info "Applying database migrations.."
 $MANAGE_PY migrate
-
-_info "Collecting static files.."
-$MANAGE_PY collectstatic --no-input
 
 # Your models in app(s): 'netbox_bgp' have changes that are not yet reflected in a migration, and so won't be applied.
 # Run 'manage.py makemigrations' to make new migrations, and then re-run 'manage.py migrate' to apply them.
@@ -28,6 +26,10 @@ $MANAGE_PY collectstatic --no-input
 _info "Running trace_paths.."
 $MANAGE_PY trace_paths --no-input
 
+# Collect static files
+_info "Collecting static files.."
+$MANAGE_PY collectstatic --no-input
+
 # Delete any stale content types
 _info "Removing stale content types.."
 $MANAGE_PY remove_stale_contenttypes --no-input
@@ -36,7 +38,6 @@ $MANAGE_PY remove_stale_contenttypes --no-input
 _info "Building search index (lazy).."
 $MANAGE_PY reindex --lazy
 
-#? done by housekeeping-job.sh
 # Delete any expired user sessions
-# _info "Removing expired user sessions.."
-# $MANAGE_PY clearsessions
+_info "Removing expired user sessions.."
+$MANAGE_PY clearsessions

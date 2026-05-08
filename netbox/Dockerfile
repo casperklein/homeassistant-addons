@@ -2,7 +2,7 @@ FROM	debian:13-slim AS build
 
 ENV	GIT_USER="netbox-community"
 ENV	GIT_REPO="netbox"
-ENV	GIT_COMMIT="v4.5.10"
+ENV	GIT_COMMIT="v4.6.0"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
 #? https://docs.netbox.dev/en/stable/installation/3-netbox/#install-system-packages
@@ -86,6 +86,11 @@ RUN <<EOF
 	uv pip install --no-cache-dir setuptools wheel
 EOF
 
+# Build the local documentation
+# Must run before upgrade.sh below
+WORKDIR	/opt/netbox/
+RUN	zensical build
+
 # Setup netbox
 WORKDIR	/opt/netbox/netbox
 RUN <<EOF
@@ -93,7 +98,7 @@ RUN <<EOF
 	# Media directory was reintroduced in netbox 4.5.1 https://github.com/netbox-community/netbox/pull/21074
 	# mkdir media
 	# chmod 775 media
-	mkdir media && exit 1 || true
+	mkdir media 2>/dev/null && echo "Error: Media directory did not exist. Please investigate." && exit 1 || true
 
 	/etc/init.d/redis-server start
 	pg_ctlcluster 17 main start
@@ -125,10 +130,6 @@ RUN <<EOF
 	mv /opt/netbox/contrib/gunicorn.py /opt/netbox/gunicorn.py
 EOF
 
-# Build the local documentation
-WORKDIR	/opt/netbox/
-RUN	mkdocs build
-
 # Cleanup
 RUN <<EOF
 	apt-get -y purge $PACKAGES_CLEAN
@@ -143,7 +144,7 @@ ARG	VERSION
 ENV	VERSION="$VERSION"
 
 # activate python virtual environment
-# needed for rqworker, run.sh, housekeeping.sh
+# needed for rqworker, run.sh
 # same as 'source /opt/netbox/.venv/bin/activate'
 ENV	PATH="/opt/netbox/.venv/bin:$PATH"
 

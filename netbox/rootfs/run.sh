@@ -102,6 +102,8 @@ PASS=$(jq --raw-output '.password' /data/options.json)
 DEBUG=$(jq --raw-output '.debug' /data/options.json)
 
 # Get netbox option
+# todo Deprecated: https://github.com/netbox-community/netbox/issues/21936
+# todo Scheduled removal: v5.0.0
 LOGIN_REQUIRED=$(jq --raw-output '.LOGIN_REQUIRED' /data/options.json)
 
 # fix permissions after snapshot restore
@@ -204,22 +206,19 @@ if [ ! -f /first_start ]; then
 			fi
 			_info " The app will continue startup in 1 minute."
 			sleep 1m
-			# exit 1
 		fi >&2
 	fi
 fi
 
 # 'first_start' checks are not needed anymore, switched to "cold" backup. Keeping for the future, where I might give this another chance.
-# For unknown reason, this config fails: "backup_pre": "supervisorctl stop nginx && supervisorctl stop housekeeping && supervisorctl stop rqworker && supervisorctl stop netbox && supervisorctl stop redis && supervisorctl stop postgresql"
+# For unknown reason, this config fails: "backup_pre": "supervisorctl stop nginx && supervisorctl stop rqworker && supervisorctl stop netbox && supervisorctl stop redis && supervisorctl stop postgresql"
 # HA Supervisor is not really helpful and just complains generally about "Pre-/Post backup command returned error code: 1".
 # Running the 'backup_pre' command manually in the container works fine (exit code 0)
 touch /first_start
 
-# Housekeeping
-_info "Starting housekeeping background job.."
-supervisorctl start housekeeping > /dev/null
-
-# https://docs.netbox.dev/en/stable/plugins/development/background-tasks/
+# NetBox Request Queue Worker
+# https://netboxlabs.com/docs/netbox/installation/4a-gunicorn/
+# https://github.com/netbox-community/netbox/blob/main/contrib/netbox-rq.service
 _info "Starting RQ worker process.."
 supervisorctl start rqworker > /dev/null
 
