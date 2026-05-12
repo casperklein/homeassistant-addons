@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026.05.0
+
+### Pi-hole Updates
+
+- [FTL 6.6.2](https://github.com/pi-hole/FTL/releases/tag/v6.6.2)
+
+### Internal
+
+- crond output is now prefixed with date/time in the app log
+
 ## 2026.04.1
 
 ### Pi-hole Updates

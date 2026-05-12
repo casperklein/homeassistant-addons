@@ -1,5 +1,5 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2026.04.1 AS pihole
+FROM	pihole/pihole:2026.05.0 AS pihole
 
 ARG	YQ_VERSION=v4.53.2
 ARG	SV_VERSION=0.14
@@ -75,8 +75,8 @@ RUN	sedfile -i 's,echo "  \[i\] pihole-FTL exited with status.*,echo -n "  [i] p
 # start.sh:stop()
 RUN	sedfile -i 's|        wait $CAPSH_PID|& 2>/dev/null|' /usr/bin/start.sh
 
-# Make crond output visible
-RUN	sedfile -i 's|^\s*/usr/sbin/crond$|& -L /proc/1/fd/1|' /usr/bin/bash_functions.sh
+# Make crond output visible and prefix date/time to output
+RUN	sedfile -i 's:^\s*/usr/sbin/crond$:    { /usr/sbin/crond -f -d 6 2>\&1 | prefix-time.sh; } \&:' /usr/bin/bash_functions.sh
 
 # Disable update checks completely
 # RUN	sedfile -i 's|updateComponentAvailable = true;|updateComponentAvailable = false;|g' /var/www/html/admin/scripts/js/footer.js
