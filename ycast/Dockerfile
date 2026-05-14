@@ -44,7 +44,7 @@ ARG	VERSION
 LABEL	io.hass.name="YCast"
 LABEL	io.hass.description="Self hosted vTuner internet radio service emulation"
 LABEL	io.hass.arch="${BUILD_ARCH}"
-LABEL	io.hass.type="addon"
+LABEL	io.hass.type="app"
 LABEL	io.hass.version="${VERSION}"
 LABEL	image="casperklein/homeassistant-ycast:${VERSION}"
 LABEL	maintainer="Casper Klein"

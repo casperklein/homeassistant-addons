@@ -28,7 +28,7 @@ ARG	VERSION
 LABEL	io.hass.name="docker-api"
 LABEL	io.hass.description="Expose Home Assistant OS Docker API via network"
 LABEL	io.hass.arch="${BUILD_ARCH}"
-LABEL	io.hass.type="addon"
+LABEL	io.hass.type="app"
 LABEL	io.hass.version="${VERSION}"
 LABEL	image="casperklein/homeassistant-docker-api:${VERSION}"
 LABEL	maintainer="Casper Klein"

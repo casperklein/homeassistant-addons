@@ -116,7 +116,7 @@ ARG	VERSION
 LABEL	io.hass.name="Pi-hole"
 LABEL	io.hass.description="Network-wide Ad Blocking"
 LABEL	io.hass.arch="${BUILD_ARCH}"
-LABEL	io.hass.type="addon"
+LABEL	io.hass.type="app"
 LABEL	io.hass.version="${VERSION}"
 
 LABEL	image="casperklein/homeassistant-pi-hole:${VERSION}"
