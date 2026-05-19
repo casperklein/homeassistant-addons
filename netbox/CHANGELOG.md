@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.6.1
+
+- [netbox 4.6.1](https://github.com/netbox-community/netbox/releases/tag/v4.6.1)
+
 ## 4.6.0
 
 - [netbox 4.6.0](https://github.com/netbox-community/netbox/releases/tag/v4.6.0)
