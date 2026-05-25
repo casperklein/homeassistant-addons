@@ -1,15 +1,13 @@
 {
   "name": "Docker API",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "slug": "docker-api",
   "description": "Expose Home Assistant OS Docker API via network",
   "url": "https://github.com/casperklein/homeassistant-addons/tree/master/docker-api",
   "image": "casperklein/homeassistant-docker-api",
   "arch": [
     "amd64",
-    "aarch64",
-    "armhf",
-    "armv7"
+    "aarch64"
   ],
   "startup": "application",
   "boot": "auto",
