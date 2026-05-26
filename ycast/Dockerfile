@@ -1,12 +1,9 @@
-FROM	alpine:3.13 AS build
+FROM	alpine:3.17 AS build
 
-ENV	GIT_USER="milaq"
-ENV	GIT_REPO="YCast"
 ENV	GIT_COMMIT="f349a2686c336420b8e2dc4c9a2a9fc12dd4e358"
-ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
+ENV	GIT_ARCHIVE="https://github.com/milaq/YCast/archive/$GIT_COMMIT.tar.gz"
 
-ENV	PACKAGES="python3 py3-pip python3-dev jpeg-dev zlib-dev build-base jq"
-ENV	PACKAGES_CLEAN="python3-dev zlib-dev build-base"
+ENV	PACKAGES="python3 jq"
 
 # Check if build args are not empty ################################################################
 ARG	BUILD_ARCH
@@ -23,18 +20,22 @@ RUN	tar --strip-component 1 -xzvf /$GIT_COMMIT.tar.gz && rm /$GIT_COMMIT.tar.gz
 RUN	apk upgrade --no-cache \
 &&	apk add --no-cache $PACKAGES
 
+COPY	--from=ghcr.io/astral-sh/uv:latest /uv /usr/bin/uv
+
+# Create and activate python virtual environment
+ENV	VIRTUAL_ENV=/ycast/.venv
+RUN	uv venv "$VIRTUAL_ENV"
+ENV	PATH="$VIRTUAL_ENV/bin:$PATH"
+
 # Install python packages
-RUN	pip3 install --no-cache-dir requests flask PyYAML Pillow
+RUN	uv pip install --no-cache-dir requests flask PyYAML Pillow
 
 # Copy root filesystem
 COPY	rootfs /
 
 # Cleanup
-RUN	pip3 uninstall --no-cache-dir -y setuptools pip
-
-RUN	apk del $PACKAGES_CLEAN
-
-RUN	find /usr/ -name '*.pyc' -delete
+RUN	rm /usr/bin/uv
+RUN	find /usr/ -type f -name '*.pyc' -delete
 
 # Build final image ################################################################################
 FROM	scratch
@@ -54,6 +55,10 @@ LABEL	url="https://github.com/casperklein/homeassistant-addons/tree/master/ycast
 ENV     PYTHONDONTWRITEBYTECODE=1
 # Show python output immediately, not buffered.
 ENV     PYTHONUNBUFFERED=1
+
+# Activate python virtual environment
+ENV	VIRTUAL_ENV=/ycast/.venv
+ENV	PATH="$VIRTUAL_ENV/bin:$PATH"
 
 WORKDIR	/ycast
 CMD	["/run.sh"]

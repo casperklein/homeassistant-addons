@@ -12,4 +12,4 @@ echo " "
 
 export FLASK_ENV=production # obsolet? https://stackoverflow.com/a/52162979/568737
 export FLASK_DEBUG=0
-exec /usr/bin/python3 -m ycast -d
+exec python3 -m ycast -d
