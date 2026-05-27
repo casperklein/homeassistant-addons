@@ -29,7 +29,7 @@ If you like the app and would like to support my work, you might [![Buy me a cof
 
 ## Your Yamaha internet radio stopped working?
 
-Visit [Yamaha News](https://de.yamaha.com/de/news_events/2019/0305_av_update_on_internet_radio_station_access.html) for more information.
+Visit [Yamaha News](https://de.yamaha.com/de/support/internet-radio-station-access-issues/) for more information.
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg
