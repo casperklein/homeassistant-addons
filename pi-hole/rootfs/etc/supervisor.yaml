@@ -6,7 +6,7 @@ supervisor:
 
 jobs:
   - name: "Initialization"
-    command: "/usr/bin/addon-init.sh || kill -SIGTERM 1"
+    command: "/usr/bin/app-init.sh || kill -SIGTERM 1"
     autostart: "on"
     restart: "off"
     required: "no"
