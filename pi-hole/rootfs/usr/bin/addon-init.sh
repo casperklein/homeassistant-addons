@@ -72,15 +72,14 @@ if [ "$UPDATE_GRAVITY_ON_START" == "true" ]; then
 	patch -i /etc/pihole-patches/update-gravity-on-start.patch /usr/bin/bash_functions.sh >/dev/null
 fi
 
-# SLUG="0da538cf_pihole"
-SLUG="self"
-
 _status "Configure Ingress IP address and port"
-# "hassio_api": "true" is not needed in the addon config.json for these queries --> https://developers.home-assistant.io/docs/apps/communication/#supervisor-api
-IP=$(           curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r .data.ip_address)
-INGRESS_PORT=$( curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r .data.ingress_port)
-HTTP_PORT=$(    curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r '.data.network | ."80/tcp" // empty')
-HTTPS_PORT=$(   curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/$SLUG/info" | jq -r '.data.network | ."443/tcp" // empty')
+# "hassio_api": "true" is not needed in the addon config.json for this query --> https://developers.home-assistant.io/docs/apps/communication/#supervisor-api
+APP_INFO=$(curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/self/info")
+
+IP=$(           printf '%s' "$APP_INFO" | jq -r -e '.data.ip_address'                    )
+INGRESS_PORT=$( printf '%s' "$APP_INFO" | jq -r -e '.data.ingress_port'                  )
+HTTP_PORT=$(    printf '%s' "$APP_INFO" | jq -r    '.data.network | ."80/tcp" // empty'  )
+HTTPS_PORT=$(   printf '%s' "$APP_INFO" | jq -r    '.data.network | ."443/tcp" // empty' )
 
 # Configure Ingress IP address and port
 sedfile -i "s|%INTERFACE%|$IP|"      /etc/nginx/http.d/ingress.conf
