@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026.05.0.1
+
+### Internal
+
+- [DNSCrypt-Proxy 2.1.16](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.16)
+- Following the [deprecation](https://www.home-assistant.io/blog/2025/05/22/deprecating-core-and-supervised-installation-methods-and-32-bit-systems/) of armhf/armv7 support, images for these architectures are no longer provided.
+- [supervisor.sh 0.15](https://github.com/casperklein/supervisor.sh/releases/tag/0.15)
+- [yq 4.53.3](https://github.com/mikefarah/yq/releases/tag/v4.53.3)
+- Sub-second precision added to `crond` output
+
 ## 2026.05.0
 
 ### Pi-hole Updates
@@ -8,7 +18,7 @@
 
 ### Internal
 
-- crond output is now prefixed with date/time in the app log
+- `crond` output is now prefixed with date/time in the app log
 
 ## 2026.04.1
 
@@ -62,7 +72,7 @@ This is a bugfix and maintenance release.
 
 ## 2025.11.1.1
 
-This is a maintenance release, without Pi-hole specific changes.
+This is a maintenance release, with no Pi-hole specific changes.
 
 ### Internal
 

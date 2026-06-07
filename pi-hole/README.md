@@ -15,7 +15,7 @@ If you like the app and would like to support my work, you might [![Buy me a cof
 
 ## Installation
 
-[![Open this app in your Home Assistant instance.][addon-shield]][addon]
+[![Open this app in your Home Assistant instance.][app-shield]][app]
 
 1. Add [this](https://github.com/casperklein/homeassistant-addons) Home Assistant apps repository to your Home Assistant instance or use the button above.
 1. Install the Pi-hole app.
@@ -66,7 +66,7 @@ You can secure direct access by enabling the *Authentication* option in the app 
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg
 [version-shield]: https://img.shields.io/badge/dynamic/json?color=blue&label=version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcasperklein%2Fhomeassistant-addons%2Fmaster%2Fpi-hole%2Fconfig.json
 [image-size-shield]: https://img.shields.io/docker/image-size/casperklein/homeassistant-pi-hole/latest
-[addon-shield]: https://img.shields.io/badge/Show%20add--on%20on%20my-Home%20Assistant-blue?style=for-the-badge&logo=home-assistant
-[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=0da538cf_pihole&repository_url=https%3A%2F%2Fgithub.com%2Fcasperklein%2Fhomeassistant-addons
+[app-shield]: https://img.shields.io/badge/Show%20add--on%20on%20my-Home%20Assistant-blue?style=for-the-badge&logo=home-assistant
+[app]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=0da538cf_pihole&repository_url=https%3A%2F%2Fgithub.com%2Fcasperklein%2Fhomeassistant-addons
 [coffee-shield]: https://img.shields.io/badge/Buy_me_a_coffee-blue?logo=paypal&color=blue
 [paypal]: https://www.paypal.com/donate/?hosted_button_id=7C95GXVEQFE8C

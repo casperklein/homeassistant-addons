@@ -2,7 +2,7 @@
 
 set -ueo pipefail
 
-ADDON_OPTIONS="/data/options.json"
+APP_OPTIONS="/data/options.json"
 DNSCRYPT_CONFIG="/etc/dnscrypt-proxy.toml"
 PH_CONFIG="/etc/pihole/pihole.toml"
 CONFIGURED_IN_PH=0
@@ -27,8 +27,7 @@ if [ -f "$PH_CONFIG" ]; then # $PH_CONFIG does normally not exist on first start
 fi
 
 # Check if there are dnscrypt settings
-# if ! grep -qF '"dnscrypt": []' "$ADDON_OPTIONS"; then
-if (( $(jq '.dnscrypt | length' "$ADDON_OPTIONS") > 0 )); then
+if (( $(jq '.dnscrypt | length' "$APP_OPTIONS") > 0 )); then
 	# Append configuration only on first run
 	if ! grep -qF 'server_names' "$DNSCRYPT_CONFIG"; then
 		# _status "Creating DNSCrypt-Proxy configuration"
@@ -36,9 +35,9 @@ if (( $(jq '.dnscrypt | length' "$ADDON_OPTIONS") > 0 )); then
 		# Read settings
 		while read -r SERVER; do
 			# {"name":"cloud1","stamp":"sdns://AgcAAAAAAAAABzEuMS4xLjEAEmNsb3VkZmxhcmUtZG5zLmNvbQovZG5zLXF1ZXJ5"}
-			NAME+=("$(echo "$SERVER" | base64 -d | cut -d'"' -f4)")
+			NAME+=("$( echo "$SERVER" | base64 -d | cut -d'"' -f4)")
 			STAMP+=("$(echo "$SERVER" | base64 -d | cut -d'"' -f8)")
-		done < <(jq -r '.dnscrypt[] | @base64' "$ADDON_OPTIONS")
+		done < <(jq -r '.dnscrypt[] | @base64' "$APP_OPTIONS")
 
 		# Create DNSCrypt-Proxy configuration
 		{

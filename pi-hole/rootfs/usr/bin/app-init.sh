@@ -73,7 +73,7 @@ if [ "$UPDATE_GRAVITY_ON_START" == "true" ]; then
 fi
 
 _status "Configure Ingress IP address and port"
-# "hassio_api": "true" is not needed in the addon config.json for this query --> https://developers.home-assistant.io/docs/apps/communication/#supervisor-api
+# "hassio_api": "true" is not needed in the app config.json for this query --> https://developers.home-assistant.io/docs/apps/communication/#supervisor-api
 APP_INFO=$(curl -sSLf -H "Authorization: Bearer $SUPERVISOR_TOKEN" "http://supervisor/addons/self/info")
 
 IP=$(           printf '%s' "$APP_INFO" | jq -r -e '.data.ip_address'                    )

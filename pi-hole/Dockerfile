@@ -1,8 +1,8 @@
 # check=skip=SecretsUsedInArgOrEnv
 FROM	pihole/pihole:2026.05.0 AS pihole
 
-ARG	YQ_VERSION=v4.53.2
-ARG	SV_VERSION=0.14
+ARG	YQ_VERSION=v4.53.3
+ARG	SV_VERSION=0.15
 ARG	TARGETARCH
 
 SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
@@ -76,6 +76,7 @@ RUN	sedfile -i 's,echo "  \[i\] pihole-FTL exited with status.*,echo -n "  [i] p
 RUN	sedfile -i 's|        wait $CAPSH_PID|& 2>/dev/null|' /usr/bin/start.sh
 
 # Make crond output visible and prefix date/time to output
+# TODO Upstream PR: https://github.com/pi-hole/docker-pi-hole/pull/2035
 RUN	sedfile -i 's:^\s*/usr/sbin/crond$:    { /usr/sbin/crond -f -d 6 2>\&1 | prefix-time.sh; } \&:' /usr/bin/bash_functions.sh
 
 # Disable update checks completely
@@ -87,7 +88,7 @@ RUN	rm /etc/nginx/http.d/default.conf
 # Build dnscrypt-proxy from source #################################################################
 FROM	golang:trixie AS dnscrypt
 
-ARG	DNSCRYPT_VERSION="2.1.15"
+ARG	DNSCRYPT_VERSION="2.1.16"
 ENV	URL="https://github.com/dnscrypt/dnscrypt-proxy/archive/$DNSCRYPT_VERSION.tar.gz"
 
 ENV	DEBIAN_FRONTEND="noninteractive"
@@ -102,7 +103,7 @@ WORKDIR	/build/dnscrypt-proxy
 ENV	CGO_ENABLED=0
 
 # Builds a Go binary without symbol tables and debugging information, reducing the file size.
-RUN	go build -ldflags="-s -w" -mod vendor
+RUN	go build -trimpath -ldflags="-s -w" -mod vendor
 
 # Test binary
 RUN	./dnscrypt-proxy -version
