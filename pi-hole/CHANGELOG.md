@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026.06.0
+
+### Pi-hole Updates
+
+- [Web 6.5.1](https://github.com/pi-hole/web/releases/tag/v6.5.1)
+
 ## 2026.05.0.1
 
 ### Internal
