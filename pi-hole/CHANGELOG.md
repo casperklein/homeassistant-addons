@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026.06.0.1
+
+### Internal
+
+- Restored `crond` patch that was removed too early; it is not yet available upstream.
+
 ## 2026.06.0
 
 ### Pi-hole Updates
