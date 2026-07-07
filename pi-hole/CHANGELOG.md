@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026.07.2
+
+- [Pi-hole Blog](https://pi-hole.net/blog/2026/07/06/pi-hole-ftl-v6-7-web-v6-6-and-core-v6-4-3-released/)
+- [Pi-hole 6.4.3](https://github.com/pi-hole/pi-hole/releases/tag/v6.4.3)
+- [Web 6.6](https://github.com/pi-hole/web/releases/tag/v6.6)
+- [FTL 6.7](https://github.com/pi-hole/FTL/releases/tag/v6.7)
+
 ## 2026.06.0.1
 
 ### Internal
