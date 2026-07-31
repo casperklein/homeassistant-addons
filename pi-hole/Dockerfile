@@ -2,7 +2,7 @@
 FROM	pihole/pihole:2026.07.2 AS pihole
 
 ARG	YQ_VERSION=v4.53.3
-ARG	SV_VERSION=0.15
+ARG	SV_VERSION=0.16
 ARG	TARGETARCH
 
 SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
@@ -84,7 +84,7 @@ RUN	rm /etc/nginx/http.d/default.conf
 # Build dnscrypt-proxy from source #################################################################
 FROM	golang:trixie AS dnscrypt
 
-ARG	DNSCRYPT_VERSION="2.1.16"
+ARG	DNSCRYPT_VERSION="2.1.18"
 ENV	URL="https://github.com/dnscrypt/dnscrypt-proxy/archive/$DNSCRYPT_VERSION.tar.gz"
 
 ENV	DEBIAN_FRONTEND="noninteractive"

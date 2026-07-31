@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026.07.2.1
+
+This is a maintenance release, with no Pi-hole specific changes.
+
+### Internal
+
+- [DNSCrypt-Proxy 2.1.18](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.18) ([2.1.17](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.17))
+- [supervisor.sh 0.16](https://github.com/casperklein/supervisor.sh/releases/tag/0.16)
+
 ## 2026.07.2
 
 - [Pi-hole Blog](https://pi-hole.net/blog/2026/07/06/pi-hole-ftl-v6-7-web-v6-6-and-core-v6-4-3-released/)
