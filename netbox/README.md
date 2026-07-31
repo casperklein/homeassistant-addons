@@ -61,7 +61,7 @@ For example:
 
 `addon_configs/0da538cf_netbox/configuration.py`:
 
-    PLUGINS = ['netbox_bgp','netbox_ipcalculator','netbox_qrcode', 'netbox_metatype_importer']
+    PLUGINS = [ 'netbox_ping', 'netbox_bgp','netbox_ipcalculator','netbox_qrcode', 'netbox_metatype_importer' ]
 
     PLUGINS_CONFIG = {
         'netbox_metatype_importer': {
@@ -71,6 +71,7 @@ For example:
 
 `addon_configs/0da538cf_netbox/requirements.txt`:
 
+    netbox-ping
     netbox-bgp
     netbox-ipcalculator
     netbox-qrcode

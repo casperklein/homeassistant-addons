@@ -6,7 +6,7 @@ ENV	GIT_COMMIT="v4.6.7"
 ENV	GIT_ARCHIVE="https://github.com/$GIT_USER/$GIT_REPO/archive/$GIT_COMMIT.tar.gz"
 
 #? https://docs.netbox.dev/en/stable/installation/3-netbox/#install-system-packages
-ENV	PACKAGES="stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix nginx net-tools bash-builtins"
+ENV	PACKAGES="stunnel4 jq sudo postgresql redis-server dumb-init supervisor procps dos2unix nginx net-tools bash-builtins iputils-ping"
 ENV	PACKAGES_BUILD="python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev"
 ENV	PACKAGES="$PACKAGES $PACKAGES_BUILD"
 ENV 	PACKAGES_CLEAN="$PACKAGES_BUILD"
