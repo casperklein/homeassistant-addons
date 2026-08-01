@@ -48,18 +48,18 @@ Setting this to `false` will permit anonymous users to access most data in NetBo
 
 ### Option: `debug`
 
-If enabled, the merged Netbox configuration (default + custom) is stored in `addon_configs/0da538cf_netbox/configuration-merged.py`.
+If enabled, the merged Netbox configuration (default + custom) is stored in `app_configs/0da538cf_netbox/configuration-merged.py`.
 
 ## Custom Netbox configuration
 
 You can extend the default Netbox configuration, e.g. for [plugins](https://github.com/netbox-community/netbox/wiki/Plugins):
 
-* If the file `addon_configs/0da538cf_netbox/configuration.py` exists, it's content will be appended to the Netbox default configuration.
-* If the file `addon_configs/0da538cf_netbox/requirements.txt` exists, the packages listed in that file will be installed by `pip`.
+* If the file `app_configs/0da538cf_netbox/configuration.py` exists, it's content will be appended to the Netbox default configuration.
+* If the file `app_configs/0da538cf_netbox/requirements.txt` exists, the packages listed in that file will be installed by `pip`.
 
 For example:
 
-`addon_configs/0da538cf_netbox/configuration.py`:
+`app_configs/0da538cf_netbox/configuration.py`:
 
     PLUGINS = [ 'netbox_ping', 'netbox_bgp','netbox_ipcalculator','netbox_qrcode', 'netbox_metatype_importer' ]
 
@@ -69,7 +69,7 @@ For example:
         }
     }
 
-`addon_configs/0da538cf_netbox/requirements.txt`:
+`app_configs/0da538cf_netbox/requirements.txt`:
 
     netbox-ping
     netbox-bgp

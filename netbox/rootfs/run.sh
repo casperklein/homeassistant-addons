@@ -40,11 +40,11 @@ trap _shutdown EXIT
 # printf %s https://github.com/casperklein/homeassistant-addons | sha1sum | head -c8
 # 0da538cf
 
-# ? HOST                                 CONTAINER
-# ? ---------------------------------------------------
-# ? /addon_configs/0da538cf_netbox  -->  /config
-# ? /config                         -->  /homeassistant
-# ? <persistant storage>            -->  /data
+# ? HOST                               CONTAINER
+# ? -------------------------------------------------
+# ? /app_configs/0da538cf_netbox  -->  /config
+# ? /config                       -->  /homeassistant
+# ? <persistant storage>          -->  /data
 
 NETBOX_CONFIG_CUSTOM=/config/configuration.py
 NETBOX_CONFIG=/opt/netbox/netbox/netbox/configuration.py
@@ -137,7 +137,7 @@ if [ ! -f /first_start ]; then
 
 	# Import additional configuration (e.g. for plugins)
 	if [ -f "$NETBOX_CONFIG_CUSTOM" ]; then
-		_info "Custom configuration (addon_configs/0da538cf_netbox/configration.py) found."
+		_info "Custom configuration (app_configs/0da538cf_netbox/configration.py) found."
 		dos2unix -q "$NETBOX_CONFIG_CUSTOM"
 		cat "$NETBOX_CONFIG_CUSTOM" >> "$NETBOX_CONFIG"
 	fi
@@ -145,7 +145,7 @@ if [ ! -f /first_start ]; then
 	# Import additional requirements (e.g. for plugins)
 	if [ -f "/config/requirements.txt" ]; then
 		dos2unix -q /config/requirements.txt
-		_info "Installing custom requirements (addon_configs/0da538cf_netbox/requirements.txt).."
+		_info "Installing custom requirements (app_configs/0da538cf_netbox/requirements.txt).."
 		uv pip install --no-cache-dir -r /config/requirements.txt
 	fi
 

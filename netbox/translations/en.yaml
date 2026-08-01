@@ -10,4 +10,4 @@ configuration:
     description: "Setting this to `false` will permit anonymous users to access most data in NetBox, but not make any changes. By default, anonymous users are not permitted to access any data in NetBox."
   debug:
     name: "Debug"
-    description: "If enabled, the merged Netbox configuration (default + custom) is stored in `addon_configs/0da538cf_netbox/configuration-merged.py`."
+    description: "If enabled, the merged Netbox configuration (default + custom) is stored in `app_configs/0da538cf_netbox/configuration-merged.py`."
