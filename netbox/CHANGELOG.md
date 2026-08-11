@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.6.8
+
+- [netbox 4.6.8](https://github.com/netbox-community/netbox/releases/tag/v4.6.8)
+
 ## 4.6.7.1
 
 - `iputils-ping` package added for usage with the [netbox-ping](https://github.com/dendanskemine/netbox-ping) plugin ([#49](https://github.com/casperklein/homeassistant-addons/issues/49))
