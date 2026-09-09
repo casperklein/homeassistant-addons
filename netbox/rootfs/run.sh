@@ -184,6 +184,14 @@ _info "Nginx is ready.."
 if [ ! -f /first_start ]; then
 	MANAGE_PY="python3 /opt/netbox/netbox/manage.py"
 
+	# https://github.com/casperklein/homeassistant-addons/issues/51
+	# https://netboxlabs.com/docs/netbox/installation/upgrading/#verify-database-permissions
+	# NetBox v4.7 and later require the PostgreSQL ltree extension.
+	# NetBox installs this extension automatically when applying database migrations if it is not already present.
+	# Installing it requires that the NetBox database user hold the CREATE privilege on the database.
+	_info "Fix permissions required to create the 'ltree' PostgreSQL extension.."
+	sudo -u postgres psql -c "GRANT CREATE ON DATABASE netbox TO netbox;" > /dev/null
+
 	# run migration when needed
 	_info "Check if migration is needed.."
 	if ! $MANAGE_PY migrate --check &>/dev/null; then
