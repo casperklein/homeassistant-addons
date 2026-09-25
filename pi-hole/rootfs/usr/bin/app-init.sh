@@ -160,7 +160,7 @@ fi
 supervisor.sh start "Nginx" >/dev/null
 
 # Start DNSCrypt-Proxy
-supervisor.sh start "DNSCrypt-Proxy" >/dev/null
+supervisor.sh start "DNSCrypt-Proxy" >/dev/null || true
 sleep 3 # Give DNSCrypt-Proxy some time to start
 
 # Start Pi-hole

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026.09.0.1
+
+This is a bugfix release. The app failed to start when DNSCrypt-Proxy was not used. ([#53](https://github.com/casperklein/homeassistant-addons/issues/53))
+
 ## 2026.09.0
 
 - [FTL 6.7.1](https://github.com/pi-hole/FTL/releases/tag/v6.7.1)
