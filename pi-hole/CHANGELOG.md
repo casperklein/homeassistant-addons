@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026.09.0
+
+- [FTL 6.7.1](https://github.com/pi-hole/FTL/releases/tag/v6.7.1)
+
+### Internal
+
+- [supervisor.sh 0.17](https://github.com/casperklein/supervisor.sh/releases/tag/0.17)
+- [yq 4.53.6](https://github.com/mikefarah/yq/releases/tag/v4.53.6)
+
 ## 2026.07.2.1
 
 This is a maintenance release, with no Pi-hole specific changes.

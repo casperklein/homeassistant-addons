@@ -1,8 +1,8 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2026.07.2 AS pihole
+FROM	pihole/pihole:2026.09.0 AS pihole
 
-ARG	YQ_VERSION=v4.53.3
-ARG	SV_VERSION=0.16
+ARG	YQ_VERSION=v4.53.6
+ARG	SV_VERSION=0.17
 ARG	TARGETARCH
 
 SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
