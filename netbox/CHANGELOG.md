@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.7.1
+
+- [netbox 4.7.1](https://github.com/netbox-community/netbox/releases/tag/v4.7.1)
+
 ## 4.7.0.1
 
 - Fix permissions required to create the 'ltree' PostgreSQL extension ([#51](https://github.com/casperklein/homeassistant-addons/issues/51))
