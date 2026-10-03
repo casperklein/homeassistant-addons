@@ -7,8 +7,8 @@ source /usr/bin/status-function.sh
 
 # TODO Remove in future version
 _migrate_dnsmasq_v6() {
-	shopt -s nullglob
 	if [ -d /data/dnsmasq.d ]; then
+		shopt -s nullglob
 		DNSMASQ=$(printf -- '%s' /data/dnsmasq.d/*)
 		if [ -z "$DNSMASQ" ]; then
 			# Directory is empty, nothing to migrate, delete it
