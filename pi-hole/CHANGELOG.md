@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026.09.0.2
+
+### Internal
+
+- Disabled Pi-hole's update check to prevent Home Assistant Pi-hole integrations from reporting updates that cannot be installed. ([#52](https://github.com/casperklein/homeassistant-addons/issues/52))
+- [supervisor.sh 0.18](https://github.com/casperklein/supervisor.sh/releases/tag/0.18)
+- [yq 4.54.1](https://github.com/mikefarah/yq/releases/tag/v4.54.1)
+
 ## 2026.09.0.1
 
 This is a bugfix release. The app failed to start when DNSCrypt-Proxy was not used. ([#53](https://github.com/casperklein/homeassistant-addons/issues/53))

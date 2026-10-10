@@ -1,8 +1,8 @@
 # check=skip=SecretsUsedInArgOrEnv
 FROM	pihole/pihole:2026.09.0 AS pihole
 
-ARG	YQ_VERSION=v4.53.6
-ARG	SV_VERSION=0.17
+ARG	YQ_VERSION=v4.54.1
+ARG	SV_VERSION=0.18
 ARG	TARGETARCH
 
 SHELL	["/bin/bash", "-e", "-o", "pipefail", "-c"]
@@ -15,7 +15,7 @@ RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && ex
 
 # Check if default CSP value was updated
 RUN <<EOF
-	FTL_VERSION=$(pihole -v | grep FTL | awk '{print $4}')
+	FTL_VERSION=$(pihole version | grep  "^FTL version is" | awk '{print $4}')
 	FTL_CONFIG=$(curl -sSLf https://raw.githubusercontent.com/pi-hole/FTL/refs/tags/$FTL_VERSION/src/config/config.c)
 	CSP_CHECKSUM=$(grep 'cJSON_CreateStringReference("Content-Security-Policy:' <<<"$FTL_CONFIG" | sha256sum)
 	if [ "$CSP_CHECKSUM" != "1f981ee8f2a91fcf659a646264937ce7c36ad2f113687de8a905b6d013d1af88  -" ]; then
@@ -57,15 +57,39 @@ RUN <<EOF
 	supervisor.sh lint > /dev/null
 EOF
 
+# Disable Pi-hole's update check
+# This prevents:
+#   - "Update available" messages in the UI
+#   - Home Assistant Pi-hole integrations to report updates (which cannot be installed)
+RUN <<EOF
+	# The CSP check at the top runs "pihole version" (/opt/pihole/updatecheck.sh) which creates /etc/pihole/versions
+
+	# Align GITHUB_* values with local values.
+	for name in $(grep ^GITHUB_ /etc/pihole/versions | cut -d= -f1); do
+		name=${name:7}
+		value=$(       grep        "^$name=" /etc/pihole/versions | cut -d= -f2)
+		github_value=$(grep "^GITHUB_$name=" /etc/pihole/versions | cut -d= -f2)
+
+		if [ "$value" != "$github_value" ]; then
+			sedfile -i "s/^GITHUB_$name=.*/GITHUB_$name=$value/" /etc/pihole/versions
+		fi
+	done
+
+	# Disable update check
+	sedfile -i 's/.*pihole updatechecker/#& # Disabled by Pi-hole for Home Assistant app/' /crontab.txt
+	sedfile -i                   '1a exit 0 # Disabled by Pi-hole for Home Assistant app'  /opt/pihole/updatecheck.sh
+	sedfile -i                   '1a exit 0 # Disabled by Pi-hole for Home Assistant app'  /etc/.pihole/advanced/Scripts/updatecheck.sh
+EOF
+
+# Remove docker-pi-hole update instructions
+# RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker-pi-hole#upgrading-persistence-and-customizations" rel="noopener noreferrer" target="_blank">replace this old container with a fresh upgraded image</a>.||' /var/www/html/admin/scripts/js/footer.js
+
 # Adjust wording slightly. Pi-hole may be stopped (during HA backup), but the app keeps running.
 RUN	sedfile -i    's|echo "  \[i\] Container stop requested..."|echo "  [i] Pi-hole stop requested..."|' /usr/bin/start.sh
 
 # Hide Docker instructions that are not applicable for this app
 RUN	sedfile -i    's|echo "  \[i\] Container will now stop or restart depending on your restart policy"|#&|' /usr/bin/start.sh
 RUN	sedfile -i -E 's|echo "\s+https://docs.docker.com/engine/containers/start-containers-automatically/|#&|' /usr/bin/start.sh
-
-# Remove docker-pi-hole update instructions
-RUN	sedfile -i 's|To install updates, <a href="https://github.com/pi-hole/docker-pi-hole#upgrading-persistence-and-customizations" rel="noopener noreferrer" target="_blank">replace this old container with a fresh upgraded image</a>.||' /var/www/html/admin/scripts/js/footer.js
 
 # Display real FTL exit code. 'start.sh' sometimes returns 143 (SIGTERM) or 1 despite FTL exits gracefully (0)
 RUN	sedfile -i 's,echo "  \[i\] pihole-FTL exited with status.*,echo -n "  [i] pihole-"; tac \$FTLlogFile | grep -o -m 1 "FTL terminated after.*!",' /usr/bin/start.sh
@@ -74,9 +98,6 @@ RUN	sedfile -i 's,echo "  \[i\] pihole-FTL exited with status.*,echo -n "  [i] p
 # There is a race condition, when supervisor is faster sending SIGTERM to FTL than start.sh
 # start.sh:stop()
 RUN	sedfile -i 's|        wait $CAPSH_PID|& 2>/dev/null|' /usr/bin/start.sh
-
-# Disable update checks completely
-# RUN	sedfile -i 's|updateComponentAvailable = true;|updateComponentAvailable = false;|g' /var/www/html/admin/scripts/js/footer.js
 
 # Remove obsolete files
 RUN	rm /etc/nginx/http.d/default.conf

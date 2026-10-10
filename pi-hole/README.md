@@ -62,6 +62,24 @@ For HTTPS, you can configure a certificate and key file located in `/ssl` in the
 
 You can secure direct access by enabling the *Authentication* option in the app configuration. Any valid Home Assistant user account can be used to log in.
 
+## API access for external tools like nebula-sync
+
+For seamless integration with Home Assistant, no API password is set. This allows the use of Home Assistant's Ingress feature. For security reasons, API access is limited to local connections only.
+
+To allow API access from other hosts, use **Direct HTTP/HTTPS access** (with authentication) as described above. A [sample configuration](https://github.com/lovelaze/nebula-sync/blob/main/examples/docker-compose.yml) for [nebula-sync](https://github.com/lovelaze/nebula-sync) looks like:
+
+```yaml
+services:
+  nebula-sync:
+    image: ghcr.io/lovelaze/nebula-sync:latest
+    container_name: nebula-sync
+    environment:
+      - PRIMARY=http://HA-USER:HA-PASS@homeassistant.local|
+      - REPLICAS=http://ph2.example.com|password,http://ph3.example.com|password
+      - FULL_SYNC=true
+      - CRON=0 * * * *
+```
+
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-blue.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-blue.svg
 [version-shield]: https://img.shields.io/badge/dynamic/json?color=blue&label=version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcasperklein%2Fhomeassistant-addons%2Fmaster%2Fpi-hole%2Fconfig.json
