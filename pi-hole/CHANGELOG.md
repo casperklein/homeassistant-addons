@@ -2,6 +2,7 @@
 
 ## 2026.10.0
 
+- [Pi-hole Blog](https://pi-hole.net/blog/2026/10/17/pi-hole-ftl-v6-8-web-v6-6-1-and-core-v6-5-released/)
 - [Pi-hole 6.5](https://github.com/pi-hole/pi-hole/releases/tag/v6.5)
 - [Web 6.6.1](https://github.com/pi-hole/web/releases/tag/v6.6.1)
 - [FTL 6.8](https://github.com/pi-hole/FTL/releases/tag/v6.8)
