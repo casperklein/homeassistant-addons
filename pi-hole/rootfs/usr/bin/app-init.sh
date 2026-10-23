@@ -38,7 +38,11 @@ _delete_obsolete_files() {
 # Make Pi-hole configuration persistent
 if [ -d /data/pihole ]; then
 	_status "Existing Pi-hole configuration detected"
-	rm -rf /etc/pihole
+
+	# Update versions file
+	mv /etc/pihole/versions /data/pihole/
+
+	rmdir /etc/pihole
 
 	_migrate_dnsmasq_v6
 else

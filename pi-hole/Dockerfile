@@ -1,5 +1,5 @@
 # check=skip=SecretsUsedInArgOrEnv
-FROM	pihole/pihole:2026.09.0 AS pihole
+FROM	pihole/pihole:2026.10.0 AS pihole
 
 ARG	YQ_VERSION=v4.54.1
 ARG	SV_VERSION=0.18
@@ -15,8 +15,13 @@ RUN	[ -z "$VERSION" ] && echo "Error: Build argument 'VERSION' is missing" && ex
 
 # Check if default CSP value was updated
 RUN <<EOF
+	# Create /etc/pihole/versions file and extract FTL version
+	chmod o+w /etc/pihole
 	FTL_VERSION=$(pihole version | grep  "^FTL version is" | awk '{print $4}')
+
+	# Get FTL config.c file
 	FTL_CONFIG=$(curl -sSLf https://raw.githubusercontent.com/pi-hole/FTL/refs/tags/$FTL_VERSION/src/config/config.c)
+
 	CSP_CHECKSUM=$(grep 'cJSON_CreateStringReference("Content-Security-Policy:' <<<"$FTL_CONFIG" | sha256sum)
 	if [ "$CSP_CHECKSUM" != "1f981ee8f2a91fcf659a646264937ce7c36ad2f113687de8a905b6d013d1af88  -" ]; then
 		echo "Warning: The CSP default value was updated."
@@ -63,15 +68,22 @@ EOF
 #   - Home Assistant Pi-hole integrations to report updates (which cannot be installed)
 RUN <<EOF
 	# The CSP check at the top runs "pihole version" (/opt/pihole/updatecheck.sh) which creates /etc/pihole/versions
+	VERSIONS_FILE=/etc/pihole/versions
+
+	COUNT=$(grep -c ^GITHUB_ "$VERSIONS_FILE" || true)
+	if (( COUNT != 7 )); then
+		echo "Error: 7 matching '^GITHUB_' lines are expected."
+		exit 1
+	fi
 
 	# Align GITHUB_* values with local values.
-	for name in $(grep ^GITHUB_ /etc/pihole/versions | cut -d= -f1); do
+	for name in $(grep ^GITHUB_ "$VERSIONS_FILE" | cut -d= -f1); do
 		name=${name:7}
-		value=$(       grep        "^$name=" /etc/pihole/versions | cut -d= -f2)
-		github_value=$(grep "^GITHUB_$name=" /etc/pihole/versions | cut -d= -f2)
+		value=$(       grep        "^$name=" "$VERSIONS_FILE" | cut -d= -f2)
+		github_value=$(grep "^GITHUB_$name=" "$VERSIONS_FILE" | cut -d= -f2)
 
 		if [ "$value" != "$github_value" ]; then
-			sedfile -i "s/^GITHUB_$name=.*/GITHUB_$name=$value/" /etc/pihole/versions
+			sedfile -i "s/^GITHUB_$name=.*/GITHUB_$name=$value/" "$VERSIONS_FILE"
 		fi
 	done
 
@@ -79,6 +91,32 @@ RUN <<EOF
 	sedfile -i 's/.*pihole updatechecker/#& # Disabled by Pi-hole for Home Assistant app/' /crontab.txt
 	sedfile -i                   '1a exit 0 # Disabled by Pi-hole for Home Assistant app'  /opt/pihole/updatecheck.sh
 	sedfile -i                   '1a exit 0 # Disabled by Pi-hole for Home Assistant app'  /etc/.pihole/advanced/Scripts/updatecheck.sh
+EOF
+
+# Check if /etc/pihole directory structure is as expected
+RUN <<EOF
+	# Does not work with busybox: find . -printf '%y %p\n'
+	_get_directory_structure() {
+		{
+			find "$1" -type d | sed 's/^/d /'
+			find "$1" -type f | sed 's/^/f /'
+			find "$1" -type l | sed 's/^/l /'
+		} | LC_ALL=C sort
+	}
+	if ! diff /etc/pihole-directory-structure <(_get_directory_structure /etc/pihole); then
+		echo
+		echo "Expected directory structure:"
+		echo
+		echo "/etc/pihole"
+		echo "└── versions"
+		echo
+		echo "Actual directory structure:"
+		echo
+		tree /etc/pihole
+		echo
+		echo "Update app-init.sh to move new files/directories to persistent storage: /data/pihole"
+		exit 1
+	fi
 EOF
 
 # Remove docker-pi-hole update instructions
@@ -105,7 +143,7 @@ RUN	rm /etc/nginx/http.d/default.conf
 # Build dnscrypt-proxy from source #################################################################
 FROM	golang:trixie AS dnscrypt
 
-ARG	DNSCRYPT_VERSION="2.1.18"
+ARG	DNSCRYPT_VERSION="2.1.20"
 ENV	URL="https://github.com/dnscrypt/dnscrypt-proxy/archive/$DNSCRYPT_VERSION.tar.gz"
 
 ENV	DEBIAN_FRONTEND="noninteractive"

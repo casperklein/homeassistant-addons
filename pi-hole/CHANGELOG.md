@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026.10.0
+
+- [Pi-hole 6.5](https://github.com/pi-hole/pi-hole/releases/tag/v6.5)
+- [Web 6.6.1](https://github.com/pi-hole/web/releases/tag/v6.6.1)
+- [FTL 6.8](https://github.com/pi-hole/FTL/releases/tag/v6.8)
+
+### Internal
+
+- [DNSCrypt-Proxy 2.1.20](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.20) ([2.1.19](https://github.com/DNSCrypt/dnscrypt-proxy/releases/tag/2.1.19))
+
 ## 2026.09.0.2
 
 ### Internal
