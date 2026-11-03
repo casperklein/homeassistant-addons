@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026.10.1
+
+This is a maintenance [release](https://github.com/pi-hole/docker-pi-hole/releases/tag/2026.10.1), with no Pi-hole specific changes. It updates the base image to fix four high-profile CVEs.
+
 ## 2026.10.0
 
 - [Pi-hole Blog](https://pi-hole.net/blog/2026/10/17/pi-hole-ftl-v6-8-web-v6-6-1-and-core-v6-5-released/)
