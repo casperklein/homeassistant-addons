@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026.11.0
+
+- [Pi-hole Blog](https://pi-hole.net/blog/2026/11/11/pi-hole-ftl-v6-9-and-core-v6-6-released/)
+- [Pi-hole 6.6](https://github.com/pi-hole/pi-hole/releases/tag/v6.6)
+- [FTL 6.9](https://github.com/pi-hole/FTL/releases/tag/v6.9)
+
+### Internal
+
+- [yq 4.54.3](https://github.com/mikefarah/yq/releases/tag/v4.54.3)
+
+
 ## 2026.10.1
 
 This is a maintenance [release](https://github.com/pi-hole/docker-pi-hole/releases/tag/2026.10.1), with no Pi-hole specific changes. It updates the base image to fix four high-profile CVEs.
